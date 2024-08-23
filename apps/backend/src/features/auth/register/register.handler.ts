@@ -1,34 +1,33 @@
-import { ILoginUsecase } from './login.usecase';
+import { IRegisterUsecase } from './register.usecase';
 import { Env } from '@/index';
 import { RequestParams } from '@/types';
 import { z } from 'zod';
 
-export interface ILoginHandler {
+export interface IRegisterHandler {
 	handleRequest(request: RequestParams, env: Env): Promise<Response>;
 }
 
-const LoginSectionSchema = z.object({
+const RegisterSectionSchema = z.object({
 	username: z.string(),
 	password: z.string(),
 });
 
-export class LoginHandler implements ILoginHandler {
-	constructor(private readonly loginUsecase: ILoginUsecase) {}
+export class RegisterHandler implements IRegisterHandler {
+	constructor(private readonly registerUsecase: IRegisterUsecase) {}
 
 	public async handleRequest(request: RequestParams, env: Env) {
 		try {
 			const { data } = await this.extractPayload(request);
 
-			if (!env.SECRET || !env.SALT) throw new Error('Environment variables not configured');
+			if (!env.SECRET) throw new Error('Secret not configured');
 
-			const token = await this.loginUsecase.execute({
+			await this.registerUsecase.execute({
 				username: data.username,
 				password: data.password,
 				salt: env.SALT,
-				secret: env.SECRET,
 			});
 
-			return new Response(token, {
+			return new Response('User successfully registered', {
 				status: 201,
 			});
 		} catch (error: unknown) {
@@ -40,7 +39,7 @@ export class LoginHandler implements ILoginHandler {
 		const body = await request.text();
 		const bodyParsed = JSON.parse(body);
 
-		const { error } = LoginSectionSchema.safeParse(bodyParsed);
+		const { error } = RegisterSectionSchema.safeParse(bodyParsed);
 
 		if (error) {
 			throw new Error('Request payload not valid');

@@ -1,9 +1,8 @@
-export namespace LoginUsecaseTypes {
-	export type LoginInput = {
+export namespace RegisterUsecaseTypes {
+	export type RegisterInput = {
 		username: string;
 		password: string;
 		salt: string;
-		secret: string;
 	};
 
 	export type CreateTokenInput = {
@@ -11,9 +10,8 @@ export namespace LoginUsecaseTypes {
 		secret: string;
 	};
 
-	export interface VerifyPasswordInput {
+	export type HashPasswordInput = {
 		password: string;
-		hashedPassword: string;
 		hexSalt: string;
-	}
+	};
 }

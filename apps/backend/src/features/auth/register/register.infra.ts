@@ -1,7 +1,7 @@
 import { Database } from '../../../db';
-import { LoginPorts } from './login.ports';
+import { RegisterPorts } from './register.ports';
 
-export class LoginInfra implements LoginPorts {
+export class RegisterInfra implements RegisterPorts {
 	constructor(private readonly db: Database) {}
 
 	async execute(userId: string, username: string, password: string) {
