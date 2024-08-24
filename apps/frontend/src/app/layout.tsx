@@ -1,9 +1,11 @@
-import '@repo/ui/globals.css';
+import '@/src/app/globals.css';
+import Header from '@/src/components/Header/Header';
+import { cn } from '@/src/lib/utils';
+import { GeistMono } from 'geist/font/mono';
+import { GeistSans } from 'geist/font/sans';
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
 import { ReactNode } from 'react';
-
-const inter = Inter({ subsets: ['latin'] });
+import { Toaster } from 'sonner';
 
 export const metadata: Metadata = {
 	title: 'DAM - DB AI Management',
@@ -13,7 +15,23 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: ReactNode }) {
 	return (
 		<html lang="en">
-			<body className={inter.className}>{children}</body>
+			<body className={cn('font-sans antialiased', GeistSans.variable, GeistMono.variable)}>
+				<Header />
+				{children}
+				<Toaster
+					toastOptions={{
+						classNames: {
+							error: 'text-destructive',
+							success: 'text-light1',
+						},
+						style: {
+							background: '#181818',
+							borderColor: '#363636',
+						},
+						className: 'class',
+					}}
+				/>
+			</body>
 		</html>
 	);
 }
