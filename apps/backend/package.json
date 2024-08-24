@@ -10,15 +10,17 @@
 	"dependencies": {
 		"@tsndr/cloudflare-worker-jwt": "^2.5.3",
 		"itty-router": "^4.2.2",
+		"pg": "^8.12.0",
 		"zod": "^3.23.8"
 	},
 	"devDependencies": {
-		"@repo/typescript-config": "workspace:*",
-		"@repo/eslint-config": "workspace:*",
 		"@cloudflare/workers-types": "^4.20240821.1",
 		"@neondatabase/serverless": "^0.9.4",
+		"@repo/eslint-config": "workspace:*",
+		"@repo/typescript-config": "workspace:*",
+		"@types/pg": "^8.11.6",
+		"eslint": "^8",
 		"typescript": "^5.5.4",
-		"wrangler": "^3.72.2",
-		"eslint": "^8"
+		"wrangler": "^3.72.2"
 	}
 }
