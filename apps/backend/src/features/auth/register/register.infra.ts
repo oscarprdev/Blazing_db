@@ -9,7 +9,7 @@ export class RegisterInfra implements RegisterPorts {
 			await this.db.query(
 				`
                 INSERT INTO Users (userId, username, password)
-                VALUES ($1, $2, $2);
+                VALUES ($1, $2, $3);
             `,
 				[userId, username, password]
 			);
