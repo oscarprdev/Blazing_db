@@ -1,4 +1,5 @@
 import { ICreateProjectUsecase } from './create-project.usecase';
+import { handleError } from '@/features/utils';
 import { Env } from '@/index';
 import { RequestParams } from '@/types';
 import { z } from 'zod';
@@ -40,7 +41,7 @@ export class CreateProjectHandler implements ICreateProjectHandler {
 				}
 			);
 		} catch (error: unknown) {
-			throw new Error(error instanceof Error ? error.message : 'Unexpected error');
+			return handleError(error);
 		}
 	}
 

@@ -1,4 +1,5 @@
 import { IRegisterUsecase } from './register.usecase';
+import { handleError } from '@/features/utils';
 import { Env } from '@/index';
 import { RequestParams } from '@/types';
 import { z } from 'zod';
@@ -27,11 +28,17 @@ export class RegisterHandler implements IRegisterHandler {
 				salt: env.SALT,
 			});
 
-			return new Response('User successfully registered', {
-				status: 201,
-			});
+			return new Response(
+				JSON.stringify({
+					data: null,
+					message: 'User successufully logged',
+				}),
+				{
+					status: 201,
+				}
+			);
 		} catch (error: unknown) {
-			throw new Error(error instanceof Error ? error.message : 'Unexpected error');
+			return handleError(error);
 		}
 	}
 

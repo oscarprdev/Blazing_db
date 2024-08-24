@@ -21,7 +21,10 @@ export default {
 
 			return env.router.handle(request);
 		} catch (error: unknown) {
-			return new Response(error instanceof Error ? error.message : 'Internal error', { status: 500 });
+			return new Response(
+				JSON.stringify({ message: error instanceof Error ? error.message : 'Internal server error' }),
+				{ status: 500 }
+			);
 		}
 	},
 };

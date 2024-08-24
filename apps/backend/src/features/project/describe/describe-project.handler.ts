@@ -1,4 +1,5 @@
 import { IDescribeProjectUsecase } from './describe-project.usecase';
+import { handleError } from '@/features/utils';
 import { Env } from '@/index';
 import { RequestParams } from '@/types';
 
@@ -28,7 +29,7 @@ export class DescribeProjectHandler implements IDescribeProjectHandler {
 				}
 			);
 		} catch (error: unknown) {
-			throw new Error(error instanceof Error ? error.message : 'Unexpected error');
+			return handleError(error);
 		}
 	}
 }
