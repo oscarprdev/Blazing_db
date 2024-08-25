@@ -2,7 +2,7 @@ export type RequestParams = Request & { params: Record<string, string> };
 
 export enum ProjectType {
 	postgreSQL = 'postgreSQL',
-	mongo = 'mongo',
+	mongoDb = 'mongoDb',
 }
 
 export type TableField = {

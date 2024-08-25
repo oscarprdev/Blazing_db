@@ -40,6 +40,7 @@ export class DescribeProjecPostgreInfra extends DescribeProjectInfra implements 
 				tablesDB: res.rows as DescribProjectsPostgreTypes.TableDb[],
 			} satisfies DescribProjectsPostgreTypes.ExtractTablesInfraOutput;
 		} catch (error) {
+			console.log(error);
 			throw new Error('Error fetching tables');
 		}
 	}

@@ -4,6 +4,7 @@ import { corsMiddleware } from '../middleware/cors';
 import { provideLoginUsecaseSingleton } from '@/features/auth/login/login.graph';
 import { provideRegisterUsecaseSingleton } from '@/features/auth/register/register.graph';
 import { provideCreateProjectPostgreUsecaseSingleton } from '@/features/project/create/create-project.index';
+import { DescribeProjectController } from '@/features/project/describe/describe-project.controller';
 import { provideDescribeProjectPostgreUsecaseSingleton } from '@/features/project/describe/describe-project.index';
 import { provideListProjectsPostgreUsecaseSingleton } from '@/features/project/list/list-project.index';
 import { authMiddleware } from '@/middleware/auth';
@@ -77,11 +78,17 @@ export class DefaultRouter implements RouterStrategy {
 		);
 
 		this.internalRouter.get(
-			`/project/:projectId/postgre`,
-			corsMiddleware(async req => {
-				const handler = provideDescribeProjectPostgreUsecaseSingleton(db);
-				return handler.handleRequest(req, env);
-			})
+			`/project/:projectId`,
+			corsMiddleware(
+				authMiddleware(
+					async req => {
+						const handler = await new DescribeProjectController(db).serveHandler(req.params.projectId);
+						return handler.handleRequest(req, env);
+					},
+					env,
+					db
+				)
+			)
 		);
 	}
 }
