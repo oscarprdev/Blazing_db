@@ -31,7 +31,10 @@ export class LoginHandler implements ILoginHandler {
 
 			return new Response(
 				JSON.stringify({
-					data: token,
+					data: {
+						token,
+						email: data.email,
+					},
 					message: 'User successufully logged',
 				}),
 				{

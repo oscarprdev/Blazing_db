@@ -17,8 +17,6 @@ export class LoginUsecase implements ILoginUsecase {
 		const isPasswordValid = await this.verifyPassword({ password, hashedPassword: user.password, hexSalt: salt });
 		if (!isPasswordValid) throw new Error('Request payload not valid');
 
-		console.log(user.userid);
-
 		return await this.createToken({ userId: user.userid, secret });
 	}
 
