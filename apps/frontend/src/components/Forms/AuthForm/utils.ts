@@ -2,7 +2,7 @@ import { AuthFormState } from './types';
 import { z } from 'zod';
 
 export const AUTH_FORM_DEFAULT_STATE: AuthFormState = {
-	username: {
+	email: {
 		value: null,
 		error: null,
 	},
@@ -20,7 +20,4 @@ export const passwordSchema = z
 // .regex(/[a-z]/, { message: 'Password must contain at least one lowercase letter' })
 // .regex(/\d/, { message: 'Password must contain at least one number' });
 
-export const usernameSchema = z
-	.string()
-	.min(4, { message: 'Username must be at least 4 characters long' })
-	.max(8, { message: 'Username must be at most 8 characters long' });
+export const emailSchema = z.string().email({ message: 'Invalid email address format' });

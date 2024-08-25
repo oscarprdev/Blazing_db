@@ -2,15 +2,15 @@ import { API_URL } from '../constants';
 import { errorResponse, successResponse } from '../types';
 
 interface LoginInput {
-	username: string;
+	email: string;
 	password: string;
 }
 
-export async function login({ username, password }: LoginInput) {
+export async function login({ email, password }: LoginInput) {
 	try {
 		const response = await fetch(`${API_URL}/auth/login`, {
 			method: 'POST',
-			body: JSON.stringify({ username, password }),
+			body: JSON.stringify({ email, password }),
 		});
 
 		if (!response.ok) return errorResponse(response.statusText);
@@ -25,11 +25,11 @@ export async function login({ username, password }: LoginInput) {
 	}
 }
 
-export async function register({ username, password }: LoginInput) {
+export async function register({ email, password }: LoginInput) {
 	try {
 		const response = await fetch(`${API_URL}/auth/register`, {
 			method: 'POST',
-			body: JSON.stringify({ username, password }),
+			body: JSON.stringify({ email, password }),
 		});
 
 		if (!response.ok) return errorResponse(response.statusText);

@@ -1,5 +1,4 @@
 import '@/src/app/globals.css';
-import Header from '@/src/components/Header/Header';
 import { cn } from '@/src/lib/utils';
 import { GeistMono } from 'geist/font/mono';
 import { GeistSans } from 'geist/font/sans';
@@ -16,7 +15,6 @@ export default function RootLayout({ children }: { children: ReactNode }) {
 	return (
 		<html lang="en">
 			<body className={cn('font-sans antialiased', GeistSans.variable, GeistMono.variable)}>
-				<Header />
 				{children}
 				<Toaster
 					toastOptions={{

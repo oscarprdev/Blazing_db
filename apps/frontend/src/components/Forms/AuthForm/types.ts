@@ -1,31 +1,26 @@
 import { ReactNode } from 'react';
 
-export type ModalState = {
-	mode: AuthModalMode;
-	open: boolean;
-};
-
-export enum AuthModalMode {
+export enum AuthFormMode {
 	login = 'login',
 	signup = 'signup',
 }
 
-export type AuthModalTriggerButtonsProps = {
-	handleModalMode(mode: AuthModalMode): void;
+export type AuthFormProps = {
+	mode: AuthFormMode;
 };
 
-export type AuthFormProps = {
+export type FormProps = {
 	handleSubmit(input: LoginPayload): Promise<void>;
 	children: ReactNode;
 };
 
 export type LoginPayload = {
-	username: string;
+	email: string;
 	password: string;
 };
 
 export type AuthFormState = {
-	username: {
+	email: {
 		value: string | null;
 		error: string | null;
 	};

@@ -6,9 +6,9 @@ import { register } from '@/src/lib/db/queries';
 import { errorResponse, successResponse } from '@/src/lib/types';
 import { AuthError } from 'next-auth';
 
-export async function loginUser({ username, password }: LoginPayload) {
+export async function loginUser({ email, password }: LoginPayload) {
 	try {
-		await signIn('credentials', { username, password });
+		await signIn('credentials', { email, password });
 
 		return successResponse('User logged successfully');
 	} catch (error) {
@@ -31,6 +31,6 @@ export async function loginUser({ username, password }: LoginPayload) {
 	}
 }
 
-export async function registerUser({ username, password }: LoginPayload) {
-	return await register({ username, password });
+export async function registerUser({ email, password }: LoginPayload) {
+	return await register({ email, password });
 }

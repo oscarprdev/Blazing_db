@@ -8,7 +8,7 @@ export default {
 		Credentials({
 			async authorize(credentials) {
 				const response = await login({
-					username: credentials.username as string,
+					email: credentials.email as string,
 					password: credentials.password as string,
 				});
 

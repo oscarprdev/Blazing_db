@@ -13,14 +13,17 @@
 	--light-0: #ffffff;
 	--light-1: #dddddd;
 	--light-2: #b3b3b3;
-	--light-3: #979797;	
+	--light-3: #979797;
 	--light-4: #767676;
 	--light-5: #606060;
 
 	--destructive: #ff3149;
 
 	--primary: #ecb3ed;
-	--secondary: #f9e39b;
+	--primary-1: #caa0ca;
+
+	--secondary: #eed685;
+	--secondary-1: #f9e39b;
 }
 
 @layer base {

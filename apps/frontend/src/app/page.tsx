@@ -1,9 +1,10 @@
-import CreateProjectModal from '../components/Modals/CreateProjectModal/CreateProjectModal';
+import Header from '../components/Header/Header';
 
 export default function Home() {
 	return (
-		<main className="flex h-screen flex-col items-center justify-center p-24 bg-background">
-			<CreateProjectModal />
-		</main>
+		<>
+			<Header />
+			<main className="flex h-screen flex-col items-center justify-center p-24 bg-background">LANDING PAGE</main>
+		</>
 	);
 }

@@ -24,7 +24,9 @@ const config: Omit<Config, 'content'> = {
 				destructive: 'var(--destructive)',
 
 				primary: 'var(--primary)',
+				primary1: 'var(--primary-1)',
 				secondary: 'var(--secondary)',
+				secondary1: 'var(--secondary-1)',
 			},
 		},
 	},
