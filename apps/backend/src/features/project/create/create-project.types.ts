@@ -1,4 +1,4 @@
-import { DatabaseKind, DatabaseTable, TableField } from '@/types';
+import { DatabaseTable, ProjectType, TableField } from '@/types';
 
 export namespace CreateProjectTypes {
 	export type CreateProjectInput = {

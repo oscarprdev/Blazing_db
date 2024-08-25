@@ -5,6 +5,7 @@ import { provideLoginUsecaseSingleton } from '@/features/auth/login/login.graph'
 import { provideRegisterUsecaseSingleton } from '@/features/auth/register/register.graph';
 import { provideCreateProjectPostgreUsecaseSingleton } from '@/features/project/create/create-project.index';
 import { provideDescribeProjectPostgreUsecaseSingleton } from '@/features/project/describe/describe-project.index';
+import { provideListProjectsPostgreUsecaseSingleton } from '@/features/project/list/list-project.index';
 import { authMiddleware } from '@/middleware/auth';
 import { Router, RouterType } from 'itty-router';
 
@@ -50,18 +51,36 @@ export class DefaultRouter implements RouterStrategy {
 		this.internalRouter.post(
 			`/project/create`,
 			corsMiddleware(
-				authMiddleware(async req => {
-					const createProjectHandler = provideCreateProjectPostgreUsecaseSingleton(db);
-					return createProjectHandler.handleRequest(req, env);
-				}, env)
+				authMiddleware(
+					async req => {
+						const handler = provideCreateProjectPostgreUsecaseSingleton(db);
+						return handler.handleRequest(req, env);
+					},
+					env,
+					db
+				)
+			)
+		);
+
+		this.internalRouter.get(
+			`/project/list`,
+			corsMiddleware(
+				authMiddleware(
+					async req => {
+						const handler = provideListProjectsPostgreUsecaseSingleton(db);
+						return handler.handleRequest(req, env);
+					},
+					env,
+					db
+				)
 			)
 		);
 
 		this.internalRouter.get(
 			`/project/:projectId/postgre`,
 			corsMiddleware(async req => {
-				const describeProjectHandler = provideDescribeProjectPostgreUsecaseSingleton(db);
-				return describeProjectHandler.handleRequest(req, env);
+				const handler = provideDescribeProjectPostgreUsecaseSingleton(db);
+				return handler.handleRequest(req, env);
 			})
 		);
 	}
