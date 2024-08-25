@@ -4,12 +4,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Project } from '@/src/lib/types';
 import { useRouter } from 'next/navigation';
 
-type Props = {
-	projects: Project[];
-	projectId?: string;
-};
-
-function ProjectListDropdown({ projectId, projects }: Props) {
+function DropdownProjectList({ projectId, projects }: { projects: Project[]; projectId?: string }) {
 	const router = useRouter();
 
 	function handleSelectProjectChange(value: string) {
@@ -32,4 +27,4 @@ function ProjectListDropdown({ projectId, projects }: Props) {
 	);
 }
 
-export default ProjectListDropdown;
+export default DropdownProjectList;

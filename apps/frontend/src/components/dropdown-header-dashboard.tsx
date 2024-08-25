@@ -1,7 +1,6 @@
 'use client';
 
-import { signOutAction } from './actions';
-import { HeaderDropdownItemProps, HeaderDropdownProps } from './types';
+import { signOutAction } from '@/src/app/actions';
 import {
 	DropdownMenu,
 	DropdownMenuContent,
@@ -11,8 +10,9 @@ import {
 	DropdownMenuTrigger,
 } from '@/src/components/ui/dropdown-menu';
 import { IconLogout, IconSettings, IconUser } from '@tabler/icons-react';
+import { ReactNode } from 'react';
 
-function HeaderDropdown({ email }: HeaderDropdownProps) {
+function DropdownHeaderDashboard({ email }: { email: string }) {
 	return (
 		<DropdownMenu>
 			<DropdownMenuTrigger className="uppercase outline-none grid place-items-center font-semibold text-sm border border-dark3 rounded-full size-10 bg-white text-dark hover:bg-primary duration-200">
@@ -21,13 +21,13 @@ function HeaderDropdown({ email }: HeaderDropdownProps) {
 			<DropdownMenuContent className="mt-2 mr-3 p-3">
 				<DropdownMenuLabel>Actions</DropdownMenuLabel>
 				<DropdownMenuSeparator />
-				<HeaderDropdwonItem handleClick={async () => undefined} icon={<IconUser size={16} />} text="Account" />
-				<HeaderDropdwonItem
+				<DropdownHeaderItem handleClick={async () => undefined} icon={<IconUser size={16} />} text="Account" />
+				<DropdownHeaderItem
 					handleClick={async () => undefined}
 					icon={<IconSettings size={16} />}
 					text="Settings"
 				/>
-				<HeaderDropdwonItem
+				<DropdownHeaderItem
 					handleClick={async () => await signOutAction()}
 					icon={<IconLogout size={16} />}
 					text="Sign Out"
@@ -37,7 +37,15 @@ function HeaderDropdown({ email }: HeaderDropdownProps) {
 	);
 }
 
-function HeaderDropdwonItem({ handleClick, icon, text }: HeaderDropdownItemProps) {
+function DropdownHeaderItem({
+	handleClick,
+	icon,
+	text,
+}: {
+	handleClick: () => Promise<void>;
+	icon: ReactNode;
+	text: string;
+}) {
 	return (
 		<DropdownMenuItem
 			onClick={handleClick}
@@ -48,4 +56,4 @@ function HeaderDropdwonItem({ handleClick, icon, text }: HeaderDropdownItemProps
 	);
 }
 
-export default HeaderDropdown;
+export default DropdownHeaderDashboard;

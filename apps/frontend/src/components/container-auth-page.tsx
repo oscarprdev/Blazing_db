@@ -1,17 +1,22 @@
-import AuthForm from '../components/Forms/AuthForm/AuthForm';
-import { AuthFormMode } from '../components/Forms/AuthForm/types';
+import { FormAuthMode } from '../lib/types';
+import FormAuth from './form-auth';
 import Link from 'next/link';
 
-type Props = {
+function ContainerAuthPage({
+	title,
+	subtitle,
+	text,
+	actionFallback,
+	actionText,
+	mode,
+}: {
 	title: string;
 	subtitle: string;
 	text: string;
 	actionFallback: string;
 	actionText: string;
-	mode: AuthFormMode;
-};
-
-function AuthContainer({ title, subtitle, text, actionFallback, actionText, mode }: Props) {
+	mode: FormAuthMode;
+}) {
 	return (
 		<main className="relative flex w-screen h-screen">
 			<div className="flex items-center gap-2 absolute top-8 left-8">
@@ -26,7 +31,7 @@ function AuthContainer({ title, subtitle, text, actionFallback, actionText, mode
 						<p className="text-sm text-light2">{subtitle}</p>
 					</div>
 					<div className="w-full">
-						<AuthForm mode={mode} />
+						<FormAuth mode={mode} />
 						<div className="mt-10 flex gap-2">
 							<p className="text-sm text-light2">{text}</p>
 							<Link href={actionFallback} className="text-sm underline text-light hover:text-light1">
@@ -41,4 +46,4 @@ function AuthContainer({ title, subtitle, text, actionFallback, actionText, mode
 	);
 }
 
-export default AuthContainer;
+export default ContainerAuthPage;

@@ -1,7 +1,7 @@
-import { Button } from '../../ui/button';
+import { Button } from './ui/button';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/src/components/ui/dialog';
 
-function CreateProjectModal() {
+function ModalCreateProject() {
 	return (
 		<Dialog>
 			<DialogTrigger asChild>
@@ -18,4 +18,4 @@ function CreateProjectModal() {
 	);
 }
 
-export default CreateProjectModal;
+export default ModalCreateProject;

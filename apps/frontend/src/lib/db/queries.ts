@@ -1,5 +1,6 @@
 import { API_URL } from '../constants';
-import { ListProjectsOutput, errorResponse, successResponse } from '../types';
+import { ListProjectsOutput } from '../types';
+import { errorResponse, successResponse } from '../utils';
 
 interface LoginInput {
 	email: string;

@@ -1,22 +1,22 @@
 'use client';
 
-import { Button } from '../../ui/button';
-import { Input } from '../../ui/input';
-import { loginUserAction, registerUserAction } from './actions';
-import { useAuthForm } from './hooks';
-import { AuthFormMode, AuthFormProps, FormProps, LoginPayload } from './types';
-import { isError } from '@/src/lib/types';
+import { useFormAuth } from '../lib/hooks/use-form-auth';
+import { Button } from './ui/button';
+import { Input } from './ui/input';
+import { loginUserAction, registerUserAction } from '@/src/app/actions';
+import { FormAuthMode } from '@/src/lib/types';
+import { isError } from '@/src/lib/utils';
 import { IconEyeOff, IconLoader2 } from '@tabler/icons-react';
 import { IconEye } from '@tabler/icons-react';
 import { redirect } from 'next/navigation';
-import { useState } from 'react';
+import { ReactNode, useState } from 'react';
 import { useFormStatus } from 'react-dom';
 import { toast } from 'sonner';
 
-function AuthForm({ mode }: AuthFormProps) {
-	async function handleSubmit({ email, password }: LoginPayload) {
+function FormAuth({ mode }: { mode: FormAuthMode }) {
+	async function handleSubmit({ email, password }: { email: string; password: string }) {
 		const response =
-			mode === AuthFormMode.login
+			mode === FormAuthMode.login
 				? await loginUserAction({ email, password })
 				: await registerUserAction({ email, password });
 
@@ -26,20 +26,26 @@ function AuthForm({ mode }: AuthFormProps) {
 		}
 
 		toast.success(response.success);
-		mode === AuthFormMode.signup ? redirect('/sign-in') : redirect('/dashboard');
+		mode === FormAuthMode.signup ? redirect('/sign-in') : redirect('/dashboard');
 	}
 
 	return (
 		<Form handleSubmit={handleSubmit}>
-			<AuthSubmitButton label={mode === AuthFormMode.login ? 'Log In' : 'Sign Up'} />
+			<AuthSubmitButton label={mode === FormAuthMode.login ? 'Log In' : 'Sign Up'} />
 		</Form>
 	);
 }
 
-function Form({ handleSubmit, children }: FormProps) {
+function Form({
+	handleSubmit,
+	children,
+}: {
+	handleSubmit: (input: { email: string; password: string }) => Promise<void>;
+	children: ReactNode;
+}) {
 	const [passwordVisible, setPasswordVisible] = useState(false);
 
-	const { authForm, handleFormSubmit } = useAuthForm({ handleSubmit });
+	const { authForm, handleFormSubmit } = useFormAuth({ handleSubmit });
 
 	return (
 		<form action={handleFormSubmit} className="flex flex-col w-full">
@@ -80,4 +86,4 @@ function AuthSubmitButton({ label }: { label: string }) {
 	);
 }
 
-export default AuthForm;
+export default FormAuth;

@@ -1,12 +1,11 @@
 'use server';
 
-import { LoginPayload } from './types';
-import { signIn } from '@/src/auth';
+import { errorResponse, successResponse } from '../lib/utils';
+import { signIn, signOut } from '@/src/auth';
 import { register } from '@/src/lib/db/queries';
-import { errorResponse, successResponse } from '@/src/lib/types';
 import { AuthError } from 'next-auth';
 
-export async function loginUserAction({ email, password }: LoginPayload) {
+export async function loginUserAction({ email, password }: { email: string; password: string }) {
 	try {
 		await signIn('credentials', { email, password });
 
@@ -31,6 +30,10 @@ export async function loginUserAction({ email, password }: LoginPayload) {
 	}
 }
 
-export async function registerUserAction({ email, password }: LoginPayload) {
+export async function registerUserAction({ email, password }: { email: string; password: string }) {
 	return await register({ email, password });
+}
+
+export async function signOutAction() {
+	await signOut({ redirectTo: '/' });
 }

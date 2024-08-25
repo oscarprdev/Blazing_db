@@ -1,26 +1,25 @@
 'use server';
 
 import { auth } from '@/src/auth';
-import Aside from '@/src/components/Aside/Aside';
-import Header from '@/src/components/Header/Header';
-import CreateProjectModal from '@/src/components/Modals/CreateProjectModal/CreateProjectModal';
-import { ProjectList, ProjectListFallback } from '@/src/components/ProjectList/ProjectList';
+import Aside from '@/src/components/aside';
+import HeaderDashboard from '@/src/components/header-dashboard';
+import { ProjectList, ProjectListFallback } from '@/src/components/project-list';
 import { redirect } from 'next/navigation';
 import { Suspense } from 'react';
 
-type Props = {
+async function DashboardPage({
+	searchParams: { project },
+}: {
 	searchParams: {
 		project: string | undefined;
 	};
-};
-
-async function DashboardPage({ searchParams: { project } }: Props) {
+}) {
 	const session = await auth();
 	if (!session?.user?.id || !session.user.email) return redirect('/');
 
 	return (
 		<div className="flex flex-col m-0 h-screen p-3">
-			<Header email={session.user.email} />
+			<HeaderDashboard email={session.user.email} />
 			<main className="relative flex w-full bg-dark h-full mt-2 overflow-hidden">
 				<Aside>
 					<p className="text-sm text-light2">No queries yet.</p>

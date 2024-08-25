@@ -1,15 +1,15 @@
-import { AuthFormMode } from '@/src/components/Forms/AuthForm/types';
-import AuthContainer from '@/src/containers/AuthContainer';
+import ContainerAuthPage from '@/src/components/container-auth-page';
+import { FormAuthMode } from '@/src/lib/types';
 
 function SignInPage() {
 	return (
-		<AuthContainer
+		<ContainerAuthPage
 			title="Welcome back"
 			subtitle="Sign in to your account"
 			text={`Don't have an account?`}
 			actionFallback="/sign-up"
 			actionText="Sing up now"
-			mode={AuthFormMode.login}
+			mode={FormAuthMode.login}
 		/>
 	);
 }

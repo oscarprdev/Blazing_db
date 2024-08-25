@@ -1,12 +1,43 @@
-import { AuthFormState, LoginPayload } from './types';
-import { AUTH_FORM_DEFAULT_STATE, emailSchema, passwordSchema } from './utils';
 import { useState } from 'react';
+import { z } from 'zod';
 
-type UseAuthFormInput = {
-	handleSubmit: (values: LoginPayload) => Promise<void>;
+type AuthFormState = {
+	email: {
+		value: string | null;
+		error: string | null;
+	};
+	password: {
+		value: string | null;
+		error: string | null;
+	};
 };
 
-export function useAuthForm({ handleSubmit }: UseAuthFormInput) {
+const passwordSchema = z
+	.string()
+	.min(4, { message: 'Password must be at least 4 characters long' })
+	.max(15, { message: 'Password must be at most 15 characters long' });
+// .regex(/[A-Z]/, { message: 'Password must contain at least one uppercase letter' })
+// .regex(/[a-z]/, { message: 'Password must contain at least one lowercase letter' })
+// .regex(/\d/, { message: 'Password must contain at least one number' });
+
+const emailSchema = z.string().email({ message: 'Invalid email address format' });
+
+const AUTH_FORM_DEFAULT_STATE: AuthFormState = {
+	email: {
+		value: null,
+		error: null,
+	},
+	password: {
+		value: null,
+		error: null,
+	},
+};
+
+export function useFormAuth({
+	handleSubmit,
+}: {
+	handleSubmit: (values: { email: string; password: string }) => Promise<void>;
+}) {
 	const [authForm, setAuthForm] = useState<AuthFormState>(AUTH_FORM_DEFAULT_STATE);
 
 	async function handleFormSubmit(formData: FormData) {

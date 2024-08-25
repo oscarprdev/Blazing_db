@@ -1,5 +1,5 @@
 import { login } from './lib/db/queries';
-import { isError } from './lib/types';
+import { isError } from './lib/utils';
 import { NextAuthConfig } from 'next-auth';
 import Credentials from 'next-auth/providers/credentials';
 

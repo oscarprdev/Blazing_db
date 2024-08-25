@@ -1,15 +1,11 @@
 'use client';
 
-import { Button } from '../ui/button';
+import { Button } from './ui/button';
 import { cn } from '@/src/lib/utils';
 import { IconLayoutSidebarLeftCollapse, IconLayoutSidebarLeftExpand } from '@tabler/icons-react';
 import { ReactNode, useState } from 'react';
 
-type Props = {
-	children: ReactNode;
-};
-
-function Aside({ children }: Props) {
+function Aside({ children }: { children: ReactNode }) {
 	const [open, setOpen] = useState(true);
 
 	return (
