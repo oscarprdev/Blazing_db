@@ -4,6 +4,7 @@ import { auth } from '@/src/auth';
 import Aside from '@/src/components/aside';
 import HeaderDashboard from '@/src/components/header-dashboard';
 import { ProjectList, ProjectListFallback } from '@/src/components/project-list';
+import { TablesView, TablesViewFallback } from '@/src/components/tables-view';
 import { redirect } from 'next/navigation';
 import { Suspense } from 'react';
 
@@ -30,6 +31,11 @@ async function DashboardPage({
 							<ProjectList userToken={session.user.id} projectId={project} />
 						</Suspense>
 					</article>
+					{project && (
+						<Suspense fallback={<TablesViewFallback />}>
+							<TablesView projectId={project} token={session.user.id} />
+						</Suspense>
+					)}
 				</section>
 			</main>
 		</div>

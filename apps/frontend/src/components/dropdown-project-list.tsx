@@ -20,7 +20,9 @@ function DropdownProjectList({ projectId, projects }: { projects: Project[]; pro
 			</SelectTrigger>
 			<SelectContent>
 				{projects.map(project => (
-					<SelectItem value={project.projectId}>{project.title}</SelectItem>
+					<SelectItem key={project.projectId} value={project.projectId}>
+						{project.title}
+					</SelectItem>
 				))}
 			</SelectContent>
 		</Select>
