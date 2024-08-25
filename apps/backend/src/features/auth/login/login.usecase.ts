@@ -10,8 +10,8 @@ export interface ILoginUsecase {
 export class LoginUsecase implements ILoginUsecase {
 	constructor(private readonly ports: SharedPorts) {}
 
-	async execute({ username, password, salt, secret }: LoginUsecaseTypes.LoginInput): Promise<string> {
-		const user = await this.ports.findUserByUsername(username);
+	async execute({ email, password, salt, secret }: LoginUsecaseTypes.LoginInput): Promise<string> {
+		const user = await this.ports.findUserByEmail(email);
 		if (!user) throw new Error('User not found');
 
 		const isPasswordValid = await this.verifyPassword({ password, hashedPassword: user.password, hexSalt: salt });

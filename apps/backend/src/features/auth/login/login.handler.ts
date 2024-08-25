@@ -9,7 +9,7 @@ export interface ILoginHandler {
 }
 
 const LoginSectionSchema = z.object({
-	username: z.string(),
+	email: z.string(),
 	password: z.string(),
 });
 
@@ -23,7 +23,7 @@ export class LoginHandler implements ILoginHandler {
 			if (!env.SECRET || !env.SALT) throw new Error('Environment variables not configured');
 
 			const token = await this.loginUsecase.execute({
-				username: data.username,
+				email: data.email,
 				password: data.password,
 				salt: env.SALT,
 				secret: env.SECRET,

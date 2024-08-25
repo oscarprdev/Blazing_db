@@ -1,6 +1,6 @@
 export namespace RegisterUsecaseTypes {
 	export type RegisterInput = {
-		username: string;
+		email: string;
 		password: string;
 		salt: string;
 	};

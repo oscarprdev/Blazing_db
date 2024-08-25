@@ -5,13 +5,13 @@ import { UserDb } from '@/types';
 export class SharedInfra implements SharedPorts {
 	constructor(private readonly db: Database) {}
 
-	async findUserByUsername(username: string) {
+	async findUserByEmail(email: string) {
 		try {
-			const result = await this.db.query('SELECT * FROM Users WHERE username = $1', [username]);
+			const result = await this.db.query('SELECT * FROM Users WHERE email = $1', [email]);
 
 			return result[0] as UserDb;
 		} catch (error) {
-			throw new Error('Error finding user by username on DB');
+			throw new Error('Error finding user by email on DB');
 		}
 	}
 }

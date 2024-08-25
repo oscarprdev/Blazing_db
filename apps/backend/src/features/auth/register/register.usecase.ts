@@ -13,19 +13,19 @@ export class RegisterUsecase implements IRegisterUsecase {
 		private readonly sharedPorts: SharedPorts
 	) {}
 
-	async execute({ username, password, salt }: RegisterUsecaseTypes.RegisterInput) {
-		if (await this.isUserAlreadyCreated(username)) {
+	async execute({ email, password, salt }: RegisterUsecaseTypes.RegisterInput) {
+		if (await this.isUserAlreadyCreated(email)) {
 			throw new Error('User is already created');
 		}
 
 		const userId = crypto.randomUUID().toString();
 		const hashedPassword = await this.hashPassword({ password, hexSalt: salt });
 
-		await this.ports.execute(userId, username, hashedPassword);
+		await this.ports.execute(userId, email, hashedPassword);
 	}
 
-	private async isUserAlreadyCreated(username: string) {
-		const user = await this.sharedPorts.findUserByUsername(username);
+	private async isUserAlreadyCreated(email: string) {
+		const user = await this.sharedPorts.findUserByEmail(email);
 
 		return Boolean(user);
 	}

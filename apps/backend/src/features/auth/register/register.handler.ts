@@ -9,7 +9,7 @@ export interface IRegisterHandler {
 }
 
 const RegisterSectionSchema = z.object({
-	username: z.string(),
+	email: z.string(),
 	password: z.string(),
 });
 
@@ -23,7 +23,7 @@ export class RegisterHandler implements IRegisterHandler {
 			if (!env.SECRET) throw new Error('Secret not configured');
 
 			await this.registerUsecase.execute({
-				username: data.username,
+				email: data.email,
 				password: data.password,
 				salt: env.SALT,
 			});
@@ -31,7 +31,7 @@ export class RegisterHandler implements IRegisterHandler {
 			return new Response(
 				JSON.stringify({
 					data: null,
-					message: 'User successufully logged',
+					message: 'User successufully registered',
 				}),
 				{
 					status: 201,

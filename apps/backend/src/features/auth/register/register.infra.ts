@@ -4,14 +4,14 @@ import { RegisterPorts } from './register.ports';
 export class RegisterInfra implements RegisterPorts {
 	constructor(private readonly db: Database) {}
 
-	async execute(userId: string, username: string, password: string) {
+	async execute(userId: string, email: string, password: string) {
 		try {
 			await this.db.query(
 				`
-                INSERT INTO Users (userId, username, password)
+                INSERT INTO Users (userId, email, password)
                 VALUES ($1, $2, $3);
             `,
-				[userId, username, password]
+				[userId, email, password]
 			);
 		} catch (error: unknown) {
 			throw new Error('Error inserting user on Users table');

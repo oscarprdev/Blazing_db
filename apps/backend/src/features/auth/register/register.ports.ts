@@ -1,3 +1,3 @@
 export interface RegisterPorts {
-	execute(userId: string, username: string, password: string): Promise<void>;
+	execute(userId: string, email: string, password: string): Promise<void>;
 }

@@ -1,5 +1,5 @@
 import { UserDb } from '@/types';
 
 export interface SharedPorts {
-	findUserByUsername(username: string): Promise<UserDb>;
+	findUserByEmail(email: string): Promise<UserDb>;
 }

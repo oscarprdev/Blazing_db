@@ -1,6 +1,6 @@
 export namespace LoginUsecaseTypes {
 	export type LoginInput = {
-		username: string;
+		email: string;
 		password: string;
 		salt: string;
 		secret: string;
