@@ -36,7 +36,7 @@ function AuthContainer({ title, subtitle, text, actionFallback, actionText, mode
 					</div>
 				</div>
 			</section>
-			<section className="flex-1 hidden xl:block"></section>
+			<section className="flex-1"></section>
 		</main>
 	);
 }

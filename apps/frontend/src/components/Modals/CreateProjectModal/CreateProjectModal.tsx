@@ -5,7 +5,9 @@ function CreateProjectModal() {
 	return (
 		<Dialog>
 			<DialogTrigger asChild>
-				<Button>Create project</Button>
+				<Button size={'sm'} className="bg-secondary hover:bg-secondary1 font-semibold">
+					Create project
+				</Button>
 			</DialogTrigger>
 			<DialogContent className="w-80">
 				<DialogHeader>

@@ -21,3 +21,18 @@ export const successResponse = <A, E = never>(a: A): Either<E, A> => ({
 });
 
 export const isError = <E, A>(a: Either<E, A>): a is Error<E> => a._tag === 'Error';
+
+export enum ProjectType {
+	postgreSQL = 'postgreSQL',
+	mongo = 'mongo',
+}
+
+export type ListProjectsOutput = {
+	projects: Project[];
+};
+
+export type Project = {
+	projectId: string;
+	title: string;
+	type: ProjectType;
+};

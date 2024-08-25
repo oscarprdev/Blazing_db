@@ -15,7 +15,7 @@ import { IconLogout, IconSettings, IconUser } from '@tabler/icons-react';
 function HeaderDropdown({ email }: HeaderDropdownProps) {
 	return (
 		<DropdownMenu>
-			<DropdownMenuTrigger className="uppercase outline-none grid place-items-center text-xs border border-dark3 rounded-full p-3 bg-primary text-dark hover:bg-primary1 duration-200">
+			<DropdownMenuTrigger className="uppercase outline-none grid place-items-center font-semibold text-sm border border-dark3 rounded-full size-10 bg-white text-dark hover:bg-primary duration-200">
 				{email.slice(0, 2)}
 			</DropdownMenuTrigger>
 			<DropdownMenuContent className="mt-2 mr-3 p-3">

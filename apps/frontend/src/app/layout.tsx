@@ -7,7 +7,7 @@ import { ReactNode } from 'react';
 import { Toaster } from 'sonner';
 
 export const metadata: Metadata = {
-	title: 'DAM - DB AI Management',
+	title: 'BlazingDb',
 	description: 'Database management powered by AI',
 };
 

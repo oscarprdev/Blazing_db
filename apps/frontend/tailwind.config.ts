@@ -2,7 +2,7 @@ import type { Config } from 'tailwindcss';
 import tailwindcssAnimate from 'tailwindcss-animate';
 
 const config: Omit<Config, 'content'> = {
-	content: ['./src/components/**/*.{ts,tsx}', './src/app/**/*.{ts,tsx}'],
+	content: ['./src/components/**/*.{ts,tsx}', './src/containers/**/*.{ts,tsx}', './src/app/**/*.{ts,tsx}'],
 	prefix: '',
 	theme: {
 		extend: {

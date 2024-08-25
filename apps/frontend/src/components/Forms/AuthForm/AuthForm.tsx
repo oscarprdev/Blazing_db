@@ -2,7 +2,7 @@
 
 import { Button } from '../../ui/button';
 import { Input } from '../../ui/input';
-import { loginUser, registerUser } from './actions';
+import { loginUserAction, registerUserAction } from './actions';
 import { useAuthForm } from './hooks';
 import { AuthFormMode, AuthFormProps, FormProps, LoginPayload } from './types';
 import { isError } from '@/src/lib/types';
@@ -17,8 +17,8 @@ function AuthForm({ mode }: AuthFormProps) {
 	async function handleSubmit({ email, password }: LoginPayload) {
 		const response =
 			mode === AuthFormMode.login
-				? await loginUser({ email, password })
-				: await registerUser({ email, password });
+				? await loginUserAction({ email, password })
+				: await registerUserAction({ email, password });
 
 		if (isError(response)) {
 			toast.error(response.error);

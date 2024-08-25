@@ -1,5 +1,5 @@
 import { API_URL } from '../constants';
-import { errorResponse, successResponse } from '../types';
+import { ListProjectsOutput, errorResponse, successResponse } from '../types';
 
 interface LoginInput {
 	email: string;
@@ -43,5 +43,32 @@ export async function register({ email, password }: LoginInput) {
 	} catch (error: unknown) {
 		console.log('register', error);
 		return errorResponse(error instanceof Error ? error.message : 'Error registering in an user');
+	}
+}
+
+interface ListProjectsInput {
+	userToken: string;
+}
+
+export async function listProjects({ userToken }: ListProjectsInput) {
+	try {
+		const response = await fetch(`${API_URL}/project/list`, {
+			headers: {
+				Authorization: userToken,
+			},
+		});
+
+		if (!response.ok) return errorResponse(response.statusText);
+
+		const jsonResponse = await response.json();
+
+		if (jsonResponse.status === 500) return errorResponse(jsonResponse.message);
+
+		const dataResponse = jsonResponse.data as ListProjectsOutput;
+
+		return successResponse(dataResponse);
+	} catch (error: unknown) {
+		console.log('register', error);
+		return errorResponse(error instanceof Error ? error.message : 'Error listing projects');
 	}
 }
