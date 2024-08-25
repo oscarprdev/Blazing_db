@@ -8,10 +8,6 @@ export enum FormAuthMode {
 	signup = 'signup',
 }
 
-export type ListProjectsOutput = {
-	projects: Project[];
-};
-
 export type Project = {
 	projectId: string;
 	title: string;

@@ -1,8 +1,9 @@
 'use server';
 
+import { ProjectType } from '../lib/types';
 import { errorResponse, successResponse } from '../lib/utils';
-import { signIn, signOut } from '@/src/auth';
-import { register } from '@/src/lib/db/queries';
+import { auth, signIn, signOut } from '@/src/auth';
+import { createProject, register } from '@/src/lib/db/queries';
 import { AuthError } from 'next-auth';
 
 export async function loginUserAction({ email, password }: { email: string; password: string }) {
@@ -36,4 +37,21 @@ export async function registerUserAction({ email, password }: { email: string; p
 
 export async function signOutAction() {
 	await signOut({ redirectTo: '/' });
+}
+
+export async function createProjectAction({
+	databaseUrl,
+	type,
+	projectTitle,
+}: {
+	databaseUrl: string;
+	type: ProjectType;
+	projectTitle: string;
+}) {
+	const session = await auth();
+	const userToken = session?.user?.id;
+
+	if (!userToken) return errorResponse('Authorization token not found');
+
+	return await createProject({ databaseUrl, type, projectTitle, userToken });
 }

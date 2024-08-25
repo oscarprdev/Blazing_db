@@ -1,3 +1,4 @@
+import FormCreateProject from './form-create-project';
 import { Button } from './ui/button';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/src/components/ui/dialog';
 
@@ -13,6 +14,7 @@ function ModalCreateProject() {
 				<DialogHeader>
 					<DialogTitle>Create new project!</DialogTitle>
 				</DialogHeader>
+				<FormCreateProject />
 			</DialogContent>
 		</Dialog>
 	);
