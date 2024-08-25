@@ -17,10 +17,11 @@ export async function login({ email, password }: LoginInput) {
 
 		const jsonResponse = await response.json();
 
-		if (jsonResponse.status) return errorResponse(jsonResponse.message);
+		if (jsonResponse.status === 500) return errorResponse(jsonResponse.message);
 
 		return successResponse(jsonResponse.data);
 	} catch (error: unknown) {
+		console.log(error);
 		return errorResponse(error instanceof Error ? error.message : 'Error signing in an user');
 	}
 }
@@ -36,7 +37,7 @@ export async function register({ email, password }: LoginInput) {
 
 		const jsonResponse = await response.json();
 
-		if (jsonResponse.status) return errorResponse(jsonResponse.message);
+		if (jsonResponse.status === 500) return errorResponse(jsonResponse.message);
 
 		return successResponse(jsonResponse.message);
 	} catch (error: unknown) {

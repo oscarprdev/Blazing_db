@@ -17,7 +17,8 @@ export default {
 				}
 
 				return {
-					id: response.success,
+					id: response.success.token,
+					email: response.success.email,
 				};
 			},
 		}),
