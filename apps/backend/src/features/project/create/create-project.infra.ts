@@ -9,8 +9,11 @@ export class CreateProjectInfra implements CreateProjectPorts {
 		try {
 			const res = await this.db.query('SELECT * FROM projects WHERE url = $1', [databaseUrl]);
 
+			if (res.length === 0) return null;
+
 			return res[0].projectid;
 		} catch (error) {
+			console.log(error);
 			throw new Error('Error describing project by its url');
 		}
 	}

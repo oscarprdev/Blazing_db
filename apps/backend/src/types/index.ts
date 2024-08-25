@@ -19,7 +19,7 @@ export type DatabaseTable = {
 };
 
 export type UserDb = {
-	userId: string;
+	userid: string;
 	username: string;
 	password: string;
 };

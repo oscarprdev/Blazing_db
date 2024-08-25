@@ -1,20 +1,27 @@
-import { ValidateAuthInput } from './types';
+import { Env } from '@/index';
+import { RequestParams } from '@/types';
 import jwt from '@tsndr/cloudflare-worker-jwt';
 
-export class AuthMiddleware {
-	constructor() {}
+const authMiddleware = (handler: (request: RequestParams) => Promise<Response>, env: Env) => {
+	return async (request: RequestParams): Promise<Response> => {
+		const authorizationToken = request.headers.get('Authorization');
+		if (!authorizationToken) throw new Error('Authorization is required');
 
-	async validateAuth(input: ValidateAuthInput) {
-		const isValid = await jwt.verify(input.token, input.env.SECRET);
+		const isValid = await jwt.verify(authorizationToken, env.SECRET);
 		if (!isValid) {
 			throw new Error('Request not authorized');
 		}
 
-		const decoded = jwt.decode(input.token);
-		const { userId, projectId } = decoded as { userId: string; projectId: string };
+		const decoded = jwt.decode(authorizationToken);
+		if (!decoded.payload) throw new Error('Authorization token not valid');
 
-		return {
-			token: input.token,
-		};
-	}
-}
+		const userId = (decoded.payload as { userId: string })?.userId || null;
+		if (!userId) throw new Error('Authorization token not valid');
+
+		request.params.userId = userId;
+
+		return await handler(request);
+	};
+};
+
+export { authMiddleware };

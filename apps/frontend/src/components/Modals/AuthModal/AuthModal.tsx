@@ -18,10 +18,12 @@ function AuthModal() {
 			</DialogTrigger>
 			<DialogContent className="w-80">
 				<DialogHeader>
-					<DialogTitle>Login user</DialogTitle>
+					<DialogTitle>
+						{modalState.mode === AuthModalMode.login ? 'Welcome back!' : 'Nice to meet you!'}
+					</DialogTitle>
 				</DialogHeader>
 				<AuthForm handleSubmit={handleSubmit}>
-					<AuthSubmitButton />
+					<AuthSubmitButton label={modalState.mode === AuthModalMode.login ? 'Log In' : 'Sign Up'} />
 				</AuthForm>
 			</DialogContent>
 		</Dialog>
@@ -32,9 +34,9 @@ function AuthModalTriggerButtons({ handleModalMode }: AuthModalTriggerButtonsPro
 	return (
 		<div className="flex items-center gap-2">
 			<Button variant={'secondary'} onClick={() => handleModalMode(AuthModalMode.signup)}>
-				Signup
+				Sign Up
 			</Button>
-			<Button onClick={() => handleModalMode(AuthModalMode.login)}>Login</Button>
+			<Button onClick={() => handleModalMode(AuthModalMode.login)}>Log In</Button>
 		</div>
 	);
 }
@@ -59,12 +61,12 @@ function AuthForm({ handleSubmit, children }: AuthFormProps) {
 	);
 }
 
-function AuthSubmitButton() {
+function AuthSubmitButton({ label }: { label: string }) {
 	const { pending } = useFormStatus();
 
 	return (
 		<Button type="submit" className="mt-5 ml-auto" disabled={pending}>
-			{pending ? <IconLoader2 className="animate-spin" /> : 'Submit'}
+			{pending ? <IconLoader2 className="animate-spin" /> : label}
 		</Button>
 	);
 }

@@ -5,6 +5,7 @@ import { provideLoginUsecaseSingleton } from '@/features/auth/login/login.graph'
 import { provideRegisterUsecaseSingleton } from '@/features/auth/register/register.graph';
 import { provideCreateProjectPostgreUsecaseSingleton } from '@/features/project/create/create-project.index';
 import { provideDescribeProjectPostgreUsecaseSingleton } from '@/features/project/describe/describe-project.index';
+import { authMiddleware } from '@/middleware/auth';
 import { Router, RouterType } from 'itty-router';
 
 interface RouterStrategy {
@@ -47,11 +48,13 @@ export class DefaultRouter implements RouterStrategy {
 		);
 
 		this.internalRouter.post(
-			`/project/:userId/create`,
-			corsMiddleware(async req => {
-				const createProjectHandler = provideCreateProjectPostgreUsecaseSingleton(db);
-				return createProjectHandler.handleRequest(req, env);
-			})
+			`/project/create`,
+			corsMiddleware(
+				authMiddleware(async req => {
+					const createProjectHandler = provideCreateProjectPostgreUsecaseSingleton(db);
+					return createProjectHandler.handleRequest(req, env);
+				}, env)
+			)
 		);
 
 		this.internalRouter.get(
