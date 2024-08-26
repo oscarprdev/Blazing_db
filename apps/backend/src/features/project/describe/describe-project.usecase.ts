@@ -25,12 +25,20 @@ export class DescribeProjectUsecase implements IDescribeProjectUsecase {
 			const fieldsEnriched = await this.includeReferences(databaseUrl, table, fieldsWithValues);
 
 			response.tables.push({
+				id: crypto.randomUUID().toString(),
 				title: table,
+				isReferenced: false,
 				fields: this.sortFields(fieldsEnriched),
 			});
 		}
 
-		return response;
+		return {
+			title: response.title,
+			tables: response.tables.map(table => ({
+				...table,
+				isReferenced: response.tables.some(t => t.fields.some(f => f.reference === table.title)),
+			})),
+		};
 	}
 
 	private sortFields(fields: TableField[]) {

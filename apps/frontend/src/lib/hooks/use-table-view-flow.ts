@@ -1,12 +1,8 @@
 import { Table } from '../types';
 import TableCard from '@/src/components/table-card';
-import { useNodesState } from '@xyflow/react';
+import { useEdgesState, useNodesState } from '@xyflow/react';
 import { useMemo } from 'react';
 
-const initialEdges = [
-	{ id: 'e1-2', source: '1', target: '2' },
-	{ id: 'e2-3', source: '2', target: '3' },
-];
 export const nodeTypes = { tableCard: TableCard };
 
 function calculateMarginY(index: number) {
@@ -30,21 +26,50 @@ export function useTableViewFlow({ projectId, tables }: { projectId: string; tab
 	const initialTableNodes = useMemo(
 		() => [
 			...tables.map((table, index) => ({
-				id: `${table.title}-${index}`,
+				id: table.id,
 				type: 'tableCard',
-				data: { title: table.title, fields: table.fields, index },
+				data: { title: table.title, fields: table.fields, index, isReferenced: table.isReferenced },
 				position: { x: calculateMarginX(index), y: calculateMarginY(index) },
 			})),
 		],
 		[projectId]
 	);
 
+	function serveTablesEdges(tables: Table[]) {
+		const tablesWithReferences = tables.filter(table => table.fields.some(f => f.reference));
+
+		const edges: { id: string; source: string; target: string }[] = [];
+
+		tablesWithReferences.forEach(table => {
+			const fieldsWithReferences = table.fields.filter(f => f.reference);
+			fieldsWithReferences.forEach(field => {
+				const tableReferenced = tables.find(table => table.title === field.reference);
+
+				if (!tableReferenced) return;
+
+				const newEdge = {
+					id: crypto.randomUUID().toString(),
+					source: table.id,
+					target: tableReferenced.id,
+					style: { stroke: '#fff' },
+				};
+
+				edges.push(newEdge);
+			});
+		});
+
+		return edges;
+	}
+
 	const [nodes, setNodes, onNodesChange] = useNodesState(initialTableNodes);
-	// const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
+	const [edges, setEdges, onEdgesChange] = useEdgesState(serveTablesEdges(tables));
 
 	return {
 		nodes,
 		setNodes,
 		onNodesChange,
+		edges,
+		setEdges,
+		onEdgesChange,
 	};
 }

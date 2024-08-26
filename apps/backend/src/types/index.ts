@@ -14,7 +14,9 @@ export type TableField = {
 };
 
 export type DatabaseTable = {
+	id: string;
 	title: string;
+	isReferenced: boolean;
 	fields: TableField[];
 };
 

@@ -4,6 +4,7 @@ import { Field } from '../lib/types';
 import { cn } from '../lib/utils';
 import { Button } from './ui/button';
 import { IconBracketsContain, IconCalendarMonth, IconDots, IconHash, IconNumber123 } from '@tabler/icons-react';
+import { Handle, Position } from '@xyflow/react';
 import { Binary, Braces, Type } from 'lucide-react';
 import { ReactNode, useMemo } from 'react';
 
@@ -30,8 +31,13 @@ const FIELD_ICONS: { type: string; icon: ReactNode }[] = [
 	{ type: 'json', icon: <Braces size={15} /> },
 ];
 
-function TableCard({ data: { title, fields } }: { data: { index: number; title: string; fields: Field[] } }) {
+function TableCard({
+	data: { title, fields, isReferenced },
+}: {
+	data: { index: number; title: string; fields: Field[]; isReferenced: boolean };
+}) {
 	const indexColor = useMemo(() => Math.floor(Math.random() * TABLE_COLORS.length), [title]);
+	const fieldWithReferences = useMemo(() => fields.filter(f => f.reference), [title]);
 
 	function handleIconClick() {
 		console.log('hello');
@@ -65,6 +71,20 @@ function TableCard({ data: { title, fields } }: { data: { index: number; title: 
 					</li>
 				))}
 			</ul>
+			{isReferenced && <Handle type="target" position={Position.Top} />}
+			{fieldWithReferences.length > 0 &&
+				fieldWithReferences.map(field => {
+					const index = fields.findIndex(f => f.name === field.name);
+					return (
+						<Handle
+							key={field.name}
+							type="source"
+							position={Position.Right}
+							isConnectable={true}
+							style={{ top: (index + 1) * 37 + 14 }}
+						/>
+					);
+				})}
 		</article>
 	);
 }

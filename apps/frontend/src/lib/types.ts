@@ -23,6 +23,8 @@ export type Field = {
 };
 
 export type Table = {
+	id: string;
 	title: string;
+	isReferenced: boolean;
 	fields: Field[];
 };
