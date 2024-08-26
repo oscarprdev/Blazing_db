@@ -102,7 +102,6 @@ export async function createProject({
 export async function describeProject({ projectId, userToken }: { projectId: string; userToken: string }) {
 	try {
 		const response = await fetch(`${API_URL}/project/${projectId}`, {
-			method: 'GET',
 			headers: {
 				Authorization: userToken,
 			},
@@ -126,7 +125,6 @@ export async function describeProject({ projectId, userToken }: { projectId: str
 
 		return successResponse(dataResponse);
 	} catch (error: unknown) {
-		console.log(error);
 		return errorResponse(error instanceof Error ? error.message : 'Error listing projects');
 	}
 }

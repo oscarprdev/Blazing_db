@@ -14,8 +14,6 @@ async function DashboardPage({
 		projectId: string | undefined;
 	};
 }) {
-	console.log('project', projectId);
-
 	return (
 		<div className="flex flex-col m-0 h-screen p-3">
 			<HeaderDashboard />

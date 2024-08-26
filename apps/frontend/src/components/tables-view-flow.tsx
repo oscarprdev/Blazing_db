@@ -43,8 +43,6 @@ function TablesViewFlow({ projectId, tables, children }: { projectId: string; ta
 		[projectId]
 	);
 
-	console.log(tables[0]?.fields, tables[1]?.fields, tables[2]?.fields);
-
 	const [nodes, _, onNodesChange] = useNodesState(initialTableNodes);
 	// const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
 
