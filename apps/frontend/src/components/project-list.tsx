@@ -2,7 +2,7 @@
 
 import { auth } from '../auth';
 import { listProjects } from '@/src/lib/db/queries';
-import { isError } from '@/src/lib/utils';
+import { cn, isError } from '@/src/lib/utils';
 import { IconDots } from '@tabler/icons-react';
 import Link from 'next/link';
 import { redirect } from 'next/navigation';
@@ -27,7 +27,12 @@ async function ProjectList({ projectId }: { projectId?: string }) {
 			{!isError(response) ? (
 				<>
 					{response.success.projects.map(project => (
-						<ProjectItem key={project.projectId} projectId={project.projectId} title={project.title} />
+						<ProjectItem
+							key={project.projectId}
+							projectId={project.projectId}
+							title={project.title}
+							currentProjectId={projectId}
+						/>
 					))}
 				</>
 			) : (
@@ -39,17 +44,32 @@ async function ProjectList({ projectId }: { projectId?: string }) {
 	);
 }
 
-function ProjectItem({ projectId, title }: { projectId: string; title: string }) {
+function ProjectItem({
+	projectId,
+	title,
+	currentProjectId,
+}: {
+	projectId: string;
+	title: string;
+	currentProjectId?: string;
+}) {
 	return (
 		<div
 			key={projectId}
-			className="hover:text-light px-4 my-1 duration-200 p-2 rounded-lg bg-dark3 w-full flex justify-between items-center hover:bg-dark4 font-semibold">
+			className={cn(
+				currentProjectId === projectId
+					? 'bg-dark4 hover:bg-dark5 text-light'
+					: 'bg-dark3 hover:bg-dark4 hover:text-light',
+				'relative px-5 my-1 duration-200 p-2 rounded-lg  w-full flex justify-between items-center font-semibold'
+			)}>
+			{currentProjectId === projectId && (
+				<span className="absolute size-2 rounded-full top-0 left-0 bg-secondary"></span>
+			)}
 			<Link
 				href={{
 					pathname: '/dashboard',
 					query: { projectId },
 				}}
-				replace
 				className="hover:underline duration-150">
 				{title}
 			</Link>

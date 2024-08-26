@@ -1,8 +1,12 @@
 import { ProjectType } from '../types';
+import { isError } from '../utils';
+import { createProjectAction } from '@/src/app/actions';
+import { redirect } from 'next/navigation';
 import { useState } from 'react';
+import { toast } from 'sonner';
 import { z } from 'zod';
 
-type CreateProjectFormState = {
+export type CreateProjectFormState = {
 	title: {
 		value: string | null;
 		error: string | null;
@@ -22,7 +26,7 @@ const titleSchema = z
 	.min(4, { message: 'Project title must be at least 4 characters long' })
 	.max(15, { message: 'Project title must be at most 15 characters long' });
 
-const typeSchema = z.enum([ProjectType.postgreSQL, ProjectType.mongo]);
+const typeSchema = z.enum([ProjectType.postgreSQL, ProjectType.mongoDb]);
 
 const postgresUrlSchema = z
 	.string()
@@ -59,12 +63,28 @@ const CREATE_PROJECT_FORM_DEFAULT_STATE: CreateProjectFormState = {
 	},
 };
 
-export function useFormCreateProject({
-	handleSubmit,
-}: {
-	handleSubmit: (values: { databaseUrl: string; type: ProjectType; projectTitle: string }) => Promise<void>;
-}) {
+export function useFormCreateProject() {
 	const [formState, setFormState] = useState<CreateProjectFormState>(CREATE_PROJECT_FORM_DEFAULT_STATE);
+
+	async function handleSubmit({
+		databaseUrl,
+		type,
+		projectTitle,
+	}: {
+		databaseUrl: string;
+		type: ProjectType;
+		projectTitle: string;
+	}) {
+		const response = await createProjectAction({ databaseUrl, type, projectTitle });
+
+		if (isError(response)) {
+			toast.error(response.error);
+			return;
+		}
+
+		toast.success(response.success.message);
+		redirect(`/dashboard?project=${response.success.projectId}`);
+	}
 
 	async function handleFormSubmit(formData: FormData) {
 		const url = formData.get('url') as string;
@@ -121,7 +141,7 @@ export function useFormCreateProject({
 		const urlResult =
 			type === ProjectType.postgreSQL
 				? postgresUrlSchema.safeParse(url)
-				: type === ProjectType.mongo
+				: type === ProjectType.mongoDb
 					? mongodbUrlSchema.safeParse(url)
 					: defaultUrlSchema.safeParse(url);
 		if (!urlResult.success && urlResult.error.errors[0]) {

@@ -1,7 +1,12 @@
+import { FormAuthMode } from '../types';
+import { isError } from '../utils';
+import { loginUserAction, registerUserAction } from '@/src/app/actions';
+import { redirect } from 'next/navigation';
 import { useState } from 'react';
+import { toast } from 'sonner';
 import { z } from 'zod';
 
-type AuthFormState = {
+export type AuthFormState = {
 	email: {
 		value: string | null;
 		error: string | null;
@@ -33,12 +38,23 @@ const AUTH_FORM_DEFAULT_STATE: AuthFormState = {
 	},
 };
 
-export function useFormAuth({
-	handleSubmit,
-}: {
-	handleSubmit: (values: { email: string; password: string }) => Promise<void>;
-}) {
+export function useFormAuth({ mode }: { mode: FormAuthMode }) {
 	const [authForm, setAuthForm] = useState<AuthFormState>(AUTH_FORM_DEFAULT_STATE);
+
+	async function handleSubmit({ email, password }: { email: string; password: string }) {
+		const response =
+			mode === FormAuthMode.login
+				? await loginUserAction({ email, password })
+				: await registerUserAction({ email, password });
+
+		if (isError(response)) {
+			toast.error(response.error);
+			return;
+		}
+
+		toast.success(response.success);
+		mode === FormAuthMode.signup ? redirect('/sign-in') : redirect('/dashboard');
+	}
 
 	async function handleFormSubmit(formData: FormData) {
 		const email = formData.get('email') as string;

@@ -1,55 +1,33 @@
 'use client';
 
-import { useFormCreateProject } from '../lib/hooks/use-form-create-project';
+import { CreateProjectFormState, useFormCreateProject } from '../lib/hooks/use-form-create-project';
 import { Button } from './ui/button';
 import { Input } from './ui/input';
-import { createProjectAction } from '@/src/app/actions';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/src/components/ui/select';
 import { ProjectType } from '@/src/lib/types';
-import { isError } from '@/src/lib/utils';
 import { IconLoader2 } from '@tabler/icons-react';
-import { redirect } from 'next/navigation';
 import { ReactNode } from 'react';
 import { useFormStatus } from 'react-dom';
-import { toast } from 'sonner';
 
 function FormCreateProject() {
-	async function handleSubmit({
-		databaseUrl,
-		type,
-		projectTitle,
-	}: {
-		databaseUrl: string;
-		type: ProjectType;
-		projectTitle: string;
-	}) {
-		const response = await createProjectAction({ databaseUrl, type, projectTitle });
-
-		if (isError(response)) {
-			toast.error(response.error);
-			return;
-		}
-
-		toast.success(response.success.message);
-		redirect(`/dashboard?project=${response.success.projectId}`);
-	}
+	const { formState, handleFormSubmit } = useFormCreateProject();
 
 	return (
-		<Form handleSubmit={handleSubmit}>
+		<Form formState={formState} handleFormSubmit={handleFormSubmit}>
 			<CreateProjectSubmitButton />
 		</Form>
 	);
 }
 
 function Form({
-	handleSubmit,
+	formState,
+	handleFormSubmit,
 	children,
 }: {
-	handleSubmit: (input: { databaseUrl: string; type: ProjectType; projectTitle: string }) => Promise<void>;
+	formState: CreateProjectFormState;
+	handleFormSubmit(formData: FormData): Promise<void>;
 	children: ReactNode;
 }) {
-	const { formState, handleFormSubmit } = useFormCreateProject({ handleSubmit });
-
 	return (
 		<form action={handleFormSubmit} className="flex flex-col w-full">
 			<label htmlFor="title" className="my-2 text-sm text-light1">

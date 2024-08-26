@@ -1,51 +1,34 @@
 'use client';
 
-import { useFormAuth } from '../lib/hooks/use-form-auth';
+import { AuthFormState, useFormAuth } from '../lib/hooks/use-form-auth';
 import { Button } from './ui/button';
 import { Input } from './ui/input';
-import { loginUserAction, registerUserAction } from '@/src/app/actions';
 import { FormAuthMode } from '@/src/lib/types';
-import { isError } from '@/src/lib/utils';
 import { IconEyeOff, IconLoader2 } from '@tabler/icons-react';
 import { IconEye } from '@tabler/icons-react';
-import { redirect } from 'next/navigation';
 import { ReactNode, useState } from 'react';
 import { useFormStatus } from 'react-dom';
-import { toast } from 'sonner';
 
 function FormAuth({ mode }: { mode: FormAuthMode }) {
-	async function handleSubmit({ email, password }: { email: string; password: string }) {
-		const response =
-			mode === FormAuthMode.login
-				? await loginUserAction({ email, password })
-				: await registerUserAction({ email, password });
-
-		if (isError(response)) {
-			toast.error(response.error);
-			return;
-		}
-
-		toast.success(response.success);
-		mode === FormAuthMode.signup ? redirect('/sign-in') : redirect('/dashboard');
-	}
+	const { authForm, handleFormSubmit } = useFormAuth({ mode });
 
 	return (
-		<Form handleSubmit={handleSubmit}>
+		<Form authForm={authForm} handleFormSubmit={handleFormSubmit}>
 			<AuthSubmitButton label={mode === FormAuthMode.login ? 'Log In' : 'Sign Up'} />
 		</Form>
 	);
 }
 
 function Form({
-	handleSubmit,
+	authForm,
+	handleFormSubmit,
 	children,
 }: {
-	handleSubmit: (input: { email: string; password: string }) => Promise<void>;
+	authForm: AuthFormState;
+	handleFormSubmit(formData: FormData): Promise<void>;
 	children: ReactNode;
 }) {
 	const [passwordVisible, setPasswordVisible] = useState(false);
-
-	const { authForm, handleFormSubmit } = useFormAuth({ handleSubmit });
 
 	return (
 		<form action={handleFormSubmit} className="flex flex-col w-full">
