@@ -3,7 +3,7 @@ import { RequestParams } from '../../types';
 const corsHeaders = {
 	'Access-Control-Allow-Origin': 'http://localhost:3000',
 	'Access-Control-Allow-Methods': 'GET, OPTIONS, POST, PUT, DELETE',
-	'Access-Control-Allow-Headers': '*',
+	'Access-Control-Allow-Headers': 'Content-Type, Authorization',
 };
 const allowedOrigins = ['http://localhost:3000'];
 
@@ -23,7 +23,11 @@ const corsMiddleware = (handler: (request: RequestParams) => Promise<Response>) 
 			});
 		}
 
-		return await handler(request);
+		const response = await handler(request);
+		return new Response(response.body, {
+			status: response.status,
+			headers: { ...headers, ...response.headers },
+		});
 	};
 };
 

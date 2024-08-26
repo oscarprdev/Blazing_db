@@ -1,5 +1,6 @@
 import { DescribeProjectPorts } from './describe-project.ports';
 import { DescribeProjectTypes } from './describe-project.types';
+import { TableField } from '@/types';
 
 export interface IDescribeProjectUsecase {
 	execute(input: DescribeProjectTypes.DescribeProjectInput): Promise<DescribeProjectTypes.DescribeProjectOutput>;
@@ -9,12 +10,13 @@ export class DescribeProjectUsecase implements IDescribeProjectUsecase {
 	constructor(private readonly ports: DescribeProjectPorts) {}
 
 	async execute({ projectId }: DescribeProjectTypes.DescribeProjectInput) {
-		const { databaseUrl } = await this.ports.describeDatabaseUrl(projectId);
+		const { databaseUrl, title } = await this.ports.describeProject(projectId);
 		if (!databaseUrl) throw new Error('Project is not valid, database url is missing');
 
 		const tables = await this.ports.extractTables(databaseUrl);
 
 		const response = {
+			title,
 			tables: [],
 		} as DescribeProjectTypes.DescribeProjectOutput;
 
@@ -22,13 +24,25 @@ export class DescribeProjectUsecase implements IDescribeProjectUsecase {
 			const fieldsWithValues = await this.includeValues(databaseUrl, table);
 			const fieldsEnriched = await this.includeReferences(databaseUrl, table, fieldsWithValues);
 
-			response.tables = tables.map(table => ({
+			response.tables.push({
 				title: table,
-				fields: fieldsEnriched,
-			}));
+				fields: this.sortFields(fieldsEnriched),
+			});
 		}
 
 		return response;
+	}
+
+	private sortFields(fields: TableField[]) {
+		return fields.sort((a, b) => {
+			if (a.fieldConstraint === 'PRIMARY KEY' && b.fieldConstraint !== 'PRIMARY KEY') return -1;
+			if (a.fieldConstraint !== 'PRIMARY KEY' && b.fieldConstraint === 'PRIMARY KEY') return 1;
+
+			if (a.type === 'uuid' && b.type !== 'uuid') return -1;
+			if (a.type !== 'uuid' && b.type === 'uuid') return 1;
+
+			return 0;
+		});
 	}
 
 	private async includeValues(databaseUrl: string, table: string) {
@@ -39,7 +53,7 @@ export class DescribeProjectUsecase implements IDescribeProjectUsecase {
 
 		return fields.map((field, i) => ({
 			...field,
-			value: values[i],
+			value: Object.values(values[0])[i],
 		})) satisfies DescribeProjectTypes.EnrichedField[];
 	}
 

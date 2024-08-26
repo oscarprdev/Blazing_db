@@ -6,6 +6,7 @@ export namespace DescribeProjectTypes {
 	};
 
 	export type DescribeProjectOutput = {
+		title: string;
 		tables: DatabaseTable[];
 	};
 

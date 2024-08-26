@@ -29,6 +29,7 @@ export class DescribeProjectHandler implements IDescribeProjectHandler {
 				}
 			);
 		} catch (error: unknown) {
+			console.log(error);
 			return handleError(error);
 		}
 	}

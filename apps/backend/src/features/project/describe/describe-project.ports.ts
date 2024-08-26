@@ -1,5 +1,5 @@
 export interface DescribeProjectPorts {
-	describeDatabaseUrl(projectId: string): Promise<DescribeProjectPortsTypes.DescribeDatabaseUrlOutput>;
+	describeProject(projectId: string): Promise<DescribeProjectPortsTypes.DescribeDatabaseUrlOutput>;
 	extractTables(databaseUrl: string): Promise<DescribeProjectPortsTypes.ExtractTablesOutput>;
 	extractFields(databaseUrl: string, tableName: string): Promise<DescribeProjectPortsTypes.ExtractFieldsOutput>;
 	extractValues(databaseUrl: string, tableName: string): Promise<DescribeProjectPortsTypes.ExtractValuesOutput>;
@@ -8,6 +8,7 @@ export interface DescribeProjectPorts {
 
 export namespace DescribeProjectPortsTypes {
 	export type DescribeDatabaseUrlOutput = {
+		title: string;
 		databaseUrl: string | null;
 	};
 

@@ -4,10 +4,11 @@ import { DescribeProjecPostgreInfra } from './describe-project.postgre-infra';
 export class DescribeProjectPostgreAdapter implements DescribeProjectPorts {
 	constructor(private readonly infra: DescribeProjecPostgreInfra) {}
 
-	async describeDatabaseUrl(projectId: string): Promise<DescribeProjectPortsTypes.DescribeDatabaseUrlOutput> {
+	async describeProject(projectId: string): Promise<DescribeProjectPortsTypes.DescribeDatabaseUrlOutput> {
 		const res = await this.infra.describeProject(projectId);
 
 		return {
+			title: res.title,
 			databaseUrl: res.url,
 		};
 	}
@@ -15,7 +16,7 @@ export class DescribeProjectPostgreAdapter implements DescribeProjectPorts {
 	async extractTables(databaseUrl: string) {
 		const output = await this.infra.extractTables(databaseUrl);
 
-		return output.tablesDB.map(tab => tab.table_name);
+		return output.tablesDB.filter(tab => tab.table_name[0] !== '_').map(tab => tab.table_name);
 	}
 
 	async extractFields(databaseUrl: string, tableName: string) {

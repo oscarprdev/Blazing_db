@@ -104,11 +104,29 @@ export class DescribeProjecPostgreInfra extends DescribeProjectInfra implements 
 		try {
 			await client.connect();
 
-			const res = await client.query(`SELECT * FROM ${tableName};`);
+			const res1 = await client.query(
+				`SELECT table_name 
+				 FROM information_schema.tables 
+				 WHERE table_name = $1 
+				 OR table_name = lower($1) 
+				 AND table_schema = 'public';`,
+				[tableName]
+			);
 
-			return res.rows;
+			if (res1.rows.length === 0) throw new Error(`Table "${tableName}" does not exist.`);
+
+			const tableNameNeedsQuotes = res1.rows[0].table_name.toLowerCase() !== tableName;
+
+			const res2 = await client.query(
+				`SELECT * FROM ${tableNameNeedsQuotes ? `"${res1.rows[0].table_name}"` : tableName};`
+			);
+
+			return res2.rows;
 		} catch (error) {
-			throw new Error('Error fetching values');
+			console.log(error);
+			throw new Error(
+				error instanceof Error && error.message.includes('Table') ? error.message : 'Error fetching values'
+			);
 		}
 	}
 
