@@ -71,7 +71,7 @@ function TableCard({
 					</li>
 				))}
 			</ul>
-			{isReferenced && <Handle type="target" position={Position.Top} />}
+			{isReferenced && <Handle type="target" position={Position.Top} style={{ opacity: 0 }} />}
 			{fieldWithReferences.length > 0 &&
 				fieldWithReferences.map(field => {
 					const index = fields.findIndex(f => f.name === field.name);
@@ -80,8 +80,10 @@ function TableCard({
 							key={field.name}
 							type="source"
 							position={Position.Right}
-							isConnectable={true}
-							style={{ top: (index + 1) * 37 + 14 }}
+							style={{
+								top: (index + 1) * 37 + 14,
+								opacity: 0,
+							}}
 						/>
 					);
 				})}

@@ -1,6 +1,6 @@
 import { Table } from '../types';
 import TableCard from '@/src/components/table-card';
-import { useEdgesState, useNodesState } from '@xyflow/react';
+import { MarkerType, useEdgesState, useNodesState } from '@xyflow/react';
 import { useMemo } from 'react';
 
 export const nodeTypes = { tableCard: TableCard };
@@ -14,7 +14,7 @@ function calculateMarginY(index: number) {
 }
 
 function calculateMarginX(index: number) {
-	const marginX = 220;
+	const marginX = 250;
 	const gap = 50;
 	const tablesPerRow = 4;
 
@@ -51,7 +51,9 @@ export function useTableViewFlow({ projectId, tables }: { projectId: string; tab
 					id: crypto.randomUUID().toString(),
 					source: table.id,
 					target: tableReferenced.id,
-					style: { stroke: '#fff' },
+					type: 'smoothstep',
+					markerEnd: { type: MarkerType.Arrow },
+					style: { stroke: '#767676' },
 				};
 
 				edges.push(newEdge);
