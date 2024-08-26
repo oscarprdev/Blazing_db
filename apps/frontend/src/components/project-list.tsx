@@ -1,14 +1,16 @@
 'use server';
 
-import DropdownProjectList from './dropdown-project-list';
+import { auth } from '../auth';
 import { listProjects } from '@/src/lib/db/queries';
 import { isError } from '@/src/lib/utils';
 import { IconDots } from '@tabler/icons-react';
+import Link from 'next/link';
 import { redirect } from 'next/navigation';
 import { ReactNode } from 'react';
 
-async function ProjectList({ userToken, projectId }: { userToken: string; projectId?: string }) {
-	const response = await listProjects({ userToken });
+async function ProjectList({ projectId }: { projectId?: string }) {
+	const session = await auth();
+	const response = await listProjects({ token: session?.user?.id || '' });
 
 	if (
 		!projectId &&
@@ -17,13 +19,17 @@ async function ProjectList({ userToken, projectId }: { userToken: string; projec
 		response.success.projects[0] &&
 		'projectId' in response.success.projects[0]
 	) {
-		redirect(`/dashboard?project=${response.success.projects[0]?.projectId}`);
+		redirect(`/dashboard?projectId=${response.success.projects[0]?.projectId}`);
 	}
 
 	return (
 		<>
 			{!isError(response) ? (
-				<DropdownProjectList projectId={projectId} projects={response.success.projects} />
+				<>
+					{response.success.projects.map(project => (
+						<ProjectItem key={project.projectId} projectId={project.projectId} title={project.title} />
+					))}
+				</>
 			) : (
 				<ProjectListWrapper>
 					<p className="text-xs text-destructive">{response.error}</p>
@@ -33,12 +39,27 @@ async function ProjectList({ userToken, projectId }: { userToken: string; projec
 	);
 }
 
-function ProjectListWrapper({ children }: { children: ReactNode }) {
+function ProjectItem({ projectId, title }: { projectId: string; title: string }) {
 	return (
-		<div className="bg-dark1 min-w-[180px] w-fit h-[40px] rounded-xl flex items-center justify-start px-3">
-			{children}
+		<div
+			key={projectId}
+			className="hover:text-light px-4 my-1 duration-200 p-2 rounded-lg bg-dark3 w-full flex justify-between items-center hover:bg-dark4 font-semibold">
+			<Link
+				href={{
+					pathname: '/dashboard',
+					query: { projectId },
+				}}
+				replace
+				className="hover:underline duration-150">
+				{title}
+			</Link>
+			<IconDots size={16} />
 		</div>
 	);
+}
+
+function ProjectListWrapper({ children }: { children: ReactNode }) {
+	return <div className="bg-dark1 w-full h-[40px] rounded-xl flex items-center justify-center px-3">{children}</div>;
 }
 
 function ProjectListFallback() {

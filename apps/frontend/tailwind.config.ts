@@ -28,8 +28,34 @@ const config: Omit<Config, 'content'> = {
 				secondary: 'var(--secondary)',
 				secondary1: 'var(--secondary-1)',
 			},
+			keyframes: {
+				'accordion-down': {
+					from: { height: '0' },
+					to: { height: 'var(--radix-accordion-content-height)' },
+				},
+				'accordion-up': {
+					from: { height: 'var(--radix-accordion-content-height)' },
+					to: { height: '0' },
+				},
+			},
+			animation: {
+				'accordion-down': 'accordion-down 0.2s ease-out',
+				'accordion-up': 'accordion-up 0.2s ease-out',
+			},
 		},
 	},
+	safelist: [
+		'hover:border-[#7C9D62]',
+		'hover:border-[#3E818C]',
+		'hover:border-[#9F5B3D]',
+		'hover:border-[#405D8D]',
+		'hover:border-[#B2932C]',
+		'hover:border-[#49586F]',
+		'hover:border-[#8C3B51]',
+		'hover:border-[#3D4D1F]',
+		'hover:border-[#8C4D24]',
+		'hover:border-[#1E4E65]',
+	],
 	plugins: [tailwindcssAnimate],
 } satisfies Config;
 

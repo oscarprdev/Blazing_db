@@ -1,29 +1,31 @@
 'use server';
 
+import { auth } from '../auth';
 import { describeProject } from '../lib/db/queries';
 import { isError } from '../lib/utils';
+import ProjecttTitle from './project-title';
 import TablesViewFlow from './tables-view-flow';
+import { IconLoader2 } from '@tabler/icons-react';
 
-async function TablesView({ projectId, token }: { projectId: string; token: string }) {
-	const describeProjectResponse = await describeProject({ projectId, userToken: token });
+async function TablesView({ projectId }: { projectId: string }) {
+	const session = await auth();
+	const describeProjectResponse = await describeProject({ projectId, userToken: session?.user?.id || '' });
+
 	return (
 		<>
 			{!isError(describeProjectResponse) ? (
-				<ul>
-					{/* {describeProjectResponse.success.tables.map(table => (
-						<li>{table.title}</li>
-					))} */}
-					<TablesViewFlow tables={describeProjectResponse.success.tables} />
-				</ul>
+				<TablesViewFlow tables={describeProjectResponse.success.tables} projectId={projectId}>
+					<ProjecttTitle title={describeProjectResponse.success.title} />
+				</TablesViewFlow>
 			) : (
-				<p>{describeProjectResponse.error}</p>
+				<p className="text-xs text-destructive">{describeProjectResponse.error}</p>
 			)}
 		</>
 	);
 }
 
 function TablesViewFallback() {
-	return <p>loading</p>;
+	return <IconLoader2 className="text-secondary1 animate-spin" />;
 }
 
 export { TablesView, TablesViewFallback };

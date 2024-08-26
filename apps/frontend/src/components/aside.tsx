@@ -16,12 +16,13 @@ function Aside({ children }: { children: ReactNode }) {
 				className="absolute top-0 -left-2 text-light3 hover:text-light2 z-[1000]">
 				{open ? <IconLayoutSidebarLeftCollapse /> : <IconLayoutSidebarLeftExpand />}
 			</Button>
+			<h1 className="absolute top-0 -right-10">hola</h1>
 			<aside
 				className={cn(
-					open ? 'w-1/5 opacity-100' : 'w-0 opacity-0',
-					'flex-shrink-0 overflow-x-hidden flex-col h-full bg-dark1 rounded-2xl border border-dark2 p-6 pt-14 duration-200 ease-in'
+					open ? 'w-1/4 opacity-100 ' : 'w-[0px] opacity-0',
+					'relative flex-shrink-0 overflow-x-hidden flex-col h-full bg-dark1 rounded-2xl border border-dark2 duration-200 ease-in'
 				)}>
-				<div className="w-[200px]">{children}</div>
+				<div className="w-full pt-6 px-3">{children}</div>
 			</aside>
 		</>
 	);

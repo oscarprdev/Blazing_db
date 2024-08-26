@@ -1,41 +1,33 @@
 'use server';
 
-import { auth } from '@/src/auth';
+import AccordionProjects from '@/src/components/accordion-projects';
+import AccordionQueries from '@/src/components/accordion-queries';
 import Aside from '@/src/components/aside';
 import HeaderDashboard from '@/src/components/header-dashboard';
-import { ProjectList, ProjectListFallback } from '@/src/components/project-list';
 import { TablesView, TablesViewFallback } from '@/src/components/tables-view';
-import { redirect } from 'next/navigation';
 import { Suspense } from 'react';
 
 async function DashboardPage({
-	searchParams: { project },
+	searchParams: { projectId },
 }: {
 	searchParams: {
-		project: string | undefined;
+		projectId: string | undefined;
 	};
 }) {
-	const session = await auth();
-	if (!session?.user?.id || !session.user.email) return redirect('/');
+	console.log('project', projectId);
 
 	return (
 		<div className="flex flex-col m-0 h-screen p-3">
-			<HeaderDashboard email={session.user.email} />
+			<HeaderDashboard />
 			<main className="relative flex w-full bg-dark h-full mt-2 overflow-hidden">
 				<Aside>
-					<p className="text-sm text-light2">No queries yet.</p>
+					<AccordionProjects projectId={projectId} />
+					<AccordionQueries />
 				</Aside>
 				<section className="relative grid place-items-center max-w-full flex-1 overflow-hidden">
-					<article className="absolute top-0 left-2 flex w-full gap-3 items-center justify-between rounded-xl pr-2">
-						<Suspense fallback={<ProjectListFallback />}>
-							<ProjectList userToken={session.user.id} projectId={project} />
-						</Suspense>
-					</article>
-					{project && (
-						<Suspense fallback={<TablesViewFallback />}>
-							<TablesView projectId={project} token={session.user.id} />
-						</Suspense>
-					)}
+					<Suspense key={projectId} fallback={<TablesViewFallback />}>
+						{projectId && <TablesView projectId={projectId} />}
+					</Suspense>
 				</section>
 			</main>
 		</div>

@@ -40,11 +40,11 @@ export async function register({ email, password }: { email: string; password: s
 	}
 }
 
-export async function listProjects({ userToken }: { userToken: string }) {
+export async function listProjects({ token }: { token: string }) {
 	try {
 		const response = await fetch(`${API_URL}/project/list`, {
 			headers: {
-				Authorization: userToken,
+				Authorization: token,
 			},
 		});
 
@@ -102,6 +102,7 @@ export async function createProject({
 export async function describeProject({ projectId, userToken }: { projectId: string; userToken: string }) {
 	try {
 		const response = await fetch(`${API_URL}/project/${projectId}`, {
+			method: 'GET',
 			headers: {
 				Authorization: userToken,
 			},
@@ -113,13 +114,19 @@ export async function describeProject({ projectId, userToken }: { projectId: str
 
 		if (jsonResponse.status === 500) return errorResponse(jsonResponse.message);
 
-		const dataResponse = { tables: jsonResponse.data.tables, message: jsonResponse.message } as {
+		const dataResponse = {
+			title: jsonResponse.data.title,
+			tables: jsonResponse.data.tables,
+			message: jsonResponse.message,
+		} as {
+			title: string;
 			tables: Table[];
 			message: string;
 		};
 
 		return successResponse(dataResponse);
 	} catch (error: unknown) {
+		console.log(error);
 		return errorResponse(error instanceof Error ? error.message : 'Error listing projects');
 	}
 }
