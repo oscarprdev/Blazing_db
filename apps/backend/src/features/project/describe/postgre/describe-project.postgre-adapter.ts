@@ -1,5 +1,6 @@
 import { DescribeProjectPorts, DescribeProjectPortsTypes } from '../describe-project.ports';
 import { DescribeProjecPostgreInfra } from './describe-project.postgre-infra';
+import { ProjectType } from '@/types';
 
 export class DescribeProjectPostgreAdapter implements DescribeProjectPorts {
 	constructor(private readonly infra: DescribeProjecPostgreInfra) {}
@@ -8,6 +9,7 @@ export class DescribeProjectPostgreAdapter implements DescribeProjectPorts {
 		const res = await this.infra.describeProject(projectId);
 
 		return {
+			type: res.type as ProjectType,
 			title: res.title,
 			databaseUrl: res.url,
 		};

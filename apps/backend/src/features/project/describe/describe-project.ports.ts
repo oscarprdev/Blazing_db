@@ -1,3 +1,5 @@
+import { ProjectType } from '@/types';
+
 export interface DescribeProjectPorts {
 	describeProject(projectId: string): Promise<DescribeProjectPortsTypes.DescribeDatabaseUrlOutput>;
 	extractTables(databaseUrl: string): Promise<DescribeProjectPortsTypes.ExtractTablesOutput>;
@@ -8,6 +10,7 @@ export interface DescribeProjectPorts {
 
 export namespace DescribeProjectPortsTypes {
 	export type DescribeDatabaseUrlOutput = {
+		type: ProjectType;
 		title: string;
 		databaseUrl: string | null;
 	};

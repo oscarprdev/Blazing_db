@@ -1,4 +1,3 @@
-import QueryProvider from '../lib/providers/query-provider';
 import '@/src/app/globals.css';
 import { cn } from '@/src/lib/utils';
 import { GeistMono } from 'geist/font/mono';

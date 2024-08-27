@@ -65,12 +65,7 @@ function ProjectItem({
 			{currentProjectId === projectId && (
 				<span className="absolute size-2 rounded-full top-0 left-0 bg-secondary"></span>
 			)}
-			<Link
-				href={{
-					pathname: '/dashboard',
-					query: { projectId },
-				}}
-				className="hover:underline duration-150">
+			<Link href={`/dashboard?projectId=${projectId}`} className="hover:underline duration-150">
 				{title}
 			</Link>
 			<IconDots size={16} />

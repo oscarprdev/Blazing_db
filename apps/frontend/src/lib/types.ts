@@ -8,6 +8,11 @@ export enum FormAuthMode {
 	signup = 'signup',
 }
 
+export enum AiLanguage {
+	SQL = 'sql',
+	JAVASCRIPT = 'javascript',
+}
+
 export type Project = {
 	projectId: string;
 	title: string;

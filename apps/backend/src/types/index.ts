@@ -5,9 +5,14 @@ export enum ProjectType {
 	mongoDb = 'mongoDb',
 }
 
+export enum QueryLanguage {
+	SQL = 'sql',
+	JAVASCRIPT = 'javascript',
+}
+
 export type TableField = {
 	name: string;
-	value: string;
+	value: string | null;
 	type: string;
 	fieldConstraint: string;
 	reference: string;

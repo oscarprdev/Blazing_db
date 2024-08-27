@@ -6,9 +6,8 @@ import { Background, BackgroundVariant, ReactFlow } from '@xyflow/react';
 import '@xyflow/react/dist/style.css';
 import { ReactNode } from 'react';
 
-function TablesViewFlow({ projectId, tables, children }: { projectId: string; tables: Table[]; children: ReactNode }) {
-	const { nodes, setNodes, onNodesChange, edges, setEdges, onEdgesChange } = useTableViewFlow({
-		projectId,
+function TablesViewFlow({ tables, children }: { tables: Table[]; children: ReactNode }) {
+	const { nodes, onNodesChange, edges, onEdgesChange } = useTableViewFlow({
 		tables,
 	});
 

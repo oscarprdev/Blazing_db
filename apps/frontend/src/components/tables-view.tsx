@@ -3,6 +3,7 @@
 import { auth } from '../auth';
 import { describeProject } from '../lib/db/queries';
 import { isError } from '../lib/utils';
+import { FormAi, FormAiSkeleton } from './form-ai';
 import ProjecttTitle from './project-title';
 import TablesViewFlow from './tables-view-flow';
 import { IconLoader2 } from '@tabler/icons-react';
@@ -14,9 +15,15 @@ async function TablesView({ projectId }: { projectId: string }) {
 	return (
 		<>
 			{!isError(describeProjectResponse) ? (
-				<TablesViewFlow tables={describeProjectResponse.success.tables} projectId={projectId}>
-					<ProjecttTitle title={describeProjectResponse.success.title} />
-				</TablesViewFlow>
+				<>
+					<TablesViewFlow tables={describeProjectResponse.success.tables}>
+						<ProjecttTitle title={describeProjectResponse.success.title} />
+					</TablesViewFlow>
+					<FormAi
+						tables={describeProjectResponse.success.tables}
+						type={describeProjectResponse.success.type}
+					/>
+				</>
 			) : (
 				<p className="text-xs text-destructive">{describeProjectResponse.error}</p>
 			)}
@@ -25,7 +32,12 @@ async function TablesView({ projectId }: { projectId: string }) {
 }
 
 function TablesViewFallback() {
-	return <IconLoader2 className="text-secondary1 animate-spin" />;
+	return (
+		<section className="relative w-full h-full bg-dark grid place-items-center">
+			<IconLoader2 className="animate-spin text-secondary" />
+			<FormAiSkeleton />
+		</section>
+	);
 }
 
 export { TablesView, TablesViewFallback };

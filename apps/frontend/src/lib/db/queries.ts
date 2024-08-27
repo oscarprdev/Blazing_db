@@ -1,5 +1,5 @@
 import { API_URL } from '../constants';
-import { Project, ProjectType, Table } from '../types';
+import { AiLanguage, Project, ProjectType, Table } from '../types';
 import { errorResponse, successResponse } from '../utils';
 
 export async function login({ email, password }: { email: string; password: string }) {
@@ -101,7 +101,54 @@ export async function createProject({
 
 export async function describeProject({ projectId, userToken }: { projectId: string; userToken: string }) {
 	try {
+		console.log(projectId);
 		const response = await fetch(`${API_URL}/project/${projectId}`, {
+			headers: {
+				Authorization: userToken,
+			},
+			cache: 'no-store',
+			next: { tags: ['describeProject'] },
+		});
+
+		if (!response.ok) return errorResponse(response.statusText);
+
+		const jsonResponse = await response.json();
+
+		if (jsonResponse.status === 500) return errorResponse(jsonResponse.message);
+
+		const dataResponse = {
+			type: jsonResponse.data.type,
+			title: jsonResponse.data.title,
+			tables: jsonResponse.data.tables,
+			message: jsonResponse.message,
+		} as {
+			type: ProjectType;
+			title: string;
+			tables: Table[];
+			message: string;
+		};
+
+		return successResponse(dataResponse);
+	} catch (error: unknown) {
+		return errorResponse(error instanceof Error ? error.message : 'Error listing projects');
+	}
+}
+
+export async function applyQuery({
+	projectId,
+	query,
+	language,
+	userToken,
+}: {
+	projectId: string;
+	query: string;
+	language: AiLanguage;
+	userToken: string;
+}) {
+	try {
+		const response = await fetch(`${API_URL}/query/${projectId}`, {
+			method: 'POST',
+			body: JSON.stringify({ query, language }),
 			headers: {
 				Authorization: userToken,
 			},
@@ -113,18 +160,12 @@ export async function describeProject({ projectId, userToken }: { projectId: str
 
 		if (jsonResponse.status === 500) return errorResponse(jsonResponse.message);
 
-		const dataResponse = {
-			title: jsonResponse.data.title,
-			tables: jsonResponse.data.tables,
-			message: jsonResponse.message,
-		} as {
-			title: string;
-			tables: Table[];
-			message: string;
+		const dataResponse = { response: jsonResponse.data.response } as {
+			response: string;
 		};
 
 		return successResponse(dataResponse);
 	} catch (error: unknown) {
-		return errorResponse(error instanceof Error ? error.message : 'Error listing projects');
+		return errorResponse(error instanceof Error ? error.message : 'Error applying query, please try again later');
 	}
 }

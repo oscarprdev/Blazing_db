@@ -41,3 +41,25 @@
 
 @layer utilities {
 }
+
+::-webkit-scrollbar {
+	width: 3px;
+	height: 5px;
+	overflow: visible;
+	background: transparent;
+}
+
+::-webkit-scrollbar-track {
+	margin: 0;
+	border-radius: 0;
+	background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+	border-radius: 10px;
+	background: transparent;
+}
+
+*[aria-label='scroll']:hover::-webkit-scrollbar-thumb {
+	background: var(--secondary);
+}

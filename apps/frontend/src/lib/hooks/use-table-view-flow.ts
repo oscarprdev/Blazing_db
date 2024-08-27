@@ -1,7 +1,7 @@
 import { Table } from '../types';
 import TableCard from '@/src/components/table-card';
 import { MarkerType, useEdgesState, useNodesState } from '@xyflow/react';
-import { useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
 
 export const nodeTypes = { tableCard: TableCard };
 
@@ -22,7 +22,7 @@ function calculateMarginX(index: number) {
 	return columnIndex * marginX + gap;
 }
 
-export function useTableViewFlow({ projectId, tables }: { projectId: string; tables: Table[] }) {
+export function useTableViewFlow({ tables }: { tables: Table[] }) {
 	const initialTableNodes = useMemo(
 		() => [
 			...tables.map((table, index) => ({
@@ -32,7 +32,7 @@ export function useTableViewFlow({ projectId, tables }: { projectId: string; tab
 				position: { x: calculateMarginX(index), y: calculateMarginY(index) },
 			})),
 		],
-		[projectId]
+		[tables]
 	);
 
 	function serveTablesEdges(tables: Table[]) {
@@ -63,15 +63,18 @@ export function useTableViewFlow({ projectId, tables }: { projectId: string; tab
 		return edges;
 	}
 
-	const [nodes, setNodes, onNodesChange] = useNodesState(initialTableNodes);
+	const [nodes, setNodes, onNodesChange] = useNodesState([...initialTableNodes]);
 	const [edges, setEdges, onEdgesChange] = useEdgesState(serveTablesEdges(tables));
+
+	useEffect(() => {
+		setNodes(initialTableNodes);
+		setEdges(serveTablesEdges(tables));
+	}, [tables]);
 
 	return {
 		nodes,
-		setNodes,
 		onNodesChange,
 		edges,
-		setEdges,
 		onEdgesChange,
 	};
 }
