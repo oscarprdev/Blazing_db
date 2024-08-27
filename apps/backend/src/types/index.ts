@@ -38,3 +38,11 @@ export type ProjectDb = {
 	title: string;
 	url: string;
 };
+
+export type QueryDb = {
+	queryId: string;
+	createdAt: string;
+	value: string;
+	language: string;
+	response: string;
+};

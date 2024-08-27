@@ -1,6 +1,8 @@
+'use server';
+
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/src/components/ui/accordion';
 
-function QueriesList() {
+async function QueriesList() {
 	return (
 		<Accordion type="single" collapsible className="w-full text-light2">
 			<AccordionItem value="item-1" className="border-none w-full mt-2">

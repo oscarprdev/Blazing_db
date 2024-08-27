@@ -1,6 +1,6 @@
-import { DescribeProjectInfra } from '../shared/describe-project.infra';
 import { DescribProjectsPostgreTypes } from './describe-project.postgre-types';
 import { Database } from '@/db';
+import { SharedInfra } from '@/features/shared/shared.infra';
 import { Client } from 'pg';
 
 interface IDescribeProjectPostgreInfra {
@@ -17,7 +17,7 @@ interface IDescribeProjectPostgreInfra {
 	): Promise<DescribProjectsPostgreTypes.ExtractReferenceInfraOutput>;
 }
 
-export class DescribeProjecPostgreInfra extends DescribeProjectInfra implements IDescribeProjectPostgreInfra {
+export class DescribeProjecPostgreInfra extends SharedInfra implements IDescribeProjectPostgreInfra {
 	constructor(db: Database) {
 		super(db);
 	}

@@ -1,6 +1,6 @@
-import { CreateQueryInfra } from '../shared/create-query.infra';
 import { CreateQueryPostgreTypes } from './create-query.postgre-types';
 import { Database } from '@/db';
+import { SharedInfra } from '@/features/shared/shared.infra';
 import { Client } from 'pg';
 
 export interface ICreateQueryPostgreInfra {
@@ -8,7 +8,7 @@ export interface ICreateQueryPostgreInfra {
 	storeQuery(input: CreateQueryPostgreTypes.StoreQueryInput): Promise<void>;
 }
 
-export class CreateQueryPostgreInfra extends CreateQueryInfra implements ICreateQueryPostgreInfra {
+export class CreateQueryPostgreInfra extends SharedInfra implements ICreateQueryPostgreInfra {
 	private readonly database: Database;
 
 	constructor(db: Database) {

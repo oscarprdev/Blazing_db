@@ -8,6 +8,7 @@ import { DescribeProjectController } from '@/features/project/describe/describe-
 import { provideDescribeProjectPostgreUsecaseSingleton } from '@/features/project/describe/describe-project.index';
 import { provideListProjectsPostgreUsecaseSingleton } from '@/features/project/list/list-project.index';
 import { CreateQueryController } from '@/features/query/create/create-query.controller';
+import { provideListQueryUsecaseSingleton } from '@/features/query/list/list-query.index';
 import { authMiddleware } from '@/middleware/auth';
 import { Router, RouterType } from 'itty-router';
 
@@ -84,6 +85,20 @@ export class DefaultRouter implements RouterStrategy {
 				authMiddleware(
 					async req => {
 						const handler = await new DescribeProjectController(db).serveHandler(req.params.projectId);
+						return handler.handleRequest(req, env);
+					},
+					env,
+					db
+				)
+			)
+		);
+
+		this.internalRouter.get(
+			`/query/list/:projectId`,
+			corsMiddleware(
+				authMiddleware(
+					async req => {
+						const handler = provideListQueryUsecaseSingleton(db);
 						return handler.handleRequest(req, env);
 					},
 					env,
