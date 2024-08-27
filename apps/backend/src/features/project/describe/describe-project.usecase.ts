@@ -59,8 +59,6 @@ export class DescribeProjectUsecase implements IDescribeProjectUsecase {
 			this.ports.extractValues(databaseUrl, table),
 		]);
 
-		console.log(fields);
-
 		return fields.map((field, i) => ({
 			...field,
 			value: values.length > 0 ? Object.values(values[0])[i] : null,
@@ -68,7 +66,6 @@ export class DescribeProjectUsecase implements IDescribeProjectUsecase {
 	}
 
 	private async includeReferences(databaseUrl: string, table: string, fields: DescribeProjectTypes.EnrichedField[]) {
-		console.log(fields);
 		const foreignFields = fields.filter(field => field.fieldConstraint === 'FOREIGN KEY');
 		if (foreignFields.length === 0) return fields.map(f => ({ ...f, reference: '' }));
 

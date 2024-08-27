@@ -11,7 +11,7 @@ export class ListQueryAdapter implements ListQueryPorts {
 		return {
 			queries: res.map(q => ({
 				queryId: q.queryid,
-				value: q.queryid,
+				value: q.value,
 				language: q.language,
 				createdAt: q.createdat,
 				response: q.response,

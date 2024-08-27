@@ -1,4 +1,3 @@
-import { DescribeProjectInfra } from '../describe/shared/describe-project.infra';
 import { CreateProjectPorts, CreateProjectPortsTypes } from './create-project.ports';
 import { Database } from '@/db';
 

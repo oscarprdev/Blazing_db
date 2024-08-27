@@ -33,3 +33,11 @@ export type Table = {
 	isReferenced: boolean;
 	fields: Field[];
 };
+
+export type QueryDb = {
+	queryId: string;
+	createdAt: string;
+	value: string;
+	language: string;
+	response: string;
+};

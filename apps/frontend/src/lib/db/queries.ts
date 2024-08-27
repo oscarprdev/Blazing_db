@@ -1,5 +1,5 @@
 import { API_URL } from '../constants';
-import { AiLanguage, Project, ProjectType, Table } from '../types';
+import { AiLanguage, Project, ProjectType, QueryDb, Table } from '../types';
 import { errorResponse, successResponse } from '../utils';
 
 export async function login({ email, password }: { email: string; password: string }) {
@@ -167,5 +167,27 @@ export async function applyQuery({
 		return successResponse(dataResponse);
 	} catch (error: unknown) {
 		return errorResponse(error instanceof Error ? error.message : 'Error applying query, please try again later');
+	}
+}
+
+export async function listQueries({ token, projectId }: { token: string; projectId: string }) {
+	try {
+		const response = await fetch(`${API_URL}/query/list/${projectId}`, {
+			headers: {
+				Authorization: token,
+			},
+		});
+
+		if (!response.ok) return errorResponse(response.statusText);
+
+		const jsonResponse = await response.json();
+
+		if (jsonResponse.status === 500) return errorResponse(jsonResponse.message);
+
+		const dataResponse = jsonResponse.data as { queries: QueryDb[] };
+
+		return successResponse(dataResponse);
+	} catch (error: unknown) {
+		return errorResponse(error instanceof Error ? error.message : 'Error listing queries');
 	}
 }

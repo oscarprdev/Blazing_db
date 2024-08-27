@@ -58,9 +58,9 @@ function ProjectItem({
 			key={projectId}
 			className={cn(
 				currentProjectId === projectId
-					? 'bg-dark4 hover:bg-dark5 text-light'
-					: 'bg-dark3 hover:bg-dark4 hover:text-light',
-				'relative px-5 my-1 duration-200 p-2 rounded-lg  w-full flex justify-between items-center font-semibold'
+					? 'bg-dark3 hover:bg-dark4 text-light'
+					: 'bg-dark2 hover:bg-dark3 hover:text-light',
+				'relative px-5 my-1 duration-200 p-2 rounded-lg border border-dark3  w-full flex justify-between items-center font-semibold'
 			)}>
 			{currentProjectId === projectId && (
 				<span className="absolute size-2 rounded-full top-0 left-0 bg-secondary"></span>
