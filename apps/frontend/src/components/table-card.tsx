@@ -42,7 +42,7 @@ function TableCard({
 				{title}
 				<ModalTableDetails title={title} fields={fields} projectTitle={projectTitle}>
 					<Button variant={'secondary'} className="p-2 -mr-2">
-						<IconZoom size={14} />
+						<IconZoom size={14} className="text-light" />
 					</Button>
 				</ModalTableDetails>
 			</div>

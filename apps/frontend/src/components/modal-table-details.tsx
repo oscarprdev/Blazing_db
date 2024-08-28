@@ -54,9 +54,9 @@ function ModalTableDetailsContent({ title, fields }: { title: string; fields: Fi
 					{!isLoading && tableValuesMapped && tableValuesMapped.length > 0 ? (
 						tableValuesMapped.map((item, index) => <TableDetailsAccordionItem item={item} index={index} />)
 					) : !isLoading ? (
-						<p>No values on this table</p>
+						<ModalTableDetailsContentEmpty />
 					) : (
-						<p>Loading...</p>
+						<ModalTableDetailsContentSkeleton />
 					)}
 				</div>
 			</div>
@@ -135,6 +135,66 @@ function TableDetailsAccordionItemField({ field, index }: { field: ModalContentF
 					</Tooltip>
 				</TooltipProvider>
 			)}
+		</div>
+	);
+}
+
+function ModalTableDetailsContentEmpty() {
+	return (
+		<div className="grid place-items-center w-full h-[300px] bg-dark2 border border-dark4 rounded-b-lg">
+			<p className="text-light4 text-sm">The table is empty</p>
+		</div>
+	);
+}
+
+function ModalTableDetailsContentSkeleton() {
+	return (
+		<div className="flex flex-col w-full">
+			<span className="p-3 bg-dark2 animate-pulse">
+				<span className="w-[42%] "></span>
+				<span className="w-[26%]"></span>
+				<span className="w-[23%]"></span>
+			</span>
+			<span className="p-3 bg-dark1 animate-pulse delay-150">
+				<span className="w-[42%] "></span>
+				<span className="w-[26%]"></span>
+				<span className="w-[23%]"></span>
+			</span>
+			<span className="p-3 bg-dark2 animate-pulse delay-300">
+				<span className="w-[42%] "></span>
+				<span className="w-[26%]"></span>
+				<span className="w-[23%]"></span>
+			</span>
+			<span className="p-3 bg-dark1 animate-pulse">
+				<span className="w-[42%] "></span>
+				<span className="w-[26%]"></span>
+				<span className="w-[23%]"></span>
+			</span>
+			<span className="p-3 bg-dark2 animate-pulse delay-150">
+				<span className="w-[42%] "></span>
+				<span className="w-[26%]"></span>
+				<span className="w-[23%]"></span>
+			</span>
+			<span className="p-3 bg-dark1 animate-pulse delay-300">
+				<span className="w-[42%] "></span>
+				<span className="w-[26%]"></span>
+				<span className="w-[23%]"></span>
+			</span>
+			<span className="p-3 bg-dark2 animate-pulse delay-300">
+				<span className="w-[42%] "></span>
+				<span className="w-[26%]"></span>
+				<span className="w-[23%]"></span>
+			</span>
+			<span className="p-3 bg-dark1 animate-pulse">
+				<span className="w-[42%] "></span>
+				<span className="w-[26%]"></span>
+				<span className="w-[23%]"></span>
+			</span>
+			<span className="p-3 bg-dark2 animate-pulse delay-150">
+				<span className="w-[42%] "></span>
+				<span className="w-[26%]"></span>
+				<span className="w-[23%]"></span>
+			</span>
 		</div>
 	);
 }
