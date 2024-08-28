@@ -23,9 +23,9 @@ const TABLE_COLORS = [
 ];
 
 function TableCard({
-	data: { title, fields, isReferenced },
+	data: { title, fields, isReferenced, projectTitle },
 }: {
-	data: { index: number; title: string; fields: Field[]; isReferenced: boolean };
+	data: { index: number; title: string; fields: Field[]; isReferenced: boolean; projectTitle: string };
 }) {
 	const indexColor = useMemo(() => Math.floor(Math.random() * TABLE_COLORS.length), [title]);
 	const fieldWithReferences = useMemo(() => fields.filter(f => f.reference), [title]);
@@ -40,7 +40,7 @@ function TableCard({
 				style={{ backgroundColor: TABLE_COLORS[indexColor] }}
 				className="flex items-center justify-between w-full text-sm px-4 pr-2 capitalize font-semibold opacity-80 group-hover:opacity-100 duration-200">
 				{title}
-				<ModalTableDetails title={title} fields={fields}>
+				<ModalTableDetails title={title} fields={fields} projectTitle={projectTitle}>
 					<Button variant={'secondary'} className="p-2 -mr-2">
 						<IconZoom size={14} />
 					</Button>

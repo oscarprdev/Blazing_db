@@ -16,7 +16,9 @@ async function TablesView({ projectId }: { projectId: string }) {
 		<>
 			{!isError(describeProjectResponse) ? (
 				<>
-					<TablesViewFlow tables={describeProjectResponse.success.tables}>
+					<TablesViewFlow
+						tables={describeProjectResponse.success.tables}
+						projectTitle={describeProjectResponse.success.title}>
 						<ProjecttTitle title={describeProjectResponse.success.title} />
 					</TablesViewFlow>
 					<FormAi

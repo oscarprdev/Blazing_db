@@ -22,13 +22,19 @@ function calculateMarginX(index: number) {
 	return columnIndex * marginX + gap;
 }
 
-export function useTableViewFlow({ tables }: { tables: Table[] }) {
+export function useTableViewFlow({ tables, projectTitle }: { tables: Table[]; projectTitle: string }) {
 	const initialTableNodes = useMemo(
 		() => [
 			...tables.map((table, index) => ({
 				id: table.id,
 				type: 'tableCard',
-				data: { title: table.title, fields: table.fields, index, isReferenced: table.isReferenced },
+				data: {
+					title: table.title,
+					fields: table.fields,
+					index,
+					isReferenced: table.isReferenced,
+					projectTitle,
+				},
 				position: { x: calculateMarginX(index), y: calculateMarginY(index) },
 			})),
 		],
