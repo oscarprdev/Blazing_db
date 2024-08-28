@@ -1,3 +1,4 @@
+import QueryProvider from '../lib/providers/tanstack-query';
 import '@/src/app/globals.css';
 import { cn } from '@/src/lib/utils';
 import { GeistMono } from 'geist/font/mono';
@@ -15,7 +16,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
 	return (
 		<html lang="en">
 			<body className={cn('font-sans antialiased', GeistSans.variable, GeistMono.variable)}>
-				{children}
+				<QueryProvider>{children}</QueryProvider>
 				<Toaster
 					toastOptions={{
 						classNames: {

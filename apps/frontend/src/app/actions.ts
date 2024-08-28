@@ -4,7 +4,7 @@ import { OPEN_API_KEY } from '../lib/constants';
 import { AiLanguage, ProjectType, Table } from '../lib/types';
 import { errorResponse, successResponse } from '../lib/utils';
 import { auth, signIn, signOut } from '@/src/auth';
-import { applyQuery, createProject, deleteQuery, register, updateQuery } from '@/src/lib/db/queries';
+import { applyQuery, createProject, deleteQuery, describeTable, register, updateQuery } from '@/src/lib/db/queries';
 import { createOpenAI } from '@ai-sdk/openai';
 import { streamText } from 'ai';
 import { createStreamableValue } from 'ai/rsc';
@@ -80,7 +80,9 @@ export async function generateAiResponseAction({
 		Your role is to be an experienced backend developer with a huge expertise in generating queries for ${type} database.
 		So based on these tables: ${JSON.stringify(tables)} I want you to respond to this prompt: ${prompt}.
 
-		Hint: The fields which are foreign keys or references to other tables will always have an underscore at position 0 on their names, examples: _userid, _projectid, _bookid.
+		Hint1: The fields which are foreign keys or references to other tables will always have an underscore at position 0 on their names, examples: _userid, _projectid, _bookid.
+		Hint2: If the prompt requires generated random data, don't copy the data from tables provided, use them as example but not copy, generate new ones based on that.
+		Hint3: If a new uuid is required, use some uuid from tables and change last number.
 
 		Your response will be injected directly into a <code/> html tag. So your response must be only the query needed.
 		Not provide any context or extra information, just stick to the current prompt.
@@ -174,4 +176,13 @@ export async function deleteQueryAction({ queryId }: { queryId: string }) {
 	revalidateTag('listQueries');
 
 	return response;
+}
+
+export async function describeTableAction({ projectId, tableTitle }: { projectId: string; tableTitle: string }) {
+	const session = await auth();
+	const userToken = session?.user?.id;
+
+	if (!userToken) return errorResponse('Authorization token not found');
+
+	return await describeTable({ userToken, projectId, tableTitle });
 }

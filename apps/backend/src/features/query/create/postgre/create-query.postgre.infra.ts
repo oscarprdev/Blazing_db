@@ -32,6 +32,7 @@ export class CreateQueryPostgreInfra extends SharedInfra implements ICreateQuery
 
 			return res.rows;
 		} catch (error) {
+			console.log(error);
 			throw new Error(
 				error instanceof Error && error.message.includes('$') ? error.message : 'Error applying query'
 			);

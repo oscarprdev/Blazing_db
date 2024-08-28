@@ -101,7 +101,6 @@ export async function createProject({
 
 export async function describeProject({ projectId, userToken }: { projectId: string; userToken: string }) {
 	try {
-		console.log(projectId);
 		const response = await fetch(`${API_URL}/project/${projectId}`, {
 			headers: {
 				Authorization: userToken,
@@ -251,5 +250,45 @@ export async function deleteQuery({ queryId, token }: { queryId: string; token: 
 		return successResponse('Query successfully deleted');
 	} catch (error: unknown) {
 		return errorResponse(error instanceof Error ? error.message : 'Error deletting query');
+	}
+}
+
+export async function describeTable({
+	projectId,
+	tableTitle,
+	userToken,
+}: {
+	projectId: string;
+	tableTitle: string;
+	userToken: string;
+}) {
+	try {
+		const response = await fetch(`${API_URL}/table/${projectId}/${tableTitle}`, {
+			headers: {
+				Authorization: userToken,
+			},
+		});
+
+		if (!response.ok) return errorResponse(response.statusText);
+
+		const jsonResponse = await response.json();
+
+		if (jsonResponse.status === 500) return errorResponse(jsonResponse.message);
+
+		const dataResponse = {
+			data: jsonResponse.data,
+			message: jsonResponse.message,
+		} as {
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+			data: {
+				key: string;
+				value: string;
+			}[][];
+			message: string;
+		};
+
+		return successResponse(dataResponse);
+	} catch (error: unknown) {
+		return errorResponse(error instanceof Error ? error.message : 'Error listing projects');
 	}
 }

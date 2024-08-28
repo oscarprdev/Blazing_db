@@ -1,12 +1,13 @@
 'use client';
 
+import { useFieldIcon } from '../lib/hooks/use-field-icons';
 import { Field } from '../lib/types';
 import { cn } from '../lib/utils';
+import ModalTableDetails from './modal-table-details';
 import { Button } from './ui/button';
-import { IconBracketsContain, IconCalendarMonth, IconDots, IconHash, IconNumber123 } from '@tabler/icons-react';
+import { IconZoom } from '@tabler/icons-react';
 import { Handle, Position } from '@xyflow/react';
-import { Binary, Braces, Type } from 'lucide-react';
-import { ReactNode, useMemo } from 'react';
+import { useMemo } from 'react';
 
 const TABLE_COLORS = [
 	'#7C9D62', // Olive Green
@@ -21,16 +22,6 @@ const TABLE_COLORS = [
 	'#1E4E65', // Dark Cyan (previously #2D6E8C)
 ];
 
-const FIELD_ICONS: { type: string; icon: ReactNode }[] = [
-	{ type: 'text', icon: <Type size={15} /> },
-	{ type: 'timestamp', icon: <IconCalendarMonth size={15} /> },
-	{ type: 'boolean', icon: <Binary size={15} /> },
-	{ type: 'integer', icon: <IconNumber123 size={15} /> },
-	{ type: 'uuid', icon: <IconHash size={15} /> },
-	{ type: 'array', icon: <IconBracketsContain size={15} /> },
-	{ type: 'json', icon: <Braces size={15} /> },
-];
-
 function TableCard({
 	data: { title, fields, isReferenced },
 }: {
@@ -38,10 +29,6 @@ function TableCard({
 }) {
 	const indexColor = useMemo(() => Math.floor(Math.random() * TABLE_COLORS.length), [title]);
 	const fieldWithReferences = useMemo(() => fields.filter(f => f.reference), [title]);
-
-	function handleIconClick() {
-		console.log('hello');
-	}
 
 	return (
 		<article
@@ -53,20 +40,18 @@ function TableCard({
 				style={{ backgroundColor: TABLE_COLORS[indexColor] }}
 				className="flex items-center justify-between w-full text-sm px-4 pr-2 capitalize font-semibold opacity-80 group-hover:opacity-100 duration-200">
 				{title}
-				<Button variant={'secondary'} onClick={handleIconClick} className="p-2">
-					<IconDots size={16} />
-				</Button>
+				<ModalTableDetails title={title} fields={fields}>
+					<Button variant={'secondary'} className="p-2 -mr-2">
+						<IconZoom size={14} />
+					</Button>
+				</ModalTableDetails>
 			</div>
 			<ul className="flex flex-col w-full">
 				{fields.map(field => (
 					<li
 						key={field.name}
 						className="flex items-center gap-2 px-4 py-2 border-b border-dark3 last:border-none w-full text-light2 hover:text-light1 duration-200 text-sm">
-						{
-							FIELD_ICONS.find(
-								f => f.type === field.type.toLowerCase() || field.type.toLowerCase().includes(f.type)
-							)?.icon
-						}
+						{useFieldIcon(field.type)}
 						{field.name}
 					</li>
 				))}

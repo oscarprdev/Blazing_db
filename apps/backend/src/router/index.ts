@@ -10,6 +10,7 @@ import { provideListProjectsPostgreUsecaseSingleton } from '@/features/project/l
 import { CreateQueryController } from '@/features/query/create/create-query.controller';
 import { provideDeleteQueryUsecaseSingleton } from '@/features/query/delete/delete-query.index';
 import { provideListQueryUsecaseSingleton } from '@/features/query/list/list-query.index';
+import { provideDescribeTableUsecaseSingleton } from '@/features/tables/describe/describe-table.index';
 import { authMiddleware } from '@/middleware/auth';
 import { Router, RouterType } from 'itty-router';
 
@@ -152,6 +153,23 @@ export class DefaultRouter implements RouterStrategy {
 				authMiddleware(
 					async req => {
 						const handler = provideDeleteQueryUsecaseSingleton(db);
+						return handler.handleRequest(req, env);
+					},
+					env,
+					db
+				)
+			)
+		);
+
+		/**
+		 * Describe table values
+		 * */
+		this.internalRouter.get(
+			`/table/:projectId/:table`,
+			corsMiddleware(
+				authMiddleware(
+					async req => {
+						const handler = provideDescribeTableUsecaseSingleton(db);
 						return handler.handleRequest(req, env);
 					},
 					env,
