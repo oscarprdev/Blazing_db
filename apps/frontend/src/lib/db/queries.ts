@@ -292,3 +292,24 @@ export async function describeTable({
 		return errorResponse(error instanceof Error ? error.message : 'Error listing projects');
 	}
 }
+
+export async function deleteProject({ projectId, token }: { projectId: string; token: string }) {
+	try {
+		const response = await fetch(`${API_URL}/project/${projectId}`, {
+			method: 'DELETE',
+			headers: {
+				Authorization: token,
+			},
+		});
+
+		if (!response.ok) return errorResponse(response.statusText);
+
+		const jsonResponse = await response.json();
+
+		if (jsonResponse.status === 500) return errorResponse(jsonResponse.message);
+
+		return successResponse('Project successfully deleted');
+	} catch (error: unknown) {
+		return errorResponse(error instanceof Error ? error.message : 'Error deletting project');
+	}
+}

@@ -7,6 +7,7 @@ import { cn } from '../lib/utils';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/src/components/ui/accordion';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/src/components/ui/dialog';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/src/components/ui/tooltip';
+import { IconLoader2 } from '@tabler/icons-react';
 import { ReactNode } from 'react';
 
 function ModalTableDetails({
@@ -54,9 +55,13 @@ function ModalTableDetailsContent({ title, fields }: { title: string; fields: Fi
 					{!isLoading && tableValuesMapped && tableValuesMapped.length > 0 ? (
 						tableValuesMapped.map((item, index) => <TableDetailsAccordionItem item={item} index={index} />)
 					) : !isLoading ? (
-						<ModalTableDetailsContentEmpty />
+						<ModalTableDetailsContentWrapper>
+							<p className="text-light4 text-sm">The table is empty</p>
+						</ModalTableDetailsContentWrapper>
 					) : (
-						<ModalTableDetailsContentSkeleton />
+						<ModalTableDetailsContentWrapper>
+							<IconLoader2 className="animate-spin text-secondary" />
+						</ModalTableDetailsContentWrapper>
 					)}
 				</div>
 			</div>
@@ -139,64 +144,8 @@ function TableDetailsAccordionItemField({ field, index }: { field: ModalContentF
 	);
 }
 
-function ModalTableDetailsContentEmpty() {
-	return (
-		<div className="grid place-items-center w-full h-[300px] bg-dark2 border border-dark4 rounded-b-lg">
-			<p className="text-light4 text-sm">The table is empty</p>
-		</div>
-	);
-}
-
-function ModalTableDetailsContentSkeleton() {
-	return (
-		<div className="flex flex-col w-full">
-			<span className="p-3 bg-dark2 animate-pulse">
-				<span className="w-[42%] "></span>
-				<span className="w-[26%]"></span>
-				<span className="w-[23%]"></span>
-			</span>
-			<span className="p-3 bg-dark1 animate-pulse delay-150">
-				<span className="w-[42%] "></span>
-				<span className="w-[26%]"></span>
-				<span className="w-[23%]"></span>
-			</span>
-			<span className="p-3 bg-dark2 animate-pulse delay-300">
-				<span className="w-[42%] "></span>
-				<span className="w-[26%]"></span>
-				<span className="w-[23%]"></span>
-			</span>
-			<span className="p-3 bg-dark1 animate-pulse">
-				<span className="w-[42%] "></span>
-				<span className="w-[26%]"></span>
-				<span className="w-[23%]"></span>
-			</span>
-			<span className="p-3 bg-dark2 animate-pulse delay-150">
-				<span className="w-[42%] "></span>
-				<span className="w-[26%]"></span>
-				<span className="w-[23%]"></span>
-			</span>
-			<span className="p-3 bg-dark1 animate-pulse delay-300">
-				<span className="w-[42%] "></span>
-				<span className="w-[26%]"></span>
-				<span className="w-[23%]"></span>
-			</span>
-			<span className="p-3 bg-dark2 animate-pulse delay-300">
-				<span className="w-[42%] "></span>
-				<span className="w-[26%]"></span>
-				<span className="w-[23%]"></span>
-			</span>
-			<span className="p-3 bg-dark1 animate-pulse">
-				<span className="w-[42%] "></span>
-				<span className="w-[26%]"></span>
-				<span className="w-[23%]"></span>
-			</span>
-			<span className="p-3 bg-dark2 animate-pulse delay-150">
-				<span className="w-[42%] "></span>
-				<span className="w-[26%]"></span>
-				<span className="w-[23%]"></span>
-			</span>
-		</div>
-	);
+function ModalTableDetailsContentWrapper({ children }: { children: ReactNode }) {
+	return <div className="grid place-items-center w-full h-[200px] bg-dark1 rounded-b-lg">{children}</div>;
 }
 
 export default ModalTableDetails;

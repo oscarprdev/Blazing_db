@@ -21,7 +21,7 @@ export type Project = {
 
 export type Field = {
 	name: string;
-	value: string;
+	value: string[];
 	type: string;
 	fieldConstraint: string;
 	reference: string;

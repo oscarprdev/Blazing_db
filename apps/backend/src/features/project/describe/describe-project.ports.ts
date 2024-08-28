@@ -21,7 +21,7 @@ export namespace DescribeProjectPortsTypes {
 		fields: FieldPortResponse[];
 	};
 
-	export type ExtractValuesOutput = string[];
+	export type ExtractValuesOutput = Record<string, any>[];
 
 	export type ExtractReference = string;
 

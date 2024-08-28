@@ -1,6 +1,7 @@
 import { AiLanguage } from '../types';
 import { isError } from '../utils';
 import { applyQueryAction } from '@/src/app/actions';
+import { useQueryClient } from '@tanstack/react-query';
 import { useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { toast } from 'sonner';
@@ -13,6 +14,7 @@ export function useFormAiResponse({
 	const [isVisible, setIsVisible] = useState(value.length > 0);
 	const searchParams = useSearchParams();
 	const [queryResponse, setQueryResponse] = useState<string>();
+	const queryClient = useQueryClient();
 
 	async function handleSubmit() {
 		const projectId = searchParams.get('projectId');
@@ -22,6 +24,8 @@ export function useFormAiResponse({
 		if (isError(response)) return toast.error(response.error);
 
 		setQueryResponse(response.success.response);
+
+		queryClient.invalidateQueries({ queryKey: ['fetchValues'] });
 
 		setTimeout(() => {
 			toast.success(response.success.message);

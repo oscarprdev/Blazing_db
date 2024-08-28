@@ -1,7 +1,7 @@
 import { Field } from '../types';
 import { isError } from '../utils';
 import { describeTableAction } from '@/src/app/actions';
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { useSearchParams } from 'next/navigation';
 import { useMemo } from 'react';
 import { toast } from 'sonner';
@@ -18,7 +18,7 @@ export function useModalTableDetails({ title, fields }: { title: string; fields:
 	const params = useSearchParams();
 
 	const { data, isLoading } = useQuery({
-		queryKey: [title],
+		queryKey: ['fetchValues', title],
 		queryFn: async () => {
 			const projectId = params.get('projectId') || '';
 			if (!projectId) {

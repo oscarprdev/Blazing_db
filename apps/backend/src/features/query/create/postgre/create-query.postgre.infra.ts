@@ -28,6 +28,8 @@ export class CreateQueryPostgreInfra extends SharedInfra implements ICreateQuery
 
 			if (query.includes('$')) throw new Error('Expressions as $ are not allowed, insert a value instead');
 
+			await client.query('CREATE EXTENSION IF NOT EXISTS "uuid-ossp";');
+
 			const res = await client.query(query);
 
 			return res.rows;

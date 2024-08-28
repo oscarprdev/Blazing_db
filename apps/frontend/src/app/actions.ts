@@ -4,7 +4,15 @@ import { OPEN_API_KEY } from '../lib/constants';
 import { AiLanguage, ProjectType, Table } from '../lib/types';
 import { errorResponse, successResponse } from '../lib/utils';
 import { auth, signIn, signOut } from '@/src/auth';
-import { applyQuery, createProject, deleteQuery, describeTable, register, updateQuery } from '@/src/lib/db/queries';
+import {
+	applyQuery,
+	createProject,
+	deleteProject,
+	deleteQuery,
+	describeTable,
+	register,
+	updateQuery,
+} from '@/src/lib/db/queries';
 import { createOpenAI } from '@ai-sdk/openai';
 import { streamText } from 'ai';
 import { createStreamableValue } from 'ai/rsc';
@@ -185,4 +193,13 @@ export async function describeTableAction({ projectId, tableTitle }: { projectId
 	if (!userToken) return errorResponse('Authorization token not found');
 
 	return await describeTable({ userToken, projectId, tableTitle });
+}
+
+export async function deleteProjectAction({ projectId }: { projectId: string }) {
+	const session = await auth();
+	const token = session?.user?.id;
+
+	if (!token) return errorResponse('Authorization token not found');
+
+	return await deleteProject({ token, projectId });
 }

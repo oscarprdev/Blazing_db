@@ -12,7 +12,7 @@ export enum QueryLanguage {
 
 export type TableField = {
 	name: string;
-	value: string | null;
+	values: string[];
 	type: string;
 	fieldConstraint: string;
 	reference: string;

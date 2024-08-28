@@ -61,7 +61,7 @@ export class DescribeProjectUsecase implements IDescribeProjectUsecase {
 
 		return fields.map((field, i) => ({
 			...field,
-			value: values.length > 0 ? Object.values(values[0])[i] : null,
+			values: values.map(val => val[field.name] || null),
 		})) satisfies DescribeProjectTypes.EnrichedField[];
 	}
 

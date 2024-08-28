@@ -9,7 +9,7 @@ interface IDescribeProjectPostgreInfra {
 		databaseUrl: string,
 		tableName: string
 	): Promise<DescribProjectsPostgreTypes.ExtractFieldsInfraOutput>;
-	extractValues(databaseUrl: string, tableName: string): Promise<string[]>;
+	extractValues(databaseUrl: string, tableName: string): Promise<Record<string, any>[]>;
 	extractReference(
 		databaseUrl: string,
 		tableName: string,

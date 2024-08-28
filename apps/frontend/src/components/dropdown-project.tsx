@@ -1,7 +1,3 @@
-'use client';
-
-import { Query } from '../lib/types';
-import ModalQueryDetails from './modal-query-details';
 import {
 	DropdownMenu,
 	DropdownMenuContent,
@@ -11,22 +7,21 @@ import {
 import { IconDots } from '@tabler/icons-react';
 import { Trash } from 'lucide-react';
 
-function DropdownQuery({
-	query,
+function DropdownProject({
+	projectId,
 	handleDeleteQuery,
 }: {
-	query: Query;
-	handleDeleteQuery(queryId: string): Promise<string | number>;
+	projectId: string;
+	handleDeleteQuery: (projectId: string) => Promise<string | number>;
 }) {
 	return (
 		<DropdownMenu>
 			<DropdownMenuTrigger className="absolute top-2 right-2 outline-none">
-				<IconDots size={14} />
+				<IconDots size={16} />
 			</DropdownMenuTrigger>
 			<DropdownMenuContent className="mt-2 ml-28 p-3 rounded-lg">
-				<ModalQueryDetails query={query} />
 				<DropdownMenuItem
-					onClick={() => handleDeleteQuery(query.queryId)}
+					onClick={() => handleDeleteQuery(projectId)}
 					className="text-light2 p-1 hover:text-light1 flex items-center gap-2 cursor-pointer">
 					<Trash size={14} />
 					Remove
@@ -36,4 +31,4 @@ function DropdownQuery({
 	);
 }
 
-export default DropdownQuery;
+export default DropdownProject;
