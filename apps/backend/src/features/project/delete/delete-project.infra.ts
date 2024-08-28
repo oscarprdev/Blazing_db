@@ -16,7 +16,7 @@ export class DeleteProjectInfra extends SharedInfra implements IDeleteProjectInf
 
 	async delete(projectId: string): Promise<void> {
 		try {
-			await this.database.query('DELETE projects WHERE projectid = $1', [projectId]);
+			await this.database.query('DELETE FROM projects WHERE projectid = $1', [projectId]);
 		} catch (error) {
 			throw new Error('Error deleting project');
 		}

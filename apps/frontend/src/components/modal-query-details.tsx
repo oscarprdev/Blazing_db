@@ -1,12 +1,12 @@
 import { formatQueryTime } from '../lib/format-time';
-import { useModalQueryDetails } from '../lib/hooks/use-modal-query-details';
+import { useModal } from '../lib/hooks/use-modal';
 import { Query } from '../lib/types';
 import FormUpdateQuery from './form-update-query';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/src/components/ui/dialog';
 import { IconBook } from '@tabler/icons-react';
 
 function ModalQueryDetails({ query }: { query: Query }) {
-	const { modalTriggerRef, handleCloseModal } = useModalQueryDetails();
+	const { modalTriggerRef, handleCloseModal } = useModal();
 
 	return (
 		<Dialog>

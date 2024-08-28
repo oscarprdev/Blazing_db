@@ -114,7 +114,7 @@ export class DefaultRouter implements RouterStrategy {
 		/**
 		 * Delete project
 		 * */
-		this.internalRouter.get(
+		this.internalRouter.delete(
 			`/project/:projectId`,
 			corsMiddleware(
 				authMiddleware(

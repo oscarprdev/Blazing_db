@@ -1,6 +1,6 @@
 import { useRef } from 'react';
 
-export function useModalQueryDetails() {
+export function useModal() {
 	const modalTriggerRef = useRef<HTMLButtonElement>(null);
 
 	function handleCloseModal() {

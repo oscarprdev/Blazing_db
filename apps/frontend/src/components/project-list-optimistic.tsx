@@ -28,7 +28,11 @@ function ProjectListOptimistic({ currentProjectId, projects }: { currentProjectI
 					<Link href={`/dashboard?projectId=${project.projectId}`} className="hover:underline duration-150">
 						{project.title}
 					</Link>
-					<DropdownProject projectId={project.projectId} handleDeleteQuery={handleDeleteQuery} />
+					<DropdownProject
+						projectId={project.projectId}
+						projectTitle={project.title}
+						handleDeleteQuery={handleDeleteQuery}
+					/>
 				</li>
 			))}
 		</ul>

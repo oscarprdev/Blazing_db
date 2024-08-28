@@ -1,31 +1,27 @@
-import {
-	DropdownMenu,
-	DropdownMenuContent,
-	DropdownMenuItem,
-	DropdownMenuTrigger,
-} from '@/src/components/ui/dropdown-menu';
+import ModalDeleteProject from './modal-delete-project';
+import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger } from '@/src/components/ui/dropdown-menu';
 import { IconDots } from '@tabler/icons-react';
-import { Trash } from 'lucide-react';
 
 function DropdownProject({
 	projectId,
+	projectTitle,
 	handleDeleteQuery,
 }: {
 	projectId: string;
+	projectTitle: string;
 	handleDeleteQuery: (projectId: string) => Promise<string | number>;
 }) {
 	return (
 		<DropdownMenu>
-			<DropdownMenuTrigger className="absolute top-2 right-2 outline-none">
+			<DropdownMenuTrigger asChild className="absolute top-2 right-2 outline-none">
 				<IconDots size={16} />
 			</DropdownMenuTrigger>
 			<DropdownMenuContent className="mt-2 ml-28 p-3 rounded-lg">
-				<DropdownMenuItem
-					onClick={() => handleDeleteQuery(projectId)}
-					className="text-light2 p-1 hover:text-light1 flex items-center gap-2 cursor-pointer">
-					<Trash size={14} />
-					Remove
-				</DropdownMenuItem>
+				<ModalDeleteProject
+					projectId={projectId}
+					projectTitle={projectTitle}
+					handleDeleteQuery={handleDeleteQuery}
+				/>
 			</DropdownMenuContent>
 		</DropdownMenu>
 	);
