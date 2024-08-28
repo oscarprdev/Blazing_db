@@ -6,6 +6,7 @@ import { Client } from 'pg';
 export interface ICreateQueryPostgreInfra {
 	applyQuery(input: CreateQueryPostgreTypes.ApplyQueryInput): Promise<any>;
 	storeQuery(input: CreateQueryPostgreTypes.StoreQueryInput): Promise<void>;
+	updateQuery(input: CreateQueryPostgreTypes.UpdateQueryInput): Promise<void>;
 }
 
 export class CreateQueryPostgreInfra extends SharedInfra implements ICreateQueryPostgreInfra {
@@ -43,9 +44,25 @@ export class CreateQueryPostgreInfra extends SharedInfra implements ICreateQuery
 				`
                 INSERT INTO 
                     queries (queryid, projectownerid, value, language, response, createdat) 
-                    VALUES ($1, $2, $3, $4, $5, $6);
+                    VALUES ($1, $2, $3, $4, $5, $6::timestamptz AT TIME ZONE 'Europe/Berlin');
                 `,
 				[crypto.randomUUID().toString(), projectId, query, language, response, new Date().toISOString()]
+			);
+		} catch (error) {
+			console.log(error);
+			throw new Error('Error storing query on database');
+		}
+	}
+
+	async updateQuery({ queryId, query, language, response }: CreateQueryPostgreTypes.UpdateQueryInput): Promise<void> {
+		try {
+			await this.database.query(
+				`
+				UPDATE queries 
+					SET value = $1, language = $2, response = $3, createdAt = $4::timestamptz AT TIME ZONE 'Europe/Berlin'
+				WHERE queryid = $5;
+                `,
+				[query, language, response, new Date().toISOString(), queryId]
 			);
 		} catch (error) {
 			console.log(error);

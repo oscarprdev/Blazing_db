@@ -19,7 +19,7 @@ export class ListQueryInfra extends SharedInfra implements IListQueryInfra {
 		try {
 			const res = await this.database.query(
 				` 
-                    SELECT * FROM queries WHERE projectownerid = $1;
+                    SELECT * FROM queries WHERE projectownerid = $1 ORDER BY createdat DESC;
                 `,
 				[projectId]
 			);

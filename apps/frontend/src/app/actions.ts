@@ -4,7 +4,7 @@ import { OPEN_API_KEY } from '../lib/constants';
 import { AiLanguage, ProjectType, Table } from '../lib/types';
 import { errorResponse, successResponse } from '../lib/utils';
 import { auth, signIn, signOut } from '@/src/auth';
-import { applyQuery, createProject, register } from '@/src/lib/db/queries';
+import { applyQuery, createProject, deleteQuery, register, updateQuery } from '@/src/lib/db/queries';
 import { createOpenAI } from '@ai-sdk/openai';
 import { streamText } from 'ai';
 import { createStreamableValue } from 'ai/rsc';
@@ -134,6 +134,44 @@ export async function applyQueryAction({
 	const response = await applyQuery({ projectId, query, language, userToken });
 
 	revalidateTag('describeProject');
+	revalidateTag('listQueries');
+
+	return response;
+}
+
+export async function updateQueryAction({
+	projectId,
+	queryId,
+	query,
+	language,
+}: {
+	projectId: string;
+	queryId: string;
+	query: string;
+	language: AiLanguage;
+}) {
+	const session = await auth();
+	const userToken = session?.user?.id;
+
+	if (!userToken) return errorResponse('Authorization token not found');
+
+	const response = await updateQuery({ projectId, queryId, query, language, userToken });
+
+	revalidatePath('describeProject');
+	revalidatePath('listQueries');
+
+	return response;
+}
+
+export async function deleteQueryAction({ queryId }: { queryId: string }) {
+	const session = await auth();
+	const userToken = session?.user?.id;
+
+	if (!userToken) return errorResponse('Authorization token not found');
+
+	const response = await deleteQuery({ queryId, token: userToken });
+
+	revalidateTag('listQueries');
 
 	return response;
 }

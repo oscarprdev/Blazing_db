@@ -22,7 +22,7 @@ function Aside({ children }: { children: ReactNode }) {
 					open ? 'w-[0px] opacity-0 md:w-1/4 md:opacity-100' : 'w-[0px] opacity-0',
 					'relative flex-shrink-0 overflow-x-hidden flex-col h-full bg-dark1 rounded-2xl border border-dark2 duration-200 ease-in'
 				)}>
-				<div className="w-full pt-6 px-3">{children}</div>
+				<div className="flex flex-col w-full pt-6 px-3 pb-2 h-full">{children}</div>
 			</aside>
 		</>
 	);

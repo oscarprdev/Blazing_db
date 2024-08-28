@@ -25,7 +25,7 @@ async function ProjectList({ projectId }: { projectId?: string }) {
 	return (
 		<>
 			{!isError(response) ? (
-				<>
+				<ul aria-label="scroll" className="overflow-y-scroll max-h-[150px] w-full">
 					{response.success.projects.map(project => (
 						<ProjectItem
 							key={project.projectId}
@@ -34,7 +34,7 @@ async function ProjectList({ projectId }: { projectId?: string }) {
 							currentProjectId={projectId}
 						/>
 					))}
-				</>
+				</ul>
 			) : (
 				<ProjectListWrapper>
 					<p className="text-xs text-destructive">{response.error}</p>
@@ -54,7 +54,7 @@ function ProjectItem({
 	currentProjectId?: string;
 }) {
 	return (
-		<div
+		<li
 			key={projectId}
 			className={cn(
 				currentProjectId === projectId
@@ -69,7 +69,7 @@ function ProjectItem({
 				{title}
 			</Link>
 			<IconDots size={16} />
-		</div>
+		</li>
 	);
 }
 

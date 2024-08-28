@@ -34,10 +34,10 @@ export type Table = {
 	fields: Field[];
 };
 
-export type QueryDb = {
+export type Query = {
 	queryId: string;
 	createdAt: string;
 	value: string;
-	language: string;
+	language: AiLanguage;
 	response: string;
 };

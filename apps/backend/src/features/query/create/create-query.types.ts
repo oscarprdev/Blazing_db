@@ -5,6 +5,7 @@ export namespace CreateQueryTypes {
 		projectId: string;
 		query: string;
 		language: QueryLanguage;
+		queryId?: string;
 	};
 
 	export type CreateQueryOutput = {

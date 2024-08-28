@@ -6,7 +6,7 @@ import { Suspense } from 'react';
 
 function AccordionProjects({ projectId }: { projectId?: string }) {
 	return (
-		<article className="pt-1 flex w-full gap-3 items-center justify-between rounded-xl pr-2">
+		<article className="pt-1 flex w-full gap-3 items-center justify-between rounded-xl">
 			<Accordion type="single" collapsible className="w-full" defaultValue="item-1">
 				<AccordionItem value="item-1" className="border-none w-full mt-5">
 					<AccordionTrigger className="py-1 w-full text-light1 font-semibold">Projects</AccordionTrigger>

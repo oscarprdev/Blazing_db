@@ -6,7 +6,7 @@ import { vscDarkPlus } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
 function AiViewer({ aiResponse }: { aiResponse: { value: string; language?: AiLanguage } }) {
 	return (
-		<div aria-label="scroll" className="relative max-h-[250px] overflow-y-scroll">
+		<div aria-label="scroll" className="relative max-h-[230px] overflow-y-scroll">
 			{aiResponse.language && <Badge className="absolute top-3 left-3">{aiResponse.language}</Badge>}
 			<ButtonCopyAiResponse aiResponse={aiResponse.value} />
 			<SyntaxHighlighter

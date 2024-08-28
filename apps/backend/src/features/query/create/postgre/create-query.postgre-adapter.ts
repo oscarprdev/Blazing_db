@@ -20,13 +20,25 @@ export class CreateQueryPostreAdapter implements CreateQueryPorts {
 		await this.infra.storeQuery(input);
 	}
 
-	async describeProject(projectId: string): Promise<CreateQueryPortsTypes.DescribeDatabaseUrlOutput> {
+	async updateQuery(input: CreateQueryPortsTypes.UpdateQueryInput): Promise<void> {
+		await this.infra.updateQuery(input);
+	}
+
+	async describeProject(projectId: string): Promise<CreateQueryPortsTypes.DescribeProjectOutput> {
 		const res = await this.infra.describeProject(projectId);
 
 		return {
 			type: res.type as ProjectType,
 			title: res.title,
 			databaseUrl: res.url,
+		};
+	}
+
+	async describeQuery(queryId: string): Promise<CreateQueryPortsTypes.DescribeQueryOutput> {
+		const res = await this.infra.describeQuery(queryId);
+
+		return {
+			queryId: res.queryid,
 		};
 	}
 }

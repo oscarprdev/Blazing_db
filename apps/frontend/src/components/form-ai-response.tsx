@@ -1,15 +1,12 @@
 'use client';
 
-import { applyQueryAction } from '../app/actions';
+import { useFormAiResponse } from '../lib/hooks/use-form-ai-response';
 import { AiLanguage } from '../lib/types';
-import { cn, isError } from '../lib/utils';
+import { cn } from '../lib/utils';
 import AiViewer from './ai-viewer';
 import { Button } from './ui/button';
 import { IconLayoutNavbarCollapse, IconLayoutNavbarExpand, IconLoader2 } from '@tabler/icons-react';
-import { useSearchParams } from 'next/navigation';
-import { useEffect, useState } from 'react';
 import { useFormStatus } from 'react-dom';
-import { toast } from 'sonner';
 
 function FormAiResponse({
 	aiResponse,
@@ -18,33 +15,13 @@ function FormAiResponse({
 	aiResponse: { value: string; language: AiLanguage };
 	handleClearForm: () => void;
 }) {
-	const [isVisible, setIsVisible] = useState(aiResponse.value.length > 0);
-	const searchParams = useSearchParams();
-	const [queryResponse, setQueryResponse] = useState<string>();
-
-	async function handleSubmit() {
-		const projectId = searchParams.get('projectId');
-		if (!projectId) return toast.error('Project is not found and is required to apply the query generated');
-
-		const response = await applyQueryAction({ projectId, query: aiResponse.value, language: aiResponse.language });
-		if (isError(response)) return toast.error(response.error);
-
-		setQueryResponse(response.success.response);
-	}
-
-	function handleIsVisible() {
-		setIsVisible(!isVisible);
-	}
-
-	useEffect(() => {
-		setIsVisible(aiResponse.value.length > 0);
-	}, [aiResponse.value]);
+	const { isVisible, queryResponse, handleIsVisible, handleSubmit } = useFormAiResponse({ aiResponse });
 
 	return (
 		<div
 			className={cn(
-				isVisible ? 'max-h-[500px]' : 'max-h-[0px]',
-				'h-fit overflow-y-auto shadow-lg duration-200 ease-in'
+				isVisible ? 'max-h-[550px]' : 'max-h-[0px]',
+				'h-fit overflow-y-hidden shadow-lg duration-200 ease-in'
 			)}>
 			{aiResponse.value.length > 0 && (
 				<>
@@ -59,7 +36,7 @@ function FormAiResponse({
 							isVisible ? 'opacity-100' : 'opacity-0',
 							'flex flex-col w-full h-full duration-100 ease-in gap-3 bg-dark2 border border-dark3 rounded-3xl p-5 pb-2'
 						)}>
-						<label className=" text-xs text-light2">Query:</label>
+						<label className="text-xs text-light2">Query:</label>
 						<AiViewer aiResponse={aiResponse} />
 						{queryResponse && (
 							<>

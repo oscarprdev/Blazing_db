@@ -11,6 +11,7 @@ export interface ICreateQueryHandler {
 const CreateQuerySectionSchema = z.object({
 	query: z.string(),
 	language: z.string(),
+	queryId: z.string().optional(),
 });
 
 export class CreateQueryHandler implements ICreateQueryHandler {
@@ -27,12 +28,13 @@ export class CreateQueryHandler implements ICreateQueryHandler {
 				query: data.query,
 				language: data.language,
 				projectId,
+				...('queryId' in data && { queryId: data.queryId }),
 			});
 
 			return new Response(
 				JSON.stringify({
 					data: response,
-					message: 'Query created successfully',
+					message: data.queryId ? 'Query updated successfully' : 'Query created successfully',
 				}),
 				{
 					status: 201,

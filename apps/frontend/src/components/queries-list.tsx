@@ -3,6 +3,7 @@
 import { auth } from '../auth';
 import { listQueries } from '../lib/db/queries';
 import { isError } from '../lib/utils';
+import QueriesListOptimistic from './queries-list-optimistic';
 import { IconDots } from '@tabler/icons-react';
 import { ReactNode } from 'react';
 
@@ -20,14 +21,9 @@ async function QueriesList({ projectId }: { projectId?: string }) {
 	return (
 		<>
 			{!isError(response) ? (
-				<ul aria-label="scroll" className="overflow-y-scroll max-h-[320px]">
+				<ul aria-label="scroll" className="overflow-y-scroll max-h-[350px] w-full">
 					{response.success.queries.length > 0 ? (
-						response.success.queries.map(query => (
-							<li className="flex flex-col gap-1 p-2 h-[70px] my-2 justify-center rounded-lg hover:text-light bg-dark2 hover:bg-dark3 border border-dark3 duration-200">
-								<p className="truncate">{query.value}</p>
-								<p className="text-light5 text-xs">{query.createdAt}</p>
-							</li>
-						))
+						<QueriesListOptimistic queries={response.success.queries} />
 					) : (
 						<QueriesListWrapper>
 							<p className="text-xs text-light4">0 queries generated on this project.</p>

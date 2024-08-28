@@ -12,4 +12,11 @@ export namespace CreateQueryPostgreTypes {
 		response: string;
 		language: QueryLanguage;
 	};
+
+	export type UpdateQueryInput = {
+		queryId: string;
+		query: string;
+		response: string;
+		language: QueryLanguage;
+	};
 }

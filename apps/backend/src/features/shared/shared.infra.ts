@@ -1,5 +1,5 @@
 import { SharedPorts } from './shared.ports';
-import { DescribeProjectInfraOutput } from './shared.types';
+import { DescribeProjectInfraOutput, DescribeQueryInfraOutput } from './shared.types';
 import { Database } from '@/db';
 import { UserDb } from '@/types';
 
@@ -23,6 +23,16 @@ export class SharedInfra implements SharedPorts {
 			return res[0] as DescribeProjectInfraOutput;
 		} catch (error) {
 			throw new Error('Error describing project by its id');
+		}
+	}
+
+	async describeQuery(queryId: string) {
+		try {
+			const res = await this.db.query('SELECT * FROM queries WHERE queryid = $1', [queryId]);
+
+			return res[0] as DescribeQueryInfraOutput;
+		} catch (error) {
+			throw new Error('Error describing query by its id');
 		}
 	}
 }

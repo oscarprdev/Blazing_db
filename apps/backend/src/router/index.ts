@@ -8,6 +8,7 @@ import { DescribeProjectController } from '@/features/project/describe/describe-
 import { provideDescribeProjectPostgreUsecaseSingleton } from '@/features/project/describe/describe-project.index';
 import { provideListProjectsPostgreUsecaseSingleton } from '@/features/project/list/list-project.index';
 import { CreateQueryController } from '@/features/query/create/create-query.controller';
+import { provideDeleteQueryUsecaseSingleton } from '@/features/query/delete/delete-query.index';
 import { provideListQueryUsecaseSingleton } from '@/features/query/list/list-query.index';
 import { authMiddleware } from '@/middleware/auth';
 import { Router, RouterType } from 'itty-router';
@@ -35,6 +36,9 @@ export class DefaultRouter implements RouterStrategy {
 	}
 
 	private manageRoutes(db: Database, env: Env) {
+		/**
+		 * Login user
+		 * */
 		this.internalRouter.post(
 			`/auth/login`,
 			corsMiddleware(async req => {
@@ -43,6 +47,9 @@ export class DefaultRouter implements RouterStrategy {
 			})
 		);
 
+		/**
+		 * Register user
+		 * */
 		this.internalRouter.post(
 			`/auth/register`,
 			corsMiddleware(async req => {
@@ -51,6 +58,9 @@ export class DefaultRouter implements RouterStrategy {
 			})
 		);
 
+		/**
+		 * Create new project
+		 * */
 		this.internalRouter.post(
 			`/project/create`,
 			corsMiddleware(
@@ -65,6 +75,9 @@ export class DefaultRouter implements RouterStrategy {
 			)
 		);
 
+		/**
+		 * List projects
+		 * */
 		this.internalRouter.get(
 			`/project/list`,
 			corsMiddleware(
@@ -79,6 +92,9 @@ export class DefaultRouter implements RouterStrategy {
 			)
 		);
 
+		/**
+		 * Describe project by project id
+		 * */
 		this.internalRouter.get(
 			`/project/:projectId`,
 			corsMiddleware(
@@ -93,6 +109,9 @@ export class DefaultRouter implements RouterStrategy {
 			)
 		);
 
+		/**
+		 * List queries by project id
+		 * */
 		this.internalRouter.get(
 			`/query/list/:projectId`,
 			corsMiddleware(
@@ -107,12 +126,32 @@ export class DefaultRouter implements RouterStrategy {
 			)
 		);
 
+		/**
+		 * Create new query
+		 * */
 		this.internalRouter.post(
 			`/query/:projectId`,
 			corsMiddleware(
 				authMiddleware(
 					async req => {
 						const handler = await new CreateQueryController(db).serveHandler(req.params.projectId);
+						return handler.handleRequest(req, env);
+					},
+					env,
+					db
+				)
+			)
+		);
+
+		/**
+		 * Delete query
+		 * */
+		this.internalRouter.delete(
+			`/query/:queryId`,
+			corsMiddleware(
+				authMiddleware(
+					async req => {
+						const handler = provideDeleteQueryUsecaseSingleton(db);
 						return handler.handleRequest(req, env);
 					},
 					env,
