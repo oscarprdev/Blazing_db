@@ -12,29 +12,35 @@ function ProjectListOptimistic({ currentProjectId, projects }: { currentProjectI
 
 	return (
 		<ul aria-label="scroll" className="overflow-y-scroll max-h-[150px] w-full">
-			{optimisticProjects.map(project => (
-				<li
-					key={project.projectId}
-					className={cn(
-						removedId === project.projectId ? 'animate-fade-out' : '',
-						currentProjectId === project.projectId
-							? 'bg-dark3 hover:bg-dark4 text-light'
-							: 'bg-dark2 hover:bg-dark3 hover:text-light',
-						'relative px-5 my-1 duration-200 p-2 rounded-lg border border-dark3  w-full flex justify-between items-center font-semibold'
-					)}>
-					{currentProjectId === project.projectId && (
-						<span className="absolute size-2 rounded-full top-0 left-0 bg-secondary"></span>
-					)}
-					<Link href={`/dashboard?projectId=${project.projectId}`} className="hover:underline duration-150">
-						{project.title}
-					</Link>
-					<DropdownProject
-						projectId={project.projectId}
-						projectTitle={project.title}
-						handleDeleteQuery={handleDeleteQuery}
-					/>
-				</li>
-			))}
+			{optimisticProjects.length > 0 ? (
+				optimisticProjects.map(project => (
+					<li
+						key={project.projectId}
+						className={cn(
+							removedId === project.projectId ? 'animate-fade-out' : '',
+							currentProjectId === project.projectId
+								? 'bg-dark3 hover:bg-dark4 text-light'
+								: 'bg-dark2 hover:bg-dark3 hover:text-light',
+							'relative px-5 my-1 duration-200 p-2 rounded-lg border border-dark3  w-full flex justify-between items-center font-semibold'
+						)}>
+						{currentProjectId === project.projectId && (
+							<span className="absolute size-2 rounded-full top-0 left-0 bg-secondary"></span>
+						)}
+						<Link
+							href={`/dashboard?projectId=${project.projectId}`}
+							className="hover:underline duration-150">
+							{project.title}
+						</Link>
+						<DropdownProject
+							projectId={project.projectId}
+							projectTitle={project.title}
+							handleDeleteQuery={handleDeleteQuery}
+						/>
+					</li>
+				))
+			) : (
+				<p className="text-center text-xs text-light4">Create a project first</p>
+			)}
 		</ul>
 	);
 }

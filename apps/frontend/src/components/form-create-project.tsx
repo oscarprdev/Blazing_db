@@ -42,8 +42,8 @@ function Form({
 			{formState.url.error && <p className="text-xs text-destructive mt-1">{formState.url.error}</p>}
 			<label htmlFor="type" className="my-2 text-sm text-light1">
 				Database type{' '}
-				<Select name="type">
-					<SelectTrigger className="w-[180px] bg-dark2 border-dark4 rounded-lg mt-2 capitalize">
+				<Select name="type" value={ProjectType.postgreSQL}>
+					<SelectTrigger disabled className="w-[180px] bg-dark2 border-dark4 rounded-lg mt-2 capitalize">
 						<SelectValue placeholder="Select type" />
 					</SelectTrigger>
 					<SelectContent className="bg-dark2 gap-2 flex flex-col border border-dark4">

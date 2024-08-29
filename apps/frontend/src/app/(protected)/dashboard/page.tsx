@@ -20,7 +20,7 @@ async function DashboardPage({
 			<main className="relative flex w-full bg-dark h-full mt-2 overflow-hidden">
 				<Aside>
 					<AccordionProjects projectId={projectId} />
-					<AccordionQueries projectId={projectId} />
+					{projectId && <AccordionQueries projectId={projectId} />}
 				</Aside>
 				<section className="relative grid place-items-center max-w-full flex-1 overflow-hidden">
 					<Suspense key={projectId} fallback={<TablesViewFallback />}>

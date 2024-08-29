@@ -2,7 +2,7 @@ import { QueriesList, QueriesListFallback } from './queries-list';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/src/components/ui/accordion';
 import { Suspense } from 'react';
 
-function AccordionQueries({ projectId }: { projectId?: string }) {
+function AccordionQueries({ projectId }: { projectId: string }) {
 	return (
 		<article className="pt-1 flex w-full gap-3 items-center justify-between rounded-xl">
 			<Accordion type="single" collapsible className="w-full" defaultValue="item-1">

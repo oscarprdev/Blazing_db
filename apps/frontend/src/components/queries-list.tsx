@@ -7,14 +7,7 @@ import QueriesListOptimistic from './queries-list-optimistic';
 import { IconDots } from '@tabler/icons-react';
 import { ReactNode } from 'react';
 
-async function QueriesList({ projectId }: { projectId?: string }) {
-	if (!projectId) {
-		return (
-			<QueriesListWrapper>
-				<p className="text-xs text-light4">Select a project first</p>
-			</QueriesListWrapper>
-		);
-	}
+async function QueriesList({ projectId }: { projectId: string }) {
 	const session = await auth();
 	const response = await listQueries({ projectId, token: session?.user?.id || '' });
 
