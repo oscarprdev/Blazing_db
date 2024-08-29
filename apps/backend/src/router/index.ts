@@ -6,7 +6,6 @@ import { provideRegisterUsecaseSingleton } from '@/features/auth/register/regist
 import { provideCreateProjectPostgreUsecaseSingleton } from '@/features/project/create/create-project.index';
 import { provideDeleteProjectUsecaseSingleton } from '@/features/project/delete/delete-project.index';
 import { DescribeProjectController } from '@/features/project/describe/describe-project.controller';
-import { provideDescribeProjectPostgreUsecaseSingleton } from '@/features/project/describe/describe-project.index';
 import { provideEditProjectPostgreUsecaseSingleton } from '@/features/project/edit/edit-project.index';
 import { provideListProjectsPostgreUsecaseSingleton } from '@/features/project/list/list-project.index';
 import { CreateQueryController } from '@/features/query/create/create-query.controller';

@@ -29,6 +29,7 @@ export type UserDb = {
 	userid: string;
 	username: string;
 	password: string;
+	verified: string;
 };
 
 export type ProjectDb = {

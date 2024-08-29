@@ -12,7 +12,9 @@ export class LoginUsecase implements ILoginUsecase {
 
 	async execute({ email, password, salt, secret }: LoginUsecaseTypes.LoginInput): Promise<string> {
 		const user = await this.ports.findUserByEmail(email);
-		if (!user) throw new Error('User not found');
+
+		if (!user.userid) throw new Error('User not found');
+		if (!user.verified) throw new Error('CONFIRMATION_ERROR');
 
 		const isPasswordValid = await this.verifyPassword({ password, hashedPassword: user.password, hexSalt: salt });
 		if (!isPasswordValid) throw new Error('Request payload not valid');

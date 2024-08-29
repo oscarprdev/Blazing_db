@@ -8,10 +8,10 @@ export class RegisterInfra implements RegisterPorts {
 		try {
 			await this.db.query(
 				`
-                INSERT INTO Users (userId, email, password)
-                VALUES ($1, $2, $3);
+                INSERT INTO Users (userId, email, password, verified)
+                VALUES ($1, $2, $3, $4);
             `,
-				[userId, email, password]
+				[userId, email, password, 'true']
 			);
 		} catch (error: unknown) {
 			throw new Error('Error inserting user on Users table');

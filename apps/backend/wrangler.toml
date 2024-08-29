@@ -1,4 +1,4 @@
-name = "db management"
+name = "blazingdb"
 main = "src/index.ts"
 compatibility_date = "2024-05-03"
 node_compat = true
