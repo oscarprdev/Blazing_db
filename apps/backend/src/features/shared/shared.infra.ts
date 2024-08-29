@@ -8,7 +8,7 @@ export class SharedInfra implements SharedPorts {
 
 	async findUserByEmail(email: string) {
 		try {
-			const result = await this.db.query('SELECT * FROM Users WHERE email = $1', [email]);
+			const result = await this.db.query('SELECT * FROM users WHERE email = $1', [email]);
 
 			return result[0] as UserDb;
 		} catch (error) {
