@@ -25,7 +25,10 @@ export function useOptimiticProjects(projects: Project[]) {
 
 	async function handleDeleteQuery(projectId: string) {
 		const project = projects.find(p => p.projectId === projectId);
-		if (!project) return toast.error('Project not found');
+		if (!project) {
+			toast.error('Project not found');
+			return;
+		}
 
 		setRemovedId(projectId);
 
@@ -34,7 +37,10 @@ export function useOptimiticProjects(projects: Project[]) {
 		}, 300);
 
 		const response = await deleteProjectAction({ projectId });
-		if (isError(response)) return toast.error(response.error);
+		if (isError(response)) {
+			toast.error(response.error);
+			return;
+		}
 
 		toast.success(response.success);
 

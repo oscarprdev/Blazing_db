@@ -10,6 +10,7 @@ import {
 	deleteProject,
 	deleteQuery,
 	describeTable,
+	editProject,
 	register,
 	updateQuery,
 } from '@/src/lib/db/queries';
@@ -67,6 +68,18 @@ export async function createProjectAction({
 	if (!userToken) return errorResponse('Authorization token not found');
 
 	return await createProject({ databaseUrl, type, projectTitle, userToken });
+}
+
+export async function editProjectAction({ projectId, projectTitle }: { projectId: string; projectTitle: string }) {
+	const session = await auth();
+	const userToken = session?.user?.id;
+
+	if (!userToken) return errorResponse('Authorization token not found');
+	
+	revalidateTag('describeProject');
+	revalidateTag('listQueries');
+
+	return await editProject({ projectId, projectTitle, userToken });
 }
 
 export async function generateAiResponseAction({

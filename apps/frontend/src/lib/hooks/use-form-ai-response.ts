@@ -46,6 +46,10 @@ export function useFormAiResponse({
 	useEffect(() => {
 		setIsVisible(value.length > 0);
 		setQueryResponse('');
+
+		if (codeRef.current) {
+			codeRef.current.textContent = value;
+		}
 	}, [value]);
 
 	return {

@@ -10,7 +10,7 @@ function ModalDeleteProject({
 }: {
 	projectId: string;
 	projectTitle: string;
-	handleDeleteQuery: (projectId: string) => Promise<string | number>;
+	handleDeleteQuery: (projectId: string) => Promise<void>;
 }) {
 	const { modalTriggerRef, handleCloseModal } = useModal();
 

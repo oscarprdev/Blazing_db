@@ -10,7 +10,7 @@ function DropdownProject({
 }: {
 	projectId: string;
 	projectTitle: string;
-	handleDeleteQuery: (projectId: string) => Promise<string | number>;
+	handleDeleteQuery: (projectId: string) => Promise<void>;
 }) {
 	return (
 		<DropdownMenu>
@@ -18,7 +18,7 @@ function DropdownProject({
 				<IconDots size={16} />
 			</DropdownMenuTrigger>
 			<DropdownMenuContent className="mt-2 ml-28 p-3 rounded-lg">
-				<ModalEditProject />
+				<ModalEditProject projectId={projectId} projectTitle={projectTitle} />
 				<ModalDeleteProject
 					projectId={projectId}
 					projectTitle={projectTitle}

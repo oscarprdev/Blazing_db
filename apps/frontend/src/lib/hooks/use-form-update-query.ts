@@ -26,7 +26,7 @@ export function useFormUpdateQuery({ query: { queryId, value, language, response
 
 		setTimeout(() => {
 			toast.success(response.success.message);
-		}, 2500);
+		}, 2000);
 	}
 
 	return {

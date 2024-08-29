@@ -18,8 +18,10 @@ function AiViewer({
 	aiResponse: { value: string; language?: AiLanguage };
 }) {
 	useEffect(() => {
-		Prism.highlightAll();
-	}, [aiResponse]);
+		if (codeRef?.current) {
+			Prism.highlightElement(codeRef.current);
+		}
+	}, [aiResponse, codeRef?.current?.textContent]);
 
 	return (
 		<div className="relative rounded-xl bg-dark">

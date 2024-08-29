@@ -1,10 +1,10 @@
 import { ProjectType } from '../types';
 import { isError } from '../utils';
+import { defaultUrlSchema, mongodbUrlSchema, postgresUrlSchema, titleSchema, typeSchema } from '../zod';
 import { createProjectAction } from '@/src/app/actions';
 import { redirect } from 'next/navigation';
 import { useState } from 'react';
 import { toast } from 'sonner';
-import { z } from 'zod';
 
 export type CreateProjectFormState = {
 	title: {
@@ -20,33 +20,6 @@ export type CreateProjectFormState = {
 		error: string | null;
 	};
 };
-
-const titleSchema = z
-	.string()
-	.min(4, { message: 'Project title must be at least 4 characters long' })
-	.max(15, { message: 'Project title must be at most 15 characters long' });
-
-const typeSchema = z.enum([ProjectType.postgreSQL, ProjectType.mongoDb]);
-
-const postgresUrlSchema = z
-	.string()
-	.regex(
-		/^postgresql:\/\/(?<user>[^:]+):(?<password>[^@]+)@(?<host>[^:/]+)(:(?<port>\d+))?\/(?<database>[^?]+)(\?(.+))?$/,
-		{
-			message: 'Invalid PostgreSQL connection URL format',
-		}
-	);
-
-const mongodbUrlSchema = z
-	.string()
-	.regex(
-		/^mongodb:\/\/(?<user>[^:]+):(?<password>[^@]+)@(?<host>[^:/]+)(:(?<port>\d+))?\/(?<database>[^?]+)(\?(.+))?$/,
-		{
-			message: 'Invalid MongoDB connection URL format',
-		}
-	);
-
-const defaultUrlSchema = z.string();
 
 const CREATE_PROJECT_FORM_DEFAULT_STATE: CreateProjectFormState = {
 	title: {

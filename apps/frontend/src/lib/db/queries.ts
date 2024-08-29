@@ -42,7 +42,7 @@ export async function register({ email, password }: { email: string; password: s
 
 export async function listProjects({ token }: { token: string }) {
 	try {
-		const response = await fetch(`${API_URL}/project/list`, {
+		const response = await fetch(`${API_URL}/project`, {
 			headers: {
 				Authorization: token,
 			},
@@ -74,7 +74,7 @@ export async function createProject({
 	userToken: string;
 }) {
 	try {
-		const response = await fetch(`${API_URL}/project/create`, {
+		const response = await fetch(`${API_URL}/project`, {
 			method: 'POST',
 			body: JSON.stringify({ databaseUrl, type, projectTitle }),
 			headers: {
@@ -95,7 +95,41 @@ export async function createProject({
 
 		return successResponse(dataResponse);
 	} catch (error: unknown) {
-		return errorResponse(error instanceof Error ? error.message : 'Error registering in an user');
+		return errorResponse(error instanceof Error ? error.message : 'Error creatting project');
+	}
+}
+
+export async function editProject({
+	projectId,
+	projectTitle,
+	userToken,
+}: {
+	projectId: string;
+	projectTitle: string;
+	userToken: string;
+}) {
+	try {
+		const response = await fetch(`${API_URL}/project/${projectId}`, {
+			method: 'PATCH',
+			body: JSON.stringify({ title: projectTitle }),
+			headers: {
+				Authorization: userToken,
+			},
+		});
+
+		if (!response.ok) return errorResponse(response.statusText);
+
+		const jsonResponse = await response.json();
+
+		if (jsonResponse.status === 500) return errorResponse(jsonResponse.message);
+
+		const dataResponse = { message: jsonResponse.message } as {
+			message: string;
+		};
+
+		return successResponse(dataResponse);
+	} catch (error: unknown) {
+		return errorResponse(error instanceof Error ? error.message : 'Error editting project');
 	}
 }
 

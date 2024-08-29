@@ -7,6 +7,7 @@ import { provideCreateProjectPostgreUsecaseSingleton } from '@/features/project/
 import { provideDeleteProjectUsecaseSingleton } from '@/features/project/delete/delete-project.index';
 import { DescribeProjectController } from '@/features/project/describe/describe-project.controller';
 import { provideDescribeProjectPostgreUsecaseSingleton } from '@/features/project/describe/describe-project.index';
+import { provideEditProjectPostgreUsecaseSingleton } from '@/features/project/edit/edit-project.index';
 import { provideListProjectsPostgreUsecaseSingleton } from '@/features/project/list/list-project.index';
 import { CreateQueryController } from '@/features/query/create/create-query.controller';
 import { provideDeleteQueryUsecaseSingleton } from '@/features/query/delete/delete-query.index';
@@ -64,7 +65,7 @@ export class DefaultRouter implements RouterStrategy {
 		 * Create new project
 		 * */
 		this.internalRouter.post(
-			`/project/create`,
+			`/project`,
 			corsMiddleware(
 				authMiddleware(
 					async req => {
@@ -81,7 +82,7 @@ export class DefaultRouter implements RouterStrategy {
 		 * List projects
 		 * */
 		this.internalRouter.get(
-			`/project/list`,
+			`/project`,
 			corsMiddleware(
 				authMiddleware(
 					async req => {
@@ -103,6 +104,23 @@ export class DefaultRouter implements RouterStrategy {
 				authMiddleware(
 					async req => {
 						const handler = await new DescribeProjectController(db).serveHandler(req.params.projectId);
+						return handler.handleRequest(req, env);
+					},
+					env,
+					db
+				)
+			)
+		);
+
+		/**
+		 * Edit new project
+		 * */
+		this.internalRouter.patch(
+			`/project/:projectId`,
+			corsMiddleware(
+				authMiddleware(
+					async req => {
+						const handler = provideEditProjectPostgreUsecaseSingleton(db);
 						return handler.handleRequest(req, env);
 					},
 					env,
