@@ -4,10 +4,11 @@ import { useFieldIcon } from '../lib/hooks/use-field-icons';
 import { ModalContentField, useModalTableDetails } from '../lib/hooks/use-modal-table-details';
 import { Field } from '../lib/types';
 import { cn } from '../lib/utils';
+import { Button } from './ui/button';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/src/components/ui/accordion';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/src/components/ui/dialog';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/src/components/ui/tooltip';
-import { IconLoader2 } from '@tabler/icons-react';
+import { IconDownload, IconLoader2 } from '@tabler/icons-react';
 import { ReactNode } from 'react';
 
 function ModalTableDetails({
@@ -28,7 +29,7 @@ function ModalTableDetails({
 			</DialogTrigger>
 			<DialogContent className="w-[800px] max-w-[95vw] bg-dark3">
 				<DialogHeader>
-					<DialogTitle className="gap-1 text-xs flex items-center">
+					<DialogTitle className="relative gap-1 text-xs flex items-center w-full">
 						<label className="text-light4">{projectTitle} - </label>
 						<label className="text-light1 text-xs font-semibold capitalize">{title}</label>
 					</DialogTitle>
@@ -40,10 +41,18 @@ function ModalTableDetails({
 }
 
 function ModalTableDetailsContent({ title, fields }: { title: string; fields: Field[] }) {
-	const { isLoading, tableValuesMapped } = useModalTableDetails({ title, fields });
+	const { isLoading, tableValuesMapped, handleExportClick } = useModalTableDetails({ title, fields });
 
 	return (
 		<>
+			<Button
+				onClick={handleExportClick}
+				variant={'secondary'}
+				size={'sm'}
+				className="absolute top-6 right-10 flex items-center gap-2 text-xs hover:bg-dark5 rounded-lg py-0 text-light3 hover:text-light1">
+				Export
+				<IconDownload size={12} />
+			</Button>
 			<div aria-label="scroll" className="flex flex-col w-full  overflow-hidden max-h-[500px] overflow-y-scroll">
 				<div className="w-full h-full border border-dark3 rounded-lg">
 					<div className="w-full p-3 flex items-center bg-dark1 rounded-t-lg text-light4 text-xs justify-between">

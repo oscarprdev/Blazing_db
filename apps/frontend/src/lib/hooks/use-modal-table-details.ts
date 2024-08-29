@@ -35,8 +35,6 @@ export function useModalTableDetails({ title, fields }: { title: string; fields:
 				return;
 			}
 
-			toast.success(res.success.message);
-
 			return res.success.data;
 		},
 	});
@@ -62,8 +60,23 @@ export function useModalTableDetails({ title, fields }: { title: string; fields:
 		);
 	}, [data]);
 
+	function handleExportClick() {
+		const schema = tableValuesMapped?.map(
+			item => item && item.reduce((acc, next) => ({ ...acc, ...(next && { [next.name]: next.value }) }), {})
+		);
+
+		const blob = new Blob([JSON.stringify(schema)], { type: 'application/json' });
+
+		const link = document.createElement('a');
+		link.href = URL.createObjectURL(blob);
+		link.target = 'blank';
+		link.download = `${title}.json`;
+		link.click();
+	}
+
 	return {
 		isLoading,
 		tableValuesMapped,
+		handleExportClick,
 	};
 }
