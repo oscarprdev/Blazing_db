@@ -19,7 +19,7 @@ function FormAi({ tables, type }: { tables: Table[]; type: ProjectType }) {
 			<div className="w-full rounded-full">
 				<form
 					action={handleSubmit}
-					className="flex items-center md:gap-5 lg:gap-6 w-full rounded-3xl p-2 border border-dark3 bg-dark2">
+					className="flex items-center md:gap-5 lg:gap-6 w-full rounded-3xl p-2 border border-dark3 bg-dark2 hover:bg-dark1 duration-200">
 					<FormAiTextarea value={formState.promp} updateFormState={updateFormState} />
 					<FormAiSubmitButton prompt={formState.promp} />
 				</form>

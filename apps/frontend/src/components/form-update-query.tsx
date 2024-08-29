@@ -7,11 +7,12 @@ import React from 'react';
 import { useFormStatus } from 'react-dom';
 
 function FormUpdateQuery({ query, handleCloseModal }: { query: Query; handleCloseModal: () => void }) {
-	const { queryResponse, handleSubmit } = useFormUpdateQuery({ query });
+	const { codeRef, queryResponse, handleSubmit } = useFormUpdateQuery({ query });
+
 	return (
 		<article className="w-full flex flex-col gap-3 overflow-hidden">
 			<label className=" text-xs text-light2">Query:</label>
-			<AiViewer aiResponse={{ value: query.value, language: query.language }} />
+			<AiViewer aiResponse={{ value: query.value, language: query.language }} codeRef={codeRef} editable />
 			<label className=" text-xs text-light2">Output:</label>
 			<AiViewer aiResponse={{ value: queryResponse }} />
 			<form action={handleSubmit} className="ml-auto mt-auto flex gap-5 items-center">

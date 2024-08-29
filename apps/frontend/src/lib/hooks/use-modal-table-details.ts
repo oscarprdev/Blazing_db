@@ -1,7 +1,7 @@
 import { Field } from '../types';
 import { isError } from '../utils';
 import { describeTableAction } from '@/src/app/actions';
-import { useQuery, useQueryClient } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 import { useSearchParams } from 'next/navigation';
 import { useMemo } from 'react';
 import { toast } from 'sonner';

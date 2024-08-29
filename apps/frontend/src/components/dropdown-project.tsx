@@ -1,4 +1,5 @@
 import ModalDeleteProject from './modal-delete-project';
+import ModalEditProject from './modal-edit-project';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger } from '@/src/components/ui/dropdown-menu';
 import { IconDots } from '@tabler/icons-react';
 
@@ -17,6 +18,7 @@ function DropdownProject({
 				<IconDots size={16} />
 			</DropdownMenuTrigger>
 			<DropdownMenuContent className="mt-2 ml-28 p-3 rounded-lg">
+				<ModalEditProject />
 				<ModalDeleteProject
 					projectId={projectId}
 					projectTitle={projectTitle}

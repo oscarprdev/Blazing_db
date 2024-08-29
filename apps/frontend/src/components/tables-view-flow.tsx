@@ -17,11 +17,11 @@ function TablesViewFlow({
 }) {
 	const { nodes, onNodesChange, edges, onEdgesChange } = useTableViewFlow({
 		tables,
-		projectTitle
+		projectTitle,
 	});
 
 	return (
-		<section className="relative w-screen h-screen bg-dark">
+		<section className="relative w-screen h-screen bg-dark05">
 			{children}
 			<ReactFlow
 				nodes={nodes}
@@ -29,7 +29,7 @@ function TablesViewFlow({
 				edges={edges}
 				onEdgesChange={onEdgesChange}
 				onNodesChange={onNodesChange}>
-				<Background variant={'dots' as BackgroundVariant} gap={16} size={2} color="#242424" />
+				<Background variant={'dots' as BackgroundVariant} gap={16} size={2} color="#363636" />
 			</ReactFlow>
 		</section>
 	);

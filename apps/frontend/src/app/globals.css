@@ -4,6 +4,7 @@
 
 :root {
 	--dark-0: #000000;
+	--dark-0-5: #101010f0;
 	--dark-1: #121212;
 	--dark-2: #181818;
 	--dark-3: #242424;
@@ -44,7 +45,7 @@
 
 ::-webkit-scrollbar {
 	width: 3px;
-	height: 5px;
+	height: 0px;
 	overflow: visible;
 	background: transparent;
 }
@@ -62,4 +63,9 @@
 
 *[aria-label='scroll']:hover::-webkit-scrollbar-thumb {
 	background: var(--secondary);
+}
+
+pre,
+code {
+	background: transparent !important;
 }

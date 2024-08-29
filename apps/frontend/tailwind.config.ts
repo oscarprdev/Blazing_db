@@ -8,6 +8,7 @@ const config: Omit<Config, 'content'> = {
 		extend: {
 			colors: {
 				dark: 'var(--dark-0)',
+				dark05: 'var(--dark-0-5)',
 				dark1: 'var(--dark-1)',
 				dark2: 'var(--dark-2)',
 				dark3: 'var(--dark-3)',

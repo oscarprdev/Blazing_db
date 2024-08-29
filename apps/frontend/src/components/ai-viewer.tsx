@@ -1,25 +1,48 @@
+'use client';
+
 import { AiLanguage } from '../lib/types';
 import ButtonCopyAiResponse from './button-copy-ai-response';
 import { Badge } from './ui/badge';
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
-import { vscDarkPlus } from 'react-syntax-highlighter/dist/esm/styles/prism';
+import '@/public/themes/custom-prismjs.css';
+import DOMPurify from 'dompurify';
+import Prism from 'prismjs';
+import { RefObject, useEffect } from 'react';
 
-function AiViewer({ aiResponse }: { aiResponse: { value: string; language?: AiLanguage } }) {
+function AiViewer({
+	codeRef,
+	aiResponse,
+	editable = false,
+}: {
+	editable?: boolean;
+	codeRef?: RefObject<HTMLElement>;
+	aiResponse: { value: string; language?: AiLanguage };
+}) {
+	useEffect(() => {
+		Prism.highlightAll();
+	}, [aiResponse]);
+
 	return (
-		<div aria-label="scroll" className="relative max-h-[230px] overflow-y-scroll">
-			{aiResponse.language && <Badge className="absolute top-3 left-3">{aiResponse.language}</Badge>}
+		<div className="relative rounded-xl bg-dark">
+			{aiResponse.language && <Badge className="absolute top-3 left-3 z-50">{aiResponse.language}</Badge>}
 			<ButtonCopyAiResponse aiResponse={aiResponse.value} />
-			<SyntaxHighlighter
-				language={aiResponse.language || AiLanguage.JAVASCRIPT}
-				style={vscDarkPlus}
-				customStyle={{
-					background: '#101010',
-					padding: '1.5em',
-					margin: '0',
-					borderRadius: '16px',
-				}}>
-				{aiResponse.value}
-			</SyntaxHighlighter>
+			<pre aria-label="scroll" className="p-4 max-h-[230px] overflow-y-scroll outline-none">
+				<code
+					dangerouslySetInnerHTML={{
+						__html: DOMPurify.sanitize(
+							codeRef && codeRef.current
+								? codeRef.current.textContent || aiResponse.value
+								: aiResponse.value
+						),
+					}}
+					ref={codeRef}
+					contentEditable={editable}
+					className={`language-javascript`}
+					style={{
+						fontSize: '14px',
+						outline: 'none',
+					}}
+				/>
+			</pre>
 		</div>
 	);
 }

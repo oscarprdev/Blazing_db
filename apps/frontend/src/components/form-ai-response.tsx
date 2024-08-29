@@ -15,7 +15,9 @@ function FormAiResponse({
 	aiResponse: { value: string; language: AiLanguage };
 	handleClearForm: () => void;
 }) {
-	const { isVisible, queryResponse, handleIsVisible, handleSubmit } = useFormAiResponse({ aiResponse });
+	const { codeRef, isVisible, queryResponse, handleIsVisible, handleSubmit } = useFormAiResponse({
+		aiResponse,
+	});
 
 	return (
 		<div
@@ -37,7 +39,7 @@ function FormAiResponse({
 							'flex flex-col w-full h-full duration-100 ease-in gap-3 bg-dark2 border border-dark3 rounded-3xl p-5 pb-2'
 						)}>
 						<label className="text-xs text-light2">Query:</label>
-						<AiViewer aiResponse={aiResponse} />
+						<AiViewer aiResponse={aiResponse} codeRef={codeRef} editable />
 						{queryResponse && (
 							<>
 								<label className="text-xs text-light2">Output:</label>
