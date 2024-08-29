@@ -2,9 +2,10 @@ import { hexStringToUint8Array } from '../utils';
 import { RegisterPorts } from './register.ports';
 import { RegisterUsecaseTypes } from './register.types';
 import { SharedPorts } from '@/features/shared/shared.ports';
+import jwt from '@tsndr/cloudflare-worker-jwt';
 
 export interface IRegisterUsecase {
-	execute(input: RegisterUsecaseTypes.RegisterInput): Promise<void>;
+	execute(input: RegisterUsecaseTypes.RegisterInput): Promise<string>;
 }
 
 export class RegisterUsecase implements IRegisterUsecase {
@@ -13,7 +14,7 @@ export class RegisterUsecase implements IRegisterUsecase {
 		private readonly sharedPorts: SharedPorts
 	) {}
 
-	async execute({ email, password, salt }: RegisterUsecaseTypes.RegisterInput) {
+	async execute({ email, password, salt, secret }: RegisterUsecaseTypes.RegisterInput) {
 		if (await this.isUserAlreadyCreated(email)) {
 			throw new Error('User is already created');
 		}
@@ -22,6 +23,7 @@ export class RegisterUsecase implements IRegisterUsecase {
 		const hashedPassword = await this.hashPassword({ password, hexSalt: salt });
 
 		await this.ports.execute(userId, email, hashedPassword);
+		return await this.createToken({ userId, secret });
 	}
 
 	private async isUserAlreadyCreated(email: string) {
@@ -48,5 +50,13 @@ export class RegisterUsecase implements IRegisterUsecase {
 			.join('');
 
 		return hashedPassword;
+	}
+
+	private async createToken({ userId, secret }: { userId: string; secret: string }) {
+		try {
+			return await jwt.sign({ userId }, secret);
+		} catch (error) {
+			throw new Error('Error creating JWT');
+		}
 	}
 }

@@ -34,7 +34,12 @@ export async function register({ email, password }: { email: string; password: s
 
 		if (jsonResponse.status === 500) return errorResponse(jsonResponse.message);
 
-		return successResponse(jsonResponse.message);
+		const registerResponse = {
+			message: jsonResponse.message,
+			data: jsonResponse.data,
+		} as { message: string; data: string };
+
+		return successResponse(registerResponse);
 	} catch (error: unknown) {
 		return errorResponse(error instanceof Error ? error.message : 'Error registering in an user');
 	}

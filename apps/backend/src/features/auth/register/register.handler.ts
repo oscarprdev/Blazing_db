@@ -22,15 +22,16 @@ export class RegisterHandler implements IRegisterHandler {
 
 			if (!env.SECRET) throw new Error('Secret not configured');
 
-			await this.registerUsecase.execute({
+			const response = await this.registerUsecase.execute({
 				email: data.email,
 				password: data.password,
 				salt: env.SALT,
+				secret: env.SECRET,
 			});
 
 			return new Response(
 				JSON.stringify({
-					data: null,
+					data: response,
 					message: 'User successufully registered',
 				}),
 				{

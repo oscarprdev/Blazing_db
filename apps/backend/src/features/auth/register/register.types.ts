@@ -3,6 +3,7 @@ export namespace RegisterUsecaseTypes {
 		email: string;
 		password: string;
 		salt: string;
+		secret: string;
 	};
 
 	export type CreateTokenInput = {

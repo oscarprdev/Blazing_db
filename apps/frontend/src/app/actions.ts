@@ -1,8 +1,9 @@
 'use server';
 
 import { OPEN_API_KEY } from '../lib/constants';
+import { sendEmail } from '../lib/mailer';
 import { AiLanguage, ProjectType, Table } from '../lib/types';
-import { errorResponse, successResponse } from '../lib/utils';
+import { errorResponse, isError, successResponse } from '../lib/utils';
 import { auth, signIn, signOut } from '@/src/auth';
 import {
 	applyQuery,
@@ -41,12 +42,17 @@ export async function loginUserAction({ email, password }: { email: string; pass
 			return successResponse('User logged successfully');
 		}
 
-		return errorResponse('Unexpected error');
+		return errorResponse('Missing account confirmation.');
 	}
 }
 
 export async function registerUserAction({ email, password }: { email: string; password: string }) {
-	return await register({ email, password });
+	const response = await register({ email, password });
+	if (isError(response)) return response;
+
+	await sendEmail({ email, token: response.success.data });
+
+	return successResponse(response.success.message);
 }
 
 export async function signOutAction() {
@@ -75,7 +81,7 @@ export async function editProjectAction({ projectId, projectTitle }: { projectId
 	const userToken = session?.user?.id;
 
 	if (!userToken) return errorResponse('Authorization token not found');
-	
+
 	revalidateTag('describeProject');
 	revalidateTag('listQueries');
 
