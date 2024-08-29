@@ -1,4 +1,6 @@
-import { API_URL } from '../constants';
+'use server';
+
+import { API_URL, DOMAIN } from '../constants';
 import { AiLanguage, Project, ProjectType, Query, Table } from '../types';
 import { errorResponse, successResponse } from '../utils';
 
@@ -136,11 +138,10 @@ export async function editProject({
 export async function describeProject({ projectId, userToken }: { projectId: string; userToken: string }) {
 	try {
 		const response = await fetch(`${API_URL}/project/${projectId}`, {
+			method: 'GET',
 			headers: {
 				Authorization: userToken,
 			},
-			cache: 'no-store',
-			next: { tags: ['describeProject'] },
 		});
 
 		if (!response.ok) return errorResponse(response.statusText);

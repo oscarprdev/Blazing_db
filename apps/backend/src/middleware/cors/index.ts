@@ -1,11 +1,11 @@
 import { RequestParams } from '../../types';
 
 const corsHeaders = {
-	'Access-Control-Allow-Origin': 'https://blazing-db.vercel.app',
+	'Access-Control-Allow-Origin': 'https://blazingdb.netlify.app',
 	'Access-Control-Allow-Methods': 'GET, OPTIONS, POST, PUT, DELETE',
 	'Access-Control-Allow-Headers': 'Content-Type, Authorization',
 };
-const allowedOrigins = ['http://localhost:3000', 'https://blazing-db.vercel.app'];
+const allowedOrigins = ['http://localhost:3000', 'https://blazing-db.vercel.app', 'https://blazingdb.netlify.app'];
 
 const corsMiddleware = (handler: (request: RequestParams) => Promise<Response>) => {
 	return async (request: RequestParams): Promise<Response> => {

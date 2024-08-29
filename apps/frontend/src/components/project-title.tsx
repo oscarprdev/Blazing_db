@@ -1,5 +1,3 @@
-'use server';
-
 import { IconBolt } from '@tabler/icons-react';
 
 function ProjecttTitle({ title }: { title: string }) {
