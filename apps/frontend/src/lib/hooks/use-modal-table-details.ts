@@ -51,7 +51,7 @@ export function useModalTableDetails({ title, fields }: { title: string; fields:
 					return {
 						type: sameField.type,
 						name: sameField.name,
-						value: field.value,
+						value: field.value.toString(),
 						constraint: sameField.fieldConstraint,
 						referenced: sameField.reference,
 					} satisfies ModalContentField;
