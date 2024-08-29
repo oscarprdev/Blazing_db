@@ -9,7 +9,7 @@ import {
 	DropdownMenuSeparator,
 	DropdownMenuTrigger,
 } from '@/src/components/ui/dropdown-menu';
-import { IconLogout, IconSettings, IconUser } from '@tabler/icons-react';
+import { IconLogout, IconUser } from '@tabler/icons-react';
 import { ReactNode } from 'react';
 
 function DropdownHeaderDashboard({ email }: { email: string }) {
@@ -22,11 +22,11 @@ function DropdownHeaderDashboard({ email }: { email: string }) {
 				<DropdownMenuLabel>Actions</DropdownMenuLabel>
 				<DropdownMenuSeparator />
 				<DropdownHeaderItem handleClick={async () => undefined} icon={<IconUser size={16} />} text="Account" />
-				<DropdownHeaderItem
+				{/* <DropdownHeaderItem
 					handleClick={async () => undefined}
 					icon={<IconSettings size={16} />}
 					text="Settings"
-				/>
+				/> */}
 				<DropdownHeaderItem
 					handleClick={async () => await signOutAction()}
 					icon={<IconLogout size={16} />}
