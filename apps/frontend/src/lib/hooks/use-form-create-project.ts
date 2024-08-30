@@ -56,7 +56,7 @@ export function useFormCreateProject() {
 		}
 
 		toast.success(response.success.message);
-		redirect(`/dashboard?project=${response.success.projectId}`);
+		redirect(`/dashboard?projectId=${response.success.projectId}`);
 	}
 
 	async function handleFormSubmit(formData: FormData) {

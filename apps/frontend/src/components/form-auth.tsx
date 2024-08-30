@@ -47,7 +47,7 @@ function Form({
 				/>
 				<Button
 					type="button"
-					variant={'secondary'}
+					variant={'accent'}
 					onClick={() => setPasswordVisible(!passwordVisible)}
 					className="absolute top-7 -right-3 text-light5 hover:text-light3">
 					{passwordVisible ? <IconEyeOff /> : <IconEye />}
@@ -63,7 +63,7 @@ function AuthSubmitButton({ label }: { label: string }) {
 	const { pending } = useFormStatus();
 
 	return (
-		<Button type="submit" className="mt-10 bg-secondary hover:bg-secondary1 rounded-lg" disabled={pending}>
+		<Button type="submit" className="mt-10 bg-accent hover:bg-accent1 rounded-lg" disabled={pending}>
 			{pending ? <IconLoader2 className="animate-spin" /> : label}
 		</Button>
 	);

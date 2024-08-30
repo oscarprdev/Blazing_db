@@ -36,7 +36,7 @@ async function TablesView({ projectId }: { projectId: string }) {
 function TablesViewFallback() {
 	return (
 		<section className="relative w-full h-full bg-dark grid place-items-center">
-			<IconLoader2 className="animate-spin text-secondary" />
+			<IconLoader2 className="animate-spin text-accent" />
 			<FormAiSkeleton />
 		</section>
 	);

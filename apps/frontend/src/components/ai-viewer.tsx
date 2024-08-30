@@ -12,16 +12,17 @@ function AiViewer({
 	codeRef,
 	aiResponse,
 	editable = false,
+	key,
 }: {
 	editable?: boolean;
 	codeRef?: RefObject<HTMLElement>;
 	aiResponse: { value: string; language?: AiLanguage };
+	key: string;
 }) {
 	useEffect(() => {
-		if (codeRef?.current) {
-			Prism.highlightElement(codeRef.current);
-		}
-	}, [aiResponse, codeRef?.current?.textContent]);
+		const codeElements = document.querySelectorAll('#code');
+		codeElements.forEach(code => Prism.highlightElement(code));
+	}, [key]);
 
 	return (
 		<div className="relative rounded-xl bg-dark">
@@ -29,6 +30,7 @@ function AiViewer({
 			<ButtonCopyAiResponse aiResponse={aiResponse.value} />
 			<pre aria-label="scroll" className="p-4 max-h-[230px] overflow-y-scroll outline-none">
 				<code
+					id="code"
 					dangerouslySetInnerHTML={{
 						__html: DOMPurify.sanitize(
 							codeRef && codeRef.current

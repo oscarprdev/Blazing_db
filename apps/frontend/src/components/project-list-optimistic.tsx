@@ -24,7 +24,7 @@ function ProjectListOptimistic({ currentProjectId, projects }: { currentProjectI
 							'relative px-5 my-1 duration-200 p-2 rounded-lg border border-dark3  w-full flex justify-between items-center font-semibold'
 						)}>
 						{currentProjectId === project.projectId && (
-							<span className="absolute size-2 rounded-full top-0 left-0 bg-secondary"></span>
+							<span className="absolute size-2 rounded-full top-0 left-0 bg-accent"></span>
 						)}
 						<Link
 							href={`/dashboard?projectId=${project.projectId}`}

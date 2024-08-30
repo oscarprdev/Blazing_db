@@ -11,7 +11,7 @@ function Aside({ children }: { children: ReactNode }) {
 	return (
 		<>
 			<Button
-				variant={'secondary'}
+				variant={'accent'}
 				onClick={() => setOpen(!open)}
 				className="absolute top-0 -left-2 text-light3 hover:text-light2 z-[1000]">
 				{open ? <IconLayoutSidebarLeftCollapse /> : <IconLayoutSidebarLeftExpand />}

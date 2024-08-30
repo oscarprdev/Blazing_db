@@ -41,7 +41,7 @@ function TableCard({
 				className="flex items-center justify-between w-full text-sm px-4 pr-2 capitalize font-semibold opacity-80 group-hover:opacity-100 duration-200">
 				{title}
 				<ModalTableDetails title={title} fields={fields} projectTitle={projectTitle}>
-					<Button variant={'secondary'} className="p-2 -mr-2">
+					<Button variant={'accent'} className="p-2 -mr-2">
 						<IconZoom size={14} className="text-light" />
 					</Button>
 				</ModalTableDetails>

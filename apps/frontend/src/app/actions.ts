@@ -67,6 +67,9 @@ export async function createProjectAction({
 
 	if (!userToken) return errorResponse('Authorization token not found');
 
+	revalidateTag('describeProject');
+	revalidateTag('listQueries');
+
 	return await createProject({ databaseUrl, type, projectTitle, userToken });
 }
 
@@ -75,7 +78,7 @@ export async function editProjectAction({ projectId, projectTitle }: { projectId
 	const userToken = session?.user?.id;
 
 	if (!userToken) return errorResponse('Authorization token not found');
-	
+
 	revalidateTag('describeProject');
 	revalidateTag('listQueries');
 
@@ -213,6 +216,9 @@ export async function deleteProjectAction({ projectId }: { projectId: string }) 
 	const token = session?.user?.id;
 
 	if (!token) return errorResponse('Authorization token not found');
+
+	revalidateTag('describeProject');
+	revalidateTag('listQueries');
 
 	return await deleteProject({ token, projectId });
 }

@@ -47,7 +47,7 @@ function ModalTableDetailsContent({ title, fields }: { title: string; fields: Fi
 		<>
 			<Button
 				onClick={handleExportClick}
-				variant={'secondary'}
+				variant={'accent'}
 				size={'sm'}
 				className="absolute top-6 right-10 flex items-center gap-2 text-xs hover:bg-dark5 rounded-lg py-0 text-light3 hover:text-light1">
 				Export
@@ -69,7 +69,7 @@ function ModalTableDetailsContent({ title, fields }: { title: string; fields: Fi
 						</ModalTableDetailsContentWrapper>
 					) : (
 						<ModalTableDetailsContentWrapper>
-							<IconLoader2 className="animate-spin text-secondary" />
+							<IconLoader2 className="animate-spin text-accent" />
 						</ModalTableDetailsContentWrapper>
 					)}
 				</div>

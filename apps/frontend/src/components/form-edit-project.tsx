@@ -51,7 +51,7 @@ function EditProjectSubmitButton() {
 	const { pending } = useFormStatus();
 
 	return (
-		<Button type="submit" className="mt-10 bg-secondary hover:bg-secondary1 rounded-lg" disabled={pending}>
+		<Button type="submit" className="mt-10 bg-accent hover:bg-accent1 rounded-lg" disabled={pending}>
 			{pending ? <IconLoader2 className="animate-spin" /> : 'Submit'}
 		</Button>
 	);

@@ -17,14 +17,12 @@
 	--light-3: #979797;
 	--light-4: #767676;
 	--light-5: #606060;
+	--light-5: #ffffff7a;
 
 	--destructive: #ff3149;
 
-	--primary: #ecb3ed;
-	--primary-1: #caa0ca;
-
-	--secondary: #eed685;
-	--secondary-1: #f9e39b;
+	--accent: #f7d460;
+	--accent-1: #edb600;
 }
 
 @layer base {
@@ -62,7 +60,7 @@
 }
 
 *[aria-label='scroll']:hover::-webkit-scrollbar-thumb {
-	background: var(--secondary);
+	background: var(--accent);
 }
 
 pre,
@@ -72,4 +70,28 @@ code {
 
 * {
 	outline: none;
+}
+
+picture {
+	overflow: hidden;
+}
+
+img {
+	object-fit: cover;
+	width: 100%;
+	height: 100%;
+}
+
+@keyframes blurInOut {
+	0%,
+	100% {
+		filter: blur(0px);
+	}
+	50% {
+		filter: blur(10px);
+	}
+}
+
+.blur-animation {
+	animation: blurInOut 2s ease-in-out infinite;
 }

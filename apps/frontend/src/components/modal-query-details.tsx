@@ -12,7 +12,7 @@ function ModalQueryDetails({ query }: { query: Query }) {
 		<Dialog>
 			<DialogTrigger
 				ref={modalTriggerRef}
-				className="text-light2 p-1 hover:text-light1 flex items-center gap-2 cursor-pointer">
+				className="text-light2 p-1 text-sm hover:text-light1 flex items-center gap-2 cursor-pointer">
 				<IconBook size={14} />
 				Details
 			</DialogTrigger>

@@ -6,7 +6,7 @@ function ButtonCopyAiResponse({ aiResponse }: { aiResponse: string }) {
 	const { valueCopied, handleCopy } = useButtonCopy({ value: aiResponse });
 
 	return (
-		<Button className="absolute top-1 right-1 p-2 z-50" variant={'secondary'} onClick={handleCopy}>
+		<Button className="absolute top-1 right-1 p-2 z-50" variant={'accent'} onClick={handleCopy}>
 			{valueCopied ? <IconCopyCheckFilled size={16} /> : <IconCopy size={16} />}
 		</Button>
 	);

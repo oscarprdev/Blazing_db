@@ -16,7 +16,7 @@ function FormUpdateQuery({ query, handleCloseModal }: { query: Query; handleClos
 			<label className=" text-xs text-light2">Output:</label>
 			<AiViewer aiResponse={{ value: queryResponse }} />
 			<form action={handleSubmit} className="ml-auto mt-auto flex gap-5 items-center">
-				<Button onClick={handleCloseModal} type="button" variant={'secondary'}>
+				<Button onClick={handleCloseModal} type="button" variant={'accent'}>
 					Close
 				</Button>
 				<FormUpdateQuerySubmitButton />

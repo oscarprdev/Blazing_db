@@ -36,7 +36,7 @@ function ModalDeleteProject({
 					</p>
 
 					<div className="flex items-center w-full gap-5 justify-center">
-						<Button onClick={handleCloseModal} variant={'secondary'}>
+						<Button onClick={handleCloseModal} variant={'accent'}>
 							Close
 						</Button>
 						<Button onClick={() => handleDeleteQuery(projectId)}>Delete</Button>

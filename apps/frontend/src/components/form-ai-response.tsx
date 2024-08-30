@@ -29,7 +29,7 @@ function FormAiResponse({
 				<>
 					<Button
 						onClick={handleIsVisible}
-						variant={'secondary'}
+						variant={'accent'}
 						className="absolute bottom-16 left-0 text-dark5 hover:text-light5 duration-200">
 						{isVisible ? <IconLayoutNavbarExpand /> : <IconLayoutNavbarCollapse />}
 					</Button>
@@ -39,15 +39,20 @@ function FormAiResponse({
 							'flex flex-col w-full h-full duration-100 ease-in gap-3 bg-dark2 border border-dark3 rounded-3xl p-5 pb-2'
 						)}>
 						<label className="text-xs text-light2">Query:</label>
-						<AiViewer aiResponse={aiResponse} codeRef={codeRef} editable />
+						<AiViewer
+							aiResponse={aiResponse}
+							codeRef={codeRef}
+							editable
+							key={crypto.randomUUID().toString()}
+						/>
 						{queryResponse && (
 							<>
 								<label className="text-xs text-light2">Output:</label>
-								<AiViewer aiResponse={{ value: queryResponse }} />
+								<AiViewer aiResponse={{ value: queryResponse }} key={crypto.randomUUID().toString()} />
 							</>
 						)}
 						<form action={handleSubmit} className="ml-auto mt-auto flex gap-5 items-center">
-							<Button type="button" variant={'secondary'} onClick={handleClearForm}>
+							<Button type="button" variant={'accent'} onClick={handleClearForm}>
 								Clear
 							</Button>
 							<FormAiResponseSubmitButton />

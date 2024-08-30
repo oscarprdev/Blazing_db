@@ -24,10 +24,8 @@ const config: Omit<Config, 'content'> = {
 
 				destructive: 'var(--destructive)',
 
-				primary: 'var(--primary)',
-				primary1: 'var(--primary-1)',
-				secondary: 'var(--secondary)',
-				secondary1: 'var(--secondary-1)',
+				accent: 'var(--accent)',
+				accent1: 'var(--accent-1)',
 			},
 			keyframes: {
 				'accordion-down': {
@@ -42,11 +40,21 @@ const config: Omit<Config, 'content'> = {
 					'0%': { opacity: '1', transform: 'translateY(0)' },
 					'100%': { opacity: '0', transform: 'translateY(20px)' },
 				},
+				'fade-up': {
+					'0%': { opacity: '0', transform: 'translateY(20px)' },
+					'100%': { opacity: '1', transform: 'translateY(0)' },
+				},
+				'blur-out': {
+					'0%': { filter: 'blur(5px) grayscale(85%)' },
+					'100%': { filter: 'blur(0px) grayscale(0%)' },
+				},
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
 				'accordion-up': 'accordion-up 0.2s ease-out',
 				'fade-out': 'fade-out 0.3s ease-out forwards',
+				'fade-up': 'fade-up 0.5s ease-out forwards',
+				'blur-out': 'blur-out 0.4s ease-out forwards',
 			},
 		},
 	},
