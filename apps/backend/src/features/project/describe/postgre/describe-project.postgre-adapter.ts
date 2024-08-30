@@ -33,10 +33,6 @@ export class DescribeProjectPostgreAdapter implements DescribeProjectPorts {
 		};
 	}
 
-	async extractValues(databaseUrl: string, tableName: string) {
-		return await this.infra.extractValues(databaseUrl, tableName);
-	}
-
 	async extractReference(databaseUrl: string, tableName: string, fieldName: string) {
 		const res = await this.infra.extractReference(databaseUrl, tableName, fieldName);
 

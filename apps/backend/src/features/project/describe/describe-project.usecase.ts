@@ -21,8 +21,8 @@ export class DescribeProjectUsecase implements IDescribeProjectUsecase {
 		} as DescribeProjectTypes.DescribeProjectOutput;
 
 		for (const table of tables) {
-			const fieldsWithValues = await this.includeValues(databaseUrl, table);
-			const fieldsEnriched = await this.includeReferences(databaseUrl, table, fieldsWithValues);
+			const { fields } = await this.ports.extractFields(databaseUrl, table);
+			const fieldsEnriched = await this.includeReferences(databaseUrl, table, fields);
 
 			response.tables.push({
 				id: crypto.randomUUID().toString(),
@@ -54,14 +54,11 @@ export class DescribeProjectUsecase implements IDescribeProjectUsecase {
 	}
 
 	private async includeValues(databaseUrl: string, table: string) {
-		const [{ fields }, values] = await Promise.all([
-			this.ports.extractFields(databaseUrl, table),
-			this.ports.extractValues(databaseUrl, table),
-		]);
+		const [{ fields }] = await Promise.all([this.ports.extractFields(databaseUrl, table)]);
 
 		return fields.map((field, i) => ({
 			...field,
-			values: values.map(val => val[field.name] || null),
+			values: [],
 		})) satisfies DescribeProjectTypes.EnrichedField[];
 	}
 

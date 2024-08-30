@@ -10,5 +10,5 @@ export namespace DescribeProjectTypes {
 		tables: DatabaseTable[];
 	};
 
-	export type EnrichedField = Pick<TableField, 'values' | 'name' | 'fieldConstraint' | 'type'>;
+	export type EnrichedField = Pick<TableField, 'name' | 'fieldConstraint' | 'type'>;
 }
