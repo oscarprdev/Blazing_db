@@ -1,4 +1,4 @@
-import { DefaultSession, DefaultUser } from 'next-auth';
+import { DefaultUser } from 'next-auth';
 
 interface IUser extends DefaultUser {
 	id: string;
