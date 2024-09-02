@@ -21,13 +21,12 @@
 
 	--destructive: #ff3149;
 
-	--accent: #f7d460;
-	--accent-1: #edb600;
+	--accent: #ffffff;
+	--accent-1: #eeeeee;
 }
 
 @layer base {
 	body {
-		background-color: var(--dark-0);
 		color: var(--light-0);
 		margin: 0px;
 		padding: 0px;

@@ -8,15 +8,15 @@ export default function Home() {
 	return (
 		<>
 			<HeaderHome />
-			<main className="flex h-full flex-col items-center justify-center bg-dark1 overflow-x-hidden">
+			<main className="flex h-full flex-col items-center justify-center bg-dark1 overflow-x-hidden bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(54,54,54,0.3),rgba(54,54,54,0))]">
 				<section className="grid place-items-center w-full max-w-[90vw] h-screen">
 					<div className="flex flex-col items-center gap-2">
 						<div className="relative w-full">
 							<h1 className="flex flex-col items-center w-full text-4xl sm:text-5xl lg:text-7xl">
-								<span className="text-transparent bg-clip-text bg-gradient-to-b from-accent to-accent1">
+								<span className="text-transparent bg-clip-text bg-gradient-to-r from-light5 via-light to-light5">
 									Effortless AI-driven
 								</span>
-								<span className="text-transparent -mt-4 h-fit bg-clip-text bg-gradient-to-b from-light to-light3 leading-normal">
+								<span className="text-transparent -mt-4 h-fit bg-clip-text bg-gradient-to-r from-light5 via-light to-light5 leading-normal">
 									database management
 								</span>
 							</h1>
@@ -147,10 +147,10 @@ export default function Home() {
 						</div>
 					</div>
 				</section>
-				<section className="h-screen w-screen flex flex-col gap-20 px-20 py-10 ">
+				<section className="h-screen w-screen flex flex-col items-center justify-center gap-20 px-20 py-10 ">
 					<div className="flex flex-col items-center gap-10">
 						<h1 className="flex flex-col items-center w-full text-2xl sm:text-3xl lg:text-4xl">
-							<span className="text-transparent bg-clip-text bg-gradient-to-b from-light to-light2">
+							<span className="text-transparent bg-clip-text bg-gradient-to-r from-light3 via-light to-light3">
 								Contribute to Our Open Source Journey
 							</span>
 						</h1>
@@ -165,13 +165,6 @@ export default function Home() {
 							<IconBrandGithub size={18} />
 							Project repositoy
 						</Link>
-					</div>
-					<div className="w-full flex flex-col">
-						<h1 className="flex flex-col items-center w-full text-xl sm:text-1xl lg:text-2xl">
-							<span className="text-transparent bg-clip-text bg-gradient-to-b from-light to-light2">
-								Project tech stack
-							</span>
-						</h1>
 					</div>
 				</section>
 			</main>
