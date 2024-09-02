@@ -14,7 +14,7 @@ export type TableField = {
 	name: string;
 	type: string;
 	fieldConstraint: string;
-	reference: string;
+	reference: string | null;
 };
 
 export type DatabaseTable = {

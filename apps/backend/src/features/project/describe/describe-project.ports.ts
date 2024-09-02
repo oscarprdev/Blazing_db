@@ -4,7 +4,7 @@ export interface DescribeProjectPorts {
 	describeProject(projectId: string): Promise<DescribeProjectPortsTypes.DescribeDatabaseUrlOutput>;
 	extractTables(databaseUrl: string): Promise<DescribeProjectPortsTypes.ExtractTablesOutput>;
 	extractFields(databaseUrl: string, tableName: string): Promise<DescribeProjectPortsTypes.ExtractFieldsOutput>;
-	extractReference(databaseUrl: string, tableName: string, fieldName: string): Promise<string>;
+	extractReference(databaseUrl: string): Promise<DescribeProjectPortsTypes.ExtractReferencesOutput>;
 }
 
 export namespace DescribeProjectPortsTypes {
@@ -15,6 +15,12 @@ export namespace DescribeProjectPortsTypes {
 	};
 
 	export type ExtractTablesOutput = string[];
+
+	export type ExtractReferencesOutput = {
+		referenced: string;
+		table: string;
+		originalField: string;
+	}[];
 
 	export type ExtractFieldsOutput = {
 		fields: FieldPortResponse[];

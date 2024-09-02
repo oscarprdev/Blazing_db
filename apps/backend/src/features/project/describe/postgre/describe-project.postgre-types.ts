@@ -1,5 +1,3 @@
-import { TableField } from '@/types';
-
 export namespace DescribProjectsPostgreTypes {
 	export type ExtractFieldsInfraOutput = {
 		fieldsDB: FieldDb[];
@@ -14,7 +12,7 @@ export namespace DescribProjectsPostgreTypes {
 		foreign_column: string;
 		referenced_table: string;
 		referenced_column: string;
-	};
+	}[];
 
 	export type TableDb = {
 		table_name: string;

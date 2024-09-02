@@ -9,11 +9,7 @@ interface IDescribeProjectPostgreInfra {
 		databaseUrl: string,
 		tableName: string
 	): Promise<DescribProjectsPostgreTypes.ExtractFieldsInfraOutput>;
-	extractReference(
-		databaseUrl: string,
-		tableName: string,
-		fieldName: string
-	): Promise<DescribProjectsPostgreTypes.ExtractReferenceInfraOutput>;
+	extractReference(databaseUrl: string): Promise<DescribProjectsPostgreTypes.ExtractReferenceInfraOutput>;
 }
 
 export class DescribeProjecPostgreInfra extends SharedInfra implements IDescribeProjectPostgreInfra {
@@ -95,38 +91,36 @@ export class DescribeProjecPostgreInfra extends SharedInfra implements IDescribe
 		}
 	}
 
-	async extractReference(databaseUrl: string, tableName: string, fieldName: string) {
+	async extractReference(databaseUrl: string) {
 		const client = new Client({
 			connectionString: databaseUrl,
 		});
 
 		try {
 			await client.connect();
-
 			const query = `
-            SELECT
-                tc.table_name AS foreign_table,
-                kcu.column_name AS foreign_column,
-                ccu.table_name AS referenced_table,
-                ccu.column_name AS referenced_column
-            FROM
-                information_schema.table_constraints AS tc
-            JOIN
-                information_schema.key_column_usage AS kcu
-                ON tc.constraint_name = kcu.constraint_name
-            JOIN
-                information_schema.constraint_column_usage AS ccu
-                ON ccu.constraint_name = tc.constraint_name
-            WHERE
-                tc.constraint_type = 'FOREIGN KEY'
-                AND tc.table_name = $1
-                AND kcu.column_name = $2;
-          `;
+			SELECT DISTINCT
+				kcu.table_name AS foreign_table,
+				kcu.column_name AS foreign_column,
+				ccu.table_name AS referenced_table,
+				ccu.column_name AS referenced_column
+			FROM
+				information_schema.table_constraints AS tc
+			JOIN
+				information_schema.key_column_usage AS kcu
+				ON tc.constraint_name = kcu.constraint_name
+			JOIN
+				information_schema.constraint_column_usage AS ccu
+				ON ccu.constraint_name = tc.constraint_name
+			WHERE
+				tc.constraint_type = 'FOREIGN KEY';
+		`;
 
-			const res = await client.query(query, [tableName, fieldName]);
+			const res = await client.query(query);
 
-			return res.rows[0] as DescribProjectsPostgreTypes.ExtractReferenceInfraOutput;
+			return res.rows as DescribProjectsPostgreTypes.ExtractReferenceInfraOutput;
 		} catch (error) {
+			console.log(error);
 			throw new Error('Error fetching reference');
 		}
 	}
