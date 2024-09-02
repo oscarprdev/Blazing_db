@@ -54,8 +54,9 @@ export function useTableViewFlow({ tables, projectTitle }: { tables: Table[]; pr
 				if (!tableReferenced) return;
 
 				const newEdge = {
-					id: crypto.randomUUID().toString(),
+					id: field.name,
 					source: table.id,
+					sourceHandle: field.name,
 					target: tableReferenced.id,
 					type: 'smoothstep',
 					markerEnd: { type: MarkerType.Arrow },

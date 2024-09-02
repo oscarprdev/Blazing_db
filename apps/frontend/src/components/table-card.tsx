@@ -60,9 +60,11 @@ function TableCard({
 			{fieldWithReferences.length > 0 &&
 				fieldWithReferences.map(field => {
 					const index = fields.findIndex(f => f.name === field.name);
+
 					return (
 						<Handle
 							key={field.name}
+							id={field.name}
 							type="source"
 							position={Position.Right}
 							style={{
