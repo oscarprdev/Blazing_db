@@ -18,6 +18,7 @@ Connect your database, visualize data, and manage it seamlessly using AI-generat
   - Nextjs
   - Tailwind
   - Tanstack query
+  - React flow
 - Backend
   - Cloudflare workers   
   - PostgreSQL
