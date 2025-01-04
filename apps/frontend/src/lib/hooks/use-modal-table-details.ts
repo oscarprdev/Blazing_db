@@ -49,11 +49,11 @@ export function useModalTableDetails({ title, fields }: { title: string; fields:
 					if (!sameField) return;
 
 					return {
-						type: sameField.type,
-						name: sameField.name,
-						value: field.value.toString(),
-						constraint: sameField.fieldConstraint,
-						referenced: sameField.reference,
+						type: sameField.type ?? '-',
+						name: sameField.name ?? '-',
+						value: field.value?.toString() ?? '-',
+						constraint: sameField.fieldConstraint ?? '-',
+						referenced: sameField.reference ?? '-',
 					} satisfies ModalContentField;
 				})
 			)
