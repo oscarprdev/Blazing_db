@@ -1,170 +1,59 @@
 import HeaderHome from '../components/header-home';
-import { IconBrandGithub } from '@tabler/icons-react';
-import { Brain, FileText, FlaskRound, Workflow } from 'lucide-react';
-import Image from 'next/image';
-import Link from 'next/link';
+import { ArrowUpRight, BotMessageSquare, PlugZap, Table2 } from 'lucide-react';
 
 export default function Home() {
 	return (
 		<>
 			<HeaderHome />
-			<main className="flex h-full flex-col items-center justify-center bg-dark1 overflow-x-hidden bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(54,54,54,0.3),rgba(54,54,54,0))]">
+			<main className="flex h-full flex-col items-center justify-center bg-dark overflow-x-hidden bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(54,54,54,0.3),rgba(54,54,54,0))]">
+				<div className="absolute left-1/2 top-1/2 h-[400px] w-[800px] -translate-x-1/2 -translate-y-1/2 opacity-10 blur-[100px] bg-emerald-500"></div>
 				<section className="grid place-items-center w-full max-w-[90vw] h-screen">
-					<div className="flex flex-col items-center gap-2">
+					<div className="flex flex-col items-center gap-2 mt-10">
 						<div className="relative w-full">
-							<h1 className="flex flex-col items-center w-full text-4xl sm:text-5xl lg:text-7xl">
-								<span className="text-transparent bg-clip-text bg-gradient-to-r from-light2 via-light to-light2">
+							<h1 className="flex flex-col items-center w-full text-8xl font-extrabold">
+								<span className="text-transparent bg-clip-text bg-gradient-to-r from-accent via-accent2 to-accent">
 									Effortless AI-driven
 								</span>
-								<span className="text-transparent -mt-4 h-fit bg-clip-text bg-gradient-to-r from-light2 via-light to-light2 leading-normal">
+								<span className="text-transparent -mt-4 h-fit bg-clip-text bg-gradient-to-r from-accent via-accent2 to-accent leading-normal">
 									database management
 								</span>
 							</h1>
 							<span className="absolute bottom-0 -right-5 text-md text-light2">Beta</span>
 						</div>
 
-						<p className="font-semibold text-light2 text-center w-[600px] max-w-[70vw] text-sm sm:text-lg leading-none">
+						{/* <p className="font-semibold text-light2 text-center w-[600px] max-w-[70vw] text-sm sm:text-lg leading-none">
 							Connect your database, visualize data, and manage it seamlessly using AI-generated queries.
 							No expertise required—just simple, intuitive control over your database in one powerful app
-						</p>
-						<div className="flex items-center gap-5 mt-10">
-							<Link
-								href={'/sign-up'}
-								className="p-2 border border-accent bg-accent font-semibold text-dark rounded-lg text-sm  hover:bg-accent1 duration-200">
-								Start your project
-							</Link>
-							<Link
-								href={'https://github.com/oscarprdev/db-ai-management'}
-								target="blank"
-								className="flex items-center gap-2 py-3 px-2 border border-dark4 text-light2 rounded-lg text-sm hover:text-light1 hover:bg-dark3 duration-200">
-								<IconBrandGithub size={18} />
-								Open source
-							</Link>
-						</div>
-					</div>
-				</section>
-				<section className="h-screen w-screen grid grid-rows-2 gap-4 px-20 py-10 ">
-					<div className="grid grid-cols-5 gap-4 ">
-						<div className="group relative col-span-3 border border-dark3 rounded-xl bg-gradient-to-t from-dark1 to-dark2 overflow-hidden hover:border-dark4 duration-200">
-							<div className="grid grid-cols-3 gap-2 w-full p-8">
-								<div className="col-span-1 flex flex-col gap-2">
-									<div className="size-12 grid place-items-center border border-dark5 shadow-2xl rounded-xl">
-										<Workflow size={20} className="text-light2" />
-									</div>
-									<h4>Database flow visualization</h4>
-									<p className="text-sm text-light2">
-										Instantly see your tables and relationships in an intuitive, interactive
-										flowchart.
-									</p>
-								</div>
+						</p> */}
+						<div className="grid gap-2 md:grid-cols-3 mt-5">
+							<div className="relative flex flex-col items-start gap-2 p-4 md:p-6 cursor-default bg-white/5 backdrop-blur transition rounded-lg ">
+								<span className="p-3 bg-white/3 rounded-lg backdrop-blur">
+									<PlugZap className="text-accent2" />
+								</span>
+								<h3 className="text-zinc-50 text-md font-medium leading-none mt-2">Connect</h3>
+								<p className="grow opacity-60 text-sm max-w-[35ch]">
+									Use your existent postgreSQL database and connect it to your blazing db project
+								</p>
 							</div>
-							<picture className="absolute blur-[5px] grayscale-[80%] w-[600px] top-6 left-[18em] border border-dark5 grid rounded-2xl overflow-hidden group-hover:animate-blur-out shadow-xl">
-								<Image
-									alt="data visualization"
-									src={
-										'https://pub-ce52771eb1a24f618e755dedadf1cd10.r2.dev/Captura%20de%20pantalla%202024-08-30%20a%20las%2014.16.22.png'
-									}
-									width={1000}
-									height={800}
-									className="rounded-2xl"
-								/>
-							</picture>
-						</div>
-						<div className="group relative col-span-2 border border-dark3 rounded-xl bg-gradient-to-t from-dark1 to-dark2 overflow-hidden hover:border-dark4 duration-200">
-							<div className="grid grid-cols-2 gap-2 w-full p-8">
-								<div className="col-span-1 flex flex-col gap-2">
-									<div className="size-12 grid place-items-center border border-dark5 shadow-2xl rounded-xl">
-										<FileText size={20} className="text-light2" />
-									</div>
-									<h4>Detailed view</h4>
-									<p className="text-sm text-light2 w-2/3">
-										Browse your tables values and export them in JSON file.
-									</p>
-								</div>
+							<div className="relative flex flex-col items-start gap-2 p-4 md:p-6 cursor-default bg-white/5 backdrop-blur transition rounded-lg ">
+								<span className="p-3 bg-white/3 rounded-lg backdrop-blur">
+									<Table2 className="text-accent2" />
+								</span>
+								<h3 className="text-zinc-50 text-md font-medium leading-none mt-2">Visualize</h3>
+								<p className="grow opacity-60 text-sm max-w-[35ch]">
+									Explore your data with a visual representation of your database tables
+								</p>
 							</div>
-							<picture className="absolute blur-[5px] grayscale-[80%] w-[500px] top-6 left-[13em] border border-dark5 grid rounded-3xl overflow-hidden group-hover:animate-blur-out shadow-xl">
-								<Image
-									alt="data visualization"
-									src={
-										'https://pub-ce52771eb1a24f618e755dedadf1cd10.r2.dev/Captura%20de%20pantalla%202024-08-30%20a%20las%2013.03.57.png'
-									}
-									width={1000}
-									height={800}
-									className="rounded-3xl"
-								/>
-							</picture>
-						</div>
-					</div>
-					<div className="grid grid-cols-5 gap-4">
-						<div className="group relative col-span-2 border border-dark3 rounded-xl bg-gradient-to-t from-dark1 to-dark2 overflow-hidden hover:border-dark4 duration-200">
-							<div className="grid grid-cols-2 gap-2 w-full p-8">
-								<div className="col-span-1 flex flex-col gap-2">
-									<div className="size-12 grid place-items-center border border-dark5 shadow-2xl rounded-xl">
-										<FlaskRound size={20} className="text-light2" />
-									</div>
-									<h4>Manage your queries</h4>
-									<p className="text-sm text-light2 w-2/3">
-										Review and reapply AI-generated queries with ease.
-									</p>
-								</div>
+							<div className="relative flex flex-col items-start gap-2 p-4 md:p-6 cursor-default bg-white/5 backdrop-blur transition rounded-lg ">
+								<span className="p-3 bg-white/3 rounded-lg backdrop-blur">
+									<BotMessageSquare className="text-accent2" />
+								</span>
+								<h3 className="text-zinc-50 text-md font-medium leading-none mt-2">AI management</h3>
+								<p className="grow opacity-60 text-sm max-w-[35ch]">
+									Create, select, edit and delete data with AI-generated queries
+								</p>
 							</div>
-							<picture className="absolute blur-[5px] grayscale-[80%] w-[500px] top-4 left-[13em] border border-dark5 grid rounded-3xl overflow-hidden group-hover:animate-blur-out shadow-xl">
-								<Image
-									alt="data visualization"
-									src={
-										'https://pub-ce52771eb1a24f618e755dedadf1cd10.r2.dev/Captura%20de%20pantalla%202024-08-30%20a%20las%2013.03.36.png'
-									}
-									width={1000}
-									height={800}
-									className="rounded-3xl"
-								/>
-							</picture>
 						</div>
-						<div className="group relative col-span-3 border border-dark3 rounded-xl bg-gradient-to-t from-dark1 to-dark2 overflow-hidden hover:border-dark4 duration-200">
-							<div className="grid grid-cols-2 gap-2 w-full p-8">
-								<div className="col-span-1 flex flex-col gap-2">
-									<div className="size-12 grid place-items-center border border-dark5 shadow-2xl rounded-xl">
-										<Brain size={20} className="text-light2" />
-									</div>
-									<h4>Query generator</h4>
-									<p className="text-sm text-light2 w-2/3">
-										Generate, edit and apply queries to your database directly from just a simple
-										prompt.
-									</p>
-								</div>
-							</div>
-							<picture className="absolute blur-[5px] grayscale-[80%] w-[600px] top-4 left-[20em] border border-dark5 grid rounded-3xl overflow-hidden group-hover:animate-blur-out shadow-xl">
-								<Image
-									alt="data visualization"
-									src={
-										'https://pub-ce52771eb1a24f618e755dedadf1cd10.r2.dev/Captura%20de%20pantalla%202024-08-30%20a%20las%2014.20.52.png'
-									}
-									width={1000}
-									height={800}
-									className="rounded-3xl -translate-y-32"
-								/>
-							</picture>
-						</div>
-					</div>
-				</section>
-				<section className="h-screen w-screen flex flex-col items-center justify-center gap-20 px-20 py-10 ">
-					<div className="flex flex-col items-center gap-10">
-						<h1 className="flex flex-col items-center w-full text-2xl sm:text-3xl lg:text-4xl">
-							<span className="text-transparent bg-clip-text bg-gradient-to-r from-light2 via-light to-light2">
-								Contribute to Our Open Source Journey
-							</span>
-						</h1>
-						<p className="text-light2 text-center max-w-[500px]">
-							This project is in Beta, and your feedback is invaluable. Share your thoughts on GitHub—open
-							issues and PRs are greatly appreciated!.
-						</p>
-						<Link
-							href={'https://github.com/oscarprdev/db-ai-management'}
-							target="blank"
-							className="flex items-center gap-2 py-3 px-2 border border-dark4 text-light2 rounded-lg text-sm hover:text-light1 hover:bg-dark3 duration-200">
-							<IconBrandGithub size={18} />
-							Project repositoy
-						</Link>
 					</div>
 				</section>
 			</main>
