@@ -14,10 +14,10 @@ function DropdownProject({
 }) {
 	return (
 		<DropdownMenu>
-			<DropdownMenuTrigger asChild className="absolute top-2 right-2 outline-none">
+			<DropdownMenuTrigger className="absolute top-2 right-2 outline-none ">
 				<IconDots size={16} />
 			</DropdownMenuTrigger>
-			<DropdownMenuContent className="mt-2 ml-28 p-3 rounded-lg">
+			<DropdownMenuContent className="mt-2 ml-28 p-3 rounded-lg text-sm">
 				<ModalEditProject projectId={projectId} projectTitle={projectTitle} />
 				<ModalDeleteProject
 					projectId={projectId}

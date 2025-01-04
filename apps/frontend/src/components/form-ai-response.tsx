@@ -29,8 +29,8 @@ function FormAiResponse({
 				<>
 					<Button
 						onClick={handleIsVisible}
-						variant={'accent'}
-						className="absolute bottom-16 left-0 text-dark5 hover:text-light5 duration-200">
+						variant={'icon'}
+						className="absolute bottom-16 left-0 text-light2 hover:text-light duration-200">
 						{isVisible ? <IconLayoutNavbarExpand /> : <IconLayoutNavbarCollapse />}
 					</Button>
 					<div
@@ -52,7 +52,7 @@ function FormAiResponse({
 							</>
 						)}
 						<form action={handleSubmit} className="ml-auto mt-auto flex gap-5 items-center">
-							<Button type="button" variant={'accent'} onClick={handleClearForm}>
+							<Button type="button" variant={'ghost'} onClick={handleClearForm}>
 								Clear
 							</Button>
 							<FormAiResponseSubmitButton />
@@ -68,7 +68,7 @@ function FormAiResponseSubmitButton() {
 	const { pending } = useFormStatus();
 
 	return (
-		<Button type="submit" className="font-semibold" disabled={pending}>
+		<Button type="submit" variant={'accent'} className="font-semibold" disabled={pending}>
 			{pending ? <IconLoader2 className="animate-spin" size={20} /> : 'Apply'}
 		</Button>
 	);

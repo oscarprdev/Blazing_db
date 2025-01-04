@@ -11,11 +11,11 @@ async function HeaderDashboard() {
 	if (!session?.user?.email) return redirect('/');
 
 	return (
-		<header className="w-full rounded-2xl bg-dark1 flex items-center justify-between px-5 h-16 border border-dark2">
+		<header className="w-full bg-dark1 flex items-center justify-between px-5 h-14 border border-dark2">
 			<HeaderTitle />
 			<nav className="flex items-center gap-2">
 				<ModalCreateProject />
-				<DropdownHeaderDashboard email={session.user.email} />
+				<DropdownHeaderDashboard />
 			</nav>
 		</header>
 	);

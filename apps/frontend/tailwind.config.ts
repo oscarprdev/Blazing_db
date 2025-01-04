@@ -26,6 +26,7 @@ const config: Omit<Config, 'content'> = {
 
 				accent: 'var(--accent)',
 				accent1: 'var(--accent-1)',
+				accent2: 'var(--accent-2)',
 			},
 			keyframes: {
 				'accordion-down': {

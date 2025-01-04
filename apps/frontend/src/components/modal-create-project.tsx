@@ -6,7 +6,9 @@ function ModalCreateProject() {
 	return (
 		<Dialog>
 			<DialogTrigger asChild>
-				<Button size={'md'} className="bg-accent hover:bg-accent1 font-semibold">
+				<Button
+					size={'md'}
+					className="bg-accent hover:bg-accent1 hover:border-accent2 font-semibold text-light border border-accent1">
 					Create project
 				</Button>
 			</DialogTrigger>

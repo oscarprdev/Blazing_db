@@ -3,26 +3,21 @@
 @tailwind utilities;
 
 :root {
-	--dark-0: #000000;
-	--dark-0-5: #101010f0;
-	--dark-1: #121212;
-	--dark-2: #181818;
-	--dark-3: #242424;
-	--dark-4: #303030;
-	--dark-5: #363636;
+	--dark-0: #121212;
+	--dark-1: #171717;
+	--dark-2: #212121;
+	--dark-3: #2e2e2e;
+	--dark-4: #898989;
 
-	--light-0: #ffffff;
-	--light-1: #dddddd;
-	--light-2: #b3b3b3;
-	--light-3: #979797;
-	--light-4: #767676;
-	--light-5: #606060;
-	--light-5: #ffffff7a;
+	--light-0: #fafafa;
+	--light-1: #b4b4b4;
+	--light-2: #898989;
 
 	--destructive: #ff3149;
 
-	--accent: #ffffff;
-	--accent-1: #eeeeee;
+	--accent: #00623a;
+	--accent-1: #347858;
+	--accent-2: #3dcf8e;
 }
 
 @layer base {

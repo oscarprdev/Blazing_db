@@ -25,7 +25,7 @@ function AiViewer({
 	}, [key]);
 
 	return (
-		<div className="relative rounded-xl bg-dark">
+		<div className="relative rounded-md bg-dark border border-dark2">
 			{aiResponse.language && <Badge className="absolute top-3 left-3 z-50">{aiResponse.language}</Badge>}
 			<ButtonCopyAiResponse aiResponse={aiResponse.value} />
 			<pre aria-label="scroll" className="p-4 max-h-[230px] overflow-y-scroll outline-none">

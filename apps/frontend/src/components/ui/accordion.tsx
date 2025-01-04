@@ -20,12 +20,12 @@ interface AccordionProps extends React.ComponentPropsWithoutRef<typeof Accordion
 }
 
 const AccordionTrigger = React.forwardRef<React.ElementRef<typeof AccordionPrimitive.Trigger>, AccordionProps>(
-	({ side = 'right', className, children, ...props }, ref) => (
+	({ side = 'left', className, children, ...props }, ref) => (
 		<AccordionPrimitive.Header className="flex">
 			<AccordionPrimitive.Trigger
 				ref={ref}
 				className={cn(
-					'flex flex-1 items-center justify-between py-4 font-medium transition-all hover:underline [&[data-state=open]>svg]:rotate-180',
+					'flex flex-1 items-center py-4 gap-2 font-medium transition-all hover:text-light [&[data-state=open]>svg]:rotate-180',
 					className
 				)}
 				{...props}>

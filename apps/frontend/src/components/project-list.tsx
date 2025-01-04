@@ -36,7 +36,7 @@ async function ProjectList({ projectId }: { projectId?: string }) {
 }
 
 function ProjectListWrapper({ children }: { children: ReactNode }) {
-	return <div className="bg-dark1 w-full h-[40px] rounded-xl flex items-center justify-center px-3">{children}</div>;
+	return <div className="bg-dark1 w-full h-[40px] flex items-center justify-center px-3">{children}</div>;
 }
 
 function ProjectListFallback() {

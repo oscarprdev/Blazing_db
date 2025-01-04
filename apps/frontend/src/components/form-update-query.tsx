@@ -21,7 +21,7 @@ function FormUpdateQuery({ query, handleCloseModal }: { query: Query; handleClos
 			<label className=" text-xs text-light2">Output:</label>
 			<AiViewer key={crypto.randomUUID().toString()} aiResponse={{ value: queryResponse }} />
 			<form action={handleSubmit} className="ml-auto mt-auto flex gap-5 items-center">
-				<Button onClick={handleCloseModal} type="button" variant={'accent'}>
+				<Button onClick={handleCloseModal} type="button" variant={'ghost'}>
 					Close
 				</Button>
 				<FormUpdateQuerySubmitButton />
@@ -34,7 +34,7 @@ function FormUpdateQuerySubmitButton() {
 	const { pending } = useFormStatus();
 
 	return (
-		<Button type="submit" className="font-semibold" disabled={pending}>
+		<Button type="submit" variant={'accent'} disabled={pending}>
 			{pending ? <IconLoader2 className="animate-spin" size={20} /> : 'Apply'}
 		</Button>
 	);

@@ -65,7 +65,7 @@ function CreateProjectSubmitButton() {
 	const { pending } = useFormStatus();
 
 	return (
-		<Button type="submit" className="mt-10 bg-accent hover:bg-accent1 rounded-lg" disabled={pending}>
+		<Button type="submit" variant={'accent'} className="mt-10" disabled={pending}>
 			{pending ? <IconLoader2 className="animate-spin" /> : 'Submit'}
 		</Button>
 	);

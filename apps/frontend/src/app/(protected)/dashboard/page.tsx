@@ -15,9 +15,9 @@ async function DashboardPage({
 	};
 }) {
 	return (
-		<div className="flex flex-col m-0 h-screen p-3 bg-dark">
+		<div className="flex flex-col m-0 h-screen bg-dark">
 			<HeaderDashboard />
-			<main className="relative flex w-full bg-dark h-full mt-2 overflow-hidden">
+			<main className="relative flex w-full bg-dark h-full overflow-hidden">
 				<Aside>
 					<AccordionProjects projectId={projectId} />
 					{projectId && <AccordionQueries projectId={projectId} />}

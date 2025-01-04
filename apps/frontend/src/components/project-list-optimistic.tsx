@@ -19,13 +19,10 @@ function ProjectListOptimistic({ currentProjectId, projects }: { currentProjectI
 						className={cn(
 							removedId === project.projectId ? 'animate-fade-out' : '',
 							currentProjectId === project.projectId
-								? 'bg-dark3 hover:bg-dark4 text-light'
+								? 'bg-dark3 hover:bg-dark3 text-light'
 								: 'bg-dark2 hover:bg-dark3 hover:text-light',
-							'relative px-5 my-1 duration-200 p-2 rounded-lg border border-dark3  w-full flex justify-between items-center font-semibold'
+							'relative px-5 duration-200 p-2 border border-dark3  w-full flex justify-between items-center font-semibold'
 						)}>
-						{currentProjectId === project.projectId && (
-							<span className="absolute size-2 rounded-full top-0 left-0 bg-accent"></span>
-						)}
 						<Link
 							href={`/dashboard?projectId=${project.projectId}`}
 							className="hover:underline duration-150">

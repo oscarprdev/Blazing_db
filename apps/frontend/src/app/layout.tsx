@@ -15,7 +15,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: ReactNode }) {
 	return (
 		<html lang="en">
-			<body className={cn('font-sans antialiased', GeistSans.variable, GeistMono.variable)}>
+			<body className={cn('font-sans antialiased bg-dark', GeistSans.variable, GeistMono.variable)}>
 				<QueryProvider>{children}</QueryProvider>
 				<Toaster
 					toastOptions={{

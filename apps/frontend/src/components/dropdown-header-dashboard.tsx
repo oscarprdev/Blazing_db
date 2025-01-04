@@ -9,24 +9,20 @@ import {
 	DropdownMenuSeparator,
 	DropdownMenuTrigger,
 } from '@/src/components/ui/dropdown-menu';
-import { IconLogout, IconUser } from '@tabler/icons-react';
+import { IconLogout } from '@tabler/icons-react';
+import { Bolt, CircleUserRound } from 'lucide-react';
 import { ReactNode } from 'react';
 
-function DropdownHeaderDashboard({ email }: { email: string }) {
+function DropdownHeaderDashboard() {
 	return (
 		<DropdownMenu>
-			<DropdownMenuTrigger className="uppercase outline-none grid place-items-center font-semibold text-sm border border-dark3 rounded-full size-10 bg-white text-dark hover:bg-primary duration-200">
-				{email.slice(0, 2)}
+			<DropdownMenuTrigger className="uppercase outline-none grid place-items-center font-semibold text-sm border border-dark2 rounded-full size-9 bg-white text-dark hover:bg-primary duration-200">
+				<CircleUserRound className="text-light2" />
 			</DropdownMenuTrigger>
 			<DropdownMenuContent className="mt-2 mr-3 p-3">
 				<DropdownMenuLabel>Actions</DropdownMenuLabel>
 				<DropdownMenuSeparator />
-				<DropdownHeaderItem handleClick={async () => undefined} icon={<IconUser size={16} />} text="Account" />
-				{/* <DropdownHeaderItem
-					handleClick={async () => undefined}
-					icon={<IconSettings size={16} />}
-					text="Settings"
-				/> */}
+				<DropdownHeaderItem handleClick={async () => undefined} icon={<Bolt size={16} />} text="Settings" />
 				<DropdownHeaderItem
 					handleClick={async () => await signOutAction()}
 					icon={<IconLogout size={16} />}

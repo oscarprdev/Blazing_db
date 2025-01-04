@@ -14,7 +14,7 @@ async function QueriesList({ projectId }: { projectId: string }) {
 	return (
 		<>
 			{!isError(response) ? (
-				<ul aria-label="scroll" className="overflow-y-scroll max-h-[350px] w-full">
+				<ul aria-label="scroll" className="overflow-y-scroll max-h-[450px] w-full">
 					{response.success.queries.length > 0 ? (
 						<QueriesListOptimistic queries={response.success.queries} />
 					) : (
