@@ -30,7 +30,7 @@ function ModalDeleteProject({
 					<label className="text-sm text-light2 text-center -mb-3">
 						<span className="text-destructive">{projectTitle}</span>
 					</label>
-					<p className="text-xs text-light5 text-center pb-1">
+					<p className="text-xs text-light2 text-center pb-1">
 						The project will be only deleted from BlazingDb. Please contact with your database hosting
 						provider to permanent delete.
 					</p>

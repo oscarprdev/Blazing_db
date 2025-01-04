@@ -49,7 +49,7 @@ function Form({
 					type="button"
 					variant={'accent'}
 					onClick={() => setPasswordVisible(!passwordVisible)}
-					className="absolute top-7 -right-3 text-light5 hover:text-light3">
+					className="absolute top-7 -right-3 text-light2 hover:text-light2">
 					{passwordVisible ? <IconEyeOff /> : <IconEye />}
 				</Button>
 			</label>

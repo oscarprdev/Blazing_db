@@ -20,7 +20,7 @@ function ModalQueryDetails({ query }: { query: Query }) {
 				<DialogHeader>
 					<DialogTitle className="text-sm gap-3 text-light1">
 						<p className="text-light1 text-sm">Details of your query</p>
-						<p className="text-light5 text-xs font-light">{formatQueryTime(query.createdAt)}</p>
+						<p className="text-light2 text-xs font-light">{formatQueryTime(query.createdAt)}</p>
 					</DialogTitle>
 				</DialogHeader>
 				<FormUpdateQuery query={query} handleCloseModal={handleCloseModal} />

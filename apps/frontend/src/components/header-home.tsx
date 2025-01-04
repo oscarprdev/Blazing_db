@@ -9,7 +9,7 @@ function HeaderHome() {
 			<nav className="flex items-center gap-5">
 				<Link
 					href={'/sign-up'}
-					className="p-2 border border-dark3 text-light3 rounded-lg text-sm hover:text-light1 hover:bg-dark3 duration-200">
+					className="p-2 border border-dark3 text-light2 rounded-lg text-sm hover:text-light1 hover:bg-dark3 duration-200">
 					Sign up
 				</Link>
 				<Link

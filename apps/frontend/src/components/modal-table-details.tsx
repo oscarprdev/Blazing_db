@@ -30,7 +30,7 @@ function ModalTableDetails({
 			<DialogContent className="w-[800px] max-w-[95vw] bg-dark3">
 				<DialogHeader>
 					<DialogTitle className="relative gap-1 text-xs flex items-center w-full">
-						<label className="text-light4">{projectTitle} - </label>
+						<label className="text-light2">{projectTitle} - </label>
 						<label className="text-light1 text-xs font-semibold capitalize">{title}</label>
 					</DialogTitle>
 				</DialogHeader>
@@ -55,7 +55,7 @@ function ModalTableDetailsContent({ title, fields }: { title: string; fields: Fi
 			</Button>
 			<div aria-label="scroll" className="flex flex-col w-full  overflow-hidden max-h-[500px] overflow-y-scroll">
 				<div className="w-full h-full border border-dark3 rounded-lg">
-					<div className="w-full p-3 flex items-center bg-dark1 rounded-t-lg text-light4 text-xs justify-between">
+					<div className="w-full p-3 flex items-center bg-dark1 rounded-t-lg text-light2 text-xs justify-between">
 						<label className="w-[45%]">Key</label>
 						<label className="w-[26%] ml-3">Value</label>
 						<label className="w-[11%]">Type</label>
@@ -65,7 +65,7 @@ function ModalTableDetailsContent({ title, fields }: { title: string; fields: Fi
 						tableValuesMapped.map((item, index) => <TableDetailsAccordionItem item={item} index={index} />)
 					) : !isLoading ? (
 						<ModalTableDetailsContentWrapper>
-							<p className="text-light4 text-sm">The table is empty</p>
+							<p className="text-light2 text-sm">The table is empty</p>
 						</ModalTableDetailsContentWrapper>
 					) : (
 						<ModalTableDetailsContentWrapper>
@@ -110,7 +110,7 @@ function TableDetailsAccordionItem({ item, index }: { item: (ModalContentField |
 function TableDetailsAccordionItemField({ field, index }: { field: ModalContentField; index: number }) {
 	return (
 		<div className="flex items-center w-full p-2 odd:bg-dark1 bg-dark2 gap-2">
-			<div className="w-[47%] text-light5 flex items-center gap-2">
+			<div className="w-[47%] text-light2 flex items-center gap-2">
 				{useFieldIcon(field.type)}
 				<label>{field?.name}</label>
 			</div>
@@ -125,7 +125,7 @@ function TableDetailsAccordionItemField({ field, index }: { field: ModalContentF
 										? 'text-fuchsia-400'
 										: field.type === 'integer'
 											? 'text-red-400'
-											: 'text-light4',
+											: 'text-light2',
 								'w-[27%] truncate ml-[0.1rem] font-light'
 							)}>
 							{field?.value}
@@ -135,13 +135,13 @@ function TableDetailsAccordionItemField({ field, index }: { field: ModalContentF
 				</Tooltip>
 			</TooltipProvider>
 
-			<label className="w-[11%] text-light5 truncate ml-[0.2rem]">{field?.type}</label>
+			<label className="w-[11%] text-light2 truncate ml-[0.2rem]">{field?.type}</label>
 
 			{field.constraint && (
 				<TooltipProvider>
 					<Tooltip>
 						<TooltipTrigger asChild>
-							<label className="w-[8%] text-light5 lowercase truncate ml-[0.2rem]">
+							<label className="w-[8%] text-light2 lowercase truncate ml-[0.2rem]">
 								{field.constraint}
 							</label>
 						</TooltipTrigger>

@@ -13,14 +13,14 @@ export default function Home() {
 					<div className="flex flex-col items-center gap-2">
 						<div className="relative w-full">
 							<h1 className="flex flex-col items-center w-full text-4xl sm:text-5xl lg:text-7xl">
-								<span className="text-transparent bg-clip-text bg-gradient-to-r from-light5 via-light to-light5">
+								<span className="text-transparent bg-clip-text bg-gradient-to-r from-light2 via-light to-light2">
 									Effortless AI-driven
 								</span>
-								<span className="text-transparent -mt-4 h-fit bg-clip-text bg-gradient-to-r from-light5 via-light to-light5 leading-normal">
+								<span className="text-transparent -mt-4 h-fit bg-clip-text bg-gradient-to-r from-light2 via-light to-light2 leading-normal">
 									database management
 								</span>
 							</h1>
-							<span className="absolute bottom-0 -right-5 text-md text-light3">Beta</span>
+							<span className="absolute bottom-0 -right-5 text-md text-light2">Beta</span>
 						</div>
 
 						<p className="font-semibold text-light2 text-center w-[600px] max-w-[70vw] text-sm sm:text-lg leading-none">
@@ -49,10 +49,10 @@ export default function Home() {
 							<div className="grid grid-cols-3 gap-2 w-full p-8">
 								<div className="col-span-1 flex flex-col gap-2">
 									<div className="size-12 grid place-items-center border border-dark5 shadow-2xl rounded-xl">
-										<Workflow size={20} className="text-light4" />
+										<Workflow size={20} className="text-light2" />
 									</div>
 									<h4>Database flow visualization</h4>
-									<p className="text-sm text-light3">
+									<p className="text-sm text-light2">
 										Instantly see your tables and relationships in an intuitive, interactive
 										flowchart.
 									</p>
@@ -74,10 +74,10 @@ export default function Home() {
 							<div className="grid grid-cols-2 gap-2 w-full p-8">
 								<div className="col-span-1 flex flex-col gap-2">
 									<div className="size-12 grid place-items-center border border-dark5 shadow-2xl rounded-xl">
-										<FileText size={20} className="text-light4" />
+										<FileText size={20} className="text-light2" />
 									</div>
 									<h4>Detailed view</h4>
-									<p className="text-sm text-light3 w-2/3">
+									<p className="text-sm text-light2 w-2/3">
 										Browse your tables values and export them in JSON file.
 									</p>
 								</div>
@@ -100,10 +100,10 @@ export default function Home() {
 							<div className="grid grid-cols-2 gap-2 w-full p-8">
 								<div className="col-span-1 flex flex-col gap-2">
 									<div className="size-12 grid place-items-center border border-dark5 shadow-2xl rounded-xl">
-										<FlaskRound size={20} className="text-light4" />
+										<FlaskRound size={20} className="text-light2" />
 									</div>
 									<h4>Manage your queries</h4>
-									<p className="text-sm text-light3 w-2/3">
+									<p className="text-sm text-light2 w-2/3">
 										Review and reapply AI-generated queries with ease.
 									</p>
 								</div>
@@ -124,10 +124,10 @@ export default function Home() {
 							<div className="grid grid-cols-2 gap-2 w-full p-8">
 								<div className="col-span-1 flex flex-col gap-2">
 									<div className="size-12 grid place-items-center border border-dark5 shadow-2xl rounded-xl">
-										<Brain size={20} className="text-light4" />
+										<Brain size={20} className="text-light2" />
 									</div>
 									<h4>Query generator</h4>
-									<p className="text-sm text-light3 w-2/3">
+									<p className="text-sm text-light2 w-2/3">
 										Generate, edit and apply queries to your database directly from just a simple
 										prompt.
 									</p>
@@ -150,11 +150,11 @@ export default function Home() {
 				<section className="h-screen w-screen flex flex-col items-center justify-center gap-20 px-20 py-10 ">
 					<div className="flex flex-col items-center gap-10">
 						<h1 className="flex flex-col items-center w-full text-2xl sm:text-3xl lg:text-4xl">
-							<span className="text-transparent bg-clip-text bg-gradient-to-r from-light3 via-light to-light3">
+							<span className="text-transparent bg-clip-text bg-gradient-to-r from-light2 via-light to-light2">
 								Contribute to Our Open Source Journey
 							</span>
 						</h1>
-						<p className="text-light3 text-center max-w-[500px]">
+						<p className="text-light2 text-center max-w-[500px]">
 							This project is in Beta, and your feedback is invaluable. Share your thoughts on GitHub—open
 							issues and PRs are greatly appreciated!.
 						</p>

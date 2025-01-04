@@ -19,7 +19,7 @@ async function QueriesList({ projectId }: { projectId: string }) {
 						<QueriesListOptimistic queries={response.success.queries} />
 					) : (
 						<QueriesListWrapper>
-							<p className="text-xs text-light4">0 queries generated on this project.</p>
+							<p className="text-xs text-light2">0 queries generated on this project.</p>
 						</QueriesListWrapper>
 					)}
 				</ul>
@@ -39,7 +39,7 @@ function QueriesListWrapper({ children }: { children: ReactNode }) {
 function QueriesListFallback() {
 	return (
 		<QueriesListWrapper>
-			<IconDots className="text-light4 animate-pulse" size={14} />
+			<IconDots className="text-light2 animate-pulse" size={14} />
 		</QueriesListWrapper>
 	);
 }

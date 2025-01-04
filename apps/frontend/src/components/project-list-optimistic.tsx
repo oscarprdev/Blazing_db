@@ -36,7 +36,7 @@ function ProjectListOptimistic({ currentProjectId, projects }: { currentProjectI
 					</li>
 				))
 			) : (
-				<p className="text-center text-xs text-light4">Create a project first</p>
+				<p className="text-center text-xs text-light2">Create a project first</p>
 			)}
 		</ul>
 	);

@@ -19,7 +19,7 @@ function QueriesListOptimistic({ queries }: { queries: Query[] }) {
 						'relative w-full flex flex-col gap-1 p-2 h-[70px] justify-center hover:text-light bg-dark2 hover:bg-dark3 border border-dark3 duration-200'
 					)}>
 					<p className="truncate">{query.value}</p>
-					<p className="text-light5 text-xs">{formatQueryTime(query.createdAt)}</p>
+					<p className="text-light2 text-xs">{formatQueryTime(query.createdAt)}</p>
 					<DropdownQuery query={query} handleDeleteQuery={handleDeleteQuery} />
 				</li>
 			))}

@@ -42,7 +42,7 @@ function ProjectListWrapper({ children }: { children: ReactNode }) {
 function ProjectListFallback() {
 	return (
 		<ProjectListWrapper>
-			<IconDots className="text-light4 animate-pulse" size={14} />
+			<IconDots className="text-light2 animate-pulse" size={14} />
 		</ProjectListWrapper>
 	);
 }
