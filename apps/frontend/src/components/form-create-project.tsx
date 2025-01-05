@@ -37,7 +37,7 @@ function Form({
 			{formState.title.error && <p className="text-xs text-destructive mt-1">{formState.title.error}</p>}
 			<label htmlFor="url" className="my-2 text-sm text-light1">
 				Database url
-				<Input name="url" placeholder="postgresql://abc:a1b2c3@db" className="mt-2" />
+				<Input type="password" name="url" placeholder="postgresql://abc:a1b2c3@db" className="mt-2" />
 			</label>
 			{formState.url.error && <p className="text-xs text-destructive mt-1">{formState.url.error}</p>}
 			<label htmlFor="type" className="my-2 text-sm text-light1">
